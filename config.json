@@ -1,0 +1,46 @@
+{
+  "instituicao": "IDP",
+  "portal_url": "https://ambientevirtual.idp.edu.br",
+  "disciplinas": [
+    {
+      "id": "8227",
+      "nome": "BANCOS DE DADOS - MATUTINO",
+      "monitorar": [
+        "CANVAS_MODULES"
+      ]
+    },
+    {
+      "id": "8228",
+      "nome": "OFICINA EM SOLUÇÕES WEB - MATUTINO",
+      "monitorar": [
+        "CANVAS_MODULES"
+      ]
+    },
+    {
+      "id": "8229",
+      "nome": "PROCESSO DE SOFTWARE - MATUTINO",
+      "monitorar": [
+        "CANVAS_MODULES"
+      ]
+    },
+    {
+      "id": "8230",
+      "nome": "PROGRAMAÇÃO ORIENTADA A OBJETOS - MATUTINO",
+      "monitorar": [
+        "CANVAS_MODULES"
+      ]
+    },
+    {
+      "id": "8231",
+      "nome": "TÉCNICAS DE PROGRAMAÇÃO E ANÁLISE DE ALGORITMOS",
+      "monitorar": [
+        "CANVAS_MODULES"
+      ]
+    }
+  ],
+  "configuracoes": {
+    "verificar_a_cada_minutos": 60,
+    "diretorio_downloads": ".tmp/downloads",
+    "modo_visual": true
+  }
+}

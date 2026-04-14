@@ -1,0 +1,16 @@
+MATERIAL: Sistema_Farmacia_Desktop.docx
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: ATIVIDADE
+------------------------------
+
+TÓPICOS PRINCIPAIS:
+• Estudo de caso da Farmácia Vida Plena (médio porte) com processos manuais e ineficientes.
+• Diagnóstico de problemas: falhas no controle de estoque, riscos regulatórios (ANVISA) e lentidão no atendimento.
+• Necessidade de transição para um sistema desktop integrado e offline.
+• Requisitos de projeto: definição de escopo, cronograma, requisitos funcionais/não funcionais e EAP.
+• Perfil de usuário: funcionários com baixa familiaridade tecnológica.
+
+EXPLICAÇÃO DO PROFESSOR MENTOR:
+Olá, aluno! Este material é uma atividade prática de Planejamento e Engenharia de Software baseada em um cenário real de negócio. O texto descreve a 'dor' de uma empresa (a Farmácia Vida Plena) que opera de forma arcaica e precisa de modernização para sobreviver e cumprir a lei. Como seu Mentor, explico que seu papel aqui é o de Analista de Sistemas: você deve ler as dificuldades operacionais citadas (como a falta de controle de validade) e traduzi-las em soluções técnicas (requisitos). O foco não é apenas a tecnologia, mas a experiência do usuário e a conformidade legal. Você aprenderá a estruturar um projeto do zero, desde o que o sistema fará (Escopo) até como as tarefas serão divididas (EAP), garantindo que a solução seja intuitiva para funcionários que não possuem intimidade com sistemas complexos.
+
+PRAZOS ENCONTRADOS: O documento não estabelece prazos finais ou datas específicas, mas solicita expressamente que o aluno elabore um cronograma com datas de início e duração para cada etapa do projeto.

@@ -1,0 +1,13 @@
+MATERIAL: 01_02 - PS__Introdução.pdf
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: ADMIN
+------------------------------
+
+TÓPICOS PRINCIPAIS:
+- Apresentação institucional da disciplina de Processo de Software conduzida pelo professor Paulo Peres;
+- Estrutura da Agenda: Ambientação, Objetivos, Metodologia, Mercado de Trabalho e Introdução aos Conceitos;
+- Detalhamento do sistema de avaliação dividido em dois ciclos (A1 e A2);
+- Regras de composição de nota: Provas individuais (50%) e Trabalhos (50%), variando entre formatos individual e em grupo.
+
+EXPLICAÇÃO DO PROFESSOR MENTOR:
+Este documento funciona como o 'Contrato Pedagógico' da nossa disciplina. Como seu Mentor, explico que o objetivo aqui é alinhar as expectativas sobre o que será aprendido e como você será avaliado. O tema central, 'Processo de Software', é o alicerce da engenharia de software profissional: não se trata apenas de programar, mas de seguir um método que garanta qualidade e previsibilidade. O professor Paulo Peres estruturou o curso para equilibrar a teoria (nas provas) com a prática (nos trabalhos), simulando o mercado de trabalho real, onde você precisa tanto de competência individual quanto de habilidade para colaborar em equipe (como visto no trabalho em grupo da A2).

@@ -1,0 +1,13 @@
+MATERIAL: Aula_05_Metodologias.pdf
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+------------------------------
+
+TÓPICOS PRINCIPAIS:
+- Definição e importância das metodologias de desenvolvimento.
+- Benefícios da sistematização: redução de riscos, controle de custos, prazos e escopo.
+- Melhoria na comunicação entre stakeholders e garantia de qualidade do software.
+- Divisão das abordagens em três grandes grupos: Tradicionais (rígidas), Ágeis (flexíveis) e Híbridas (mistas).
+
+EXPLICAÇÃO DO PROFESSOR MENTOR:
+Olá, aluno! Nesta aula, focamos em entender que o desenvolvimento de software não é um processo caótico, mas sim uma disciplina que exige método. O ponto central aqui é a 'Metodologia', que funciona como um mapa para a equipe. O Prof. Paulo Peres destaca que adotar uma metodologia não serve apenas para 'cumprir tabela', mas para garantir que o projeto seja sustentável, econômico e de alta qualidade. Explicamos a lógica das três vertentes principais: as Tradicionais, que priorizam o planejamento detalhado e documentação (ideal para cenários estáveis); as Ágeis, que abraçam a mudança e focam em entregas rápidas e colaboração constante; e as Híbridas, que buscam o equilíbrio entre a segurança do planejamento e a velocidade da agilidade. Compreender essa distinção é fundamental para você saber qual ferramenta escolher dependendo do desafio técnico que tiver em mãos.

@@ -1,0 +1,26 @@
+MATERIAL: Plano Processo de Software __2026_1.pdf
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: ADMIN
+------------------------------
+
+TÓPICOS PRINCIPAIS:
+• Fundamentos do Ciclo de Vida de Software (SDLC) e Processos de Desenvolvimento;
+• Gestão de Requisitos: elicitação, análise, validação e estórias de usuário;
+• Arquitetura e Modelagem: modularização, padrões de projeto e frameworks;
+• Qualidade e Verificação: técnicas de testes, validação e DevOps;
+• Gestão e Economia: análise de riscos, viabilidade econômica e gerenciamento de projetos (PMBOK);
+• Metodologia Ativa: foco no protagonismo do aluno e atividades práticas (80% da carga);
+• Sistema de Avaliação: Composto por duas notas (A1 e A2), integrando provas teóricas e trabalhos práticos.
+
+EXPLICAÇÃO DO PROFESSOR MENTOR:
+Olá, futuro engenheiro! Como seu Professor Mentor, vejo que este plano de ensino para a disciplina de 'Processo de Software' é o mapa do seu crescimento profissional. O tema central aqui não é apenas 'como programar', mas sim 'como construir software de forma profissional, sustentável e eficiente'. 
+
+A disciplina aborda a lógica por trás de cada etapa da criação de um sistema: desde entender o que o cliente realmente precisa (Requisitos), passando pela estruturação sólida da solução (Arquitetura), até garantir que o produto funcione como esperado (Testes e Qualidade). Note que o professor Ingracio incluiu uma visão econômica crucial; na vida real, um software só é viável se fizer sentido financeiramente e gerir bem os riscos. 
+
+O diferencial aqui é a metodologia ativa. Você não será um espectador, mas o protagonista em projetos práticos e discussões. Aprenderemos que o 'processo' é o fio condutor que une código, pessoas, tempo e dinheiro para entregar valor real. Prepare-se para integrar conceitos técnicos com visão de gestão, algo essencial para quem deseja liderar no mercado de tecnologia.
+
+PRAZOS ENCONTRADOS: • 24/04: Avaliação A1 e entrega de atividades;
+• 15/06: Apresentação do Trabalho Avaliativo A2 (Grupo);
+• 19/06: Aplicação da prova A2;
+• 10/07: Aplicação da Prova Substitutiva;
+• 11/07: Fechamento da disciplina.

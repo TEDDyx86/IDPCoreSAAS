@@ -1,0 +1,16 @@
+MATERIAL: Scrum___Atividade.pdf
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: ATIVIDADE
+------------------------------
+
+TÓPICOS PRINCIPAIS:
+- Contextualização da empresa LogiX e seus objetivos de digitalização.
+- Definição de papéis no Scrum: Product Owner (Maria), Scrum Master (João) e Equipe de Desenvolvimento (Ana, Pedro, Carla e Lucas).
+- Estrutura do Product Backlog baseada em User Stories.
+- Planejamento detalhado de 4 Sprints, com tarefas específicas e atribuição de responsáveis.
+- Ciclo de execução e ritos: Daily Meetings, Revisões e Retrospectivas quinzenais.
+
+EXPLICAÇÃO DO PROFESSOR MENTOR:
+Olá! Como seu Mentor, vejo que este material é um excelente estudo de caso prático sobre a aplicação do framework Scrum. O objetivo aqui não é apenas listar tarefas, mas mostrar como transformar uma necessidade de negócio complexa (a modernização da LogiX) em partes menores e gerenciáveis. Note como o Scrum organiza as responsabilidades: a Maria (PO) cuida do 'quê' deve ser feito visando o valor para o cliente, enquanto a equipe decide 'como' fazer em ciclos chamados Sprints. O ponto central é a entrega incremental: em vez de esperar meses pelo sistema completo, a empresa recebe funcionalidades úteis a cada 15 dias (como o rastreamento na Sprint 2). Isso permite que a equipe aprenda com os erros e ajuste o rumo rapidamente através das Retrospectivas.
+
+PRAZOS ENCONTRADOS: Ciclos de Sprints e reuniões com periodicidade quinzenal (15 dias).

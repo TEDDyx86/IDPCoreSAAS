@@ -1,0 +1,528 @@
+{
+  "metadados": {
+    "ultima_atualizacao": "2026-04-13T21:15:21.443043",
+    "instituicao": "IDP",
+    "total_disciplinas": 5,
+    "total_materiais": 37
+  },
+  "disciplinas": [
+    {
+      "id": "8227",
+      "nome": "BANCOS DE DADOS - MATUTINO",
+      "monitorar": [
+        "CANVAS_MODULES"
+      ]
+    },
+    {
+      "id": "8228",
+      "nome": "OFICINA EM SOLUÇÕES WEB - MATUTINO",
+      "monitorar": [
+        "CANVAS_MODULES"
+      ]
+    },
+    {
+      "id": "8229",
+      "nome": "PROCESSO DE SOFTWARE - MATUTINO",
+      "monitorar": [
+        "CANVAS_MODULES"
+      ]
+    },
+    {
+      "id": "8230",
+      "nome": "PROGRAMAÇÃO ORIENTADA A OBJETOS - MATUTINO",
+      "monitorar": [
+        "CANVAS_MODULES"
+      ]
+    },
+    {
+      "id": "8231",
+      "nome": "TÉCNICAS DE PROGRAMAÇÃO E ANÁLISE DE ALGORITMOS",
+      "monitorar": [
+        "CANVAS_MODULES"
+      ]
+    }
+  ],
+  "historico": [
+    {
+      "id": "198905",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "Trabalho_Avaliativo_1____MedPlus.docx",
+      "tipo": "ATIVIDADE",
+      "status": "PROCESSADO",
+      "resumo": "• Contextualização da Clínica MedPlus (médio porte, atendimento ambulatorial em Goiânia);\n• Problema central: Processos fragmentados (planilhas eletrônicas e prontuários físicos);\n• Necessidade de centralização: Integração de agendas, histórico clínico e faturamento;\n• Perfis de usuários: Recepção, médicos, administrativo e diretoria;\n• Tarefas solicitadas: Levantamento de requisitos (RF, RNF, RN), Histórias de Usuário, Escopo e Cronograma.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/198905",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/198905_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "198156",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "Scrum___Atividade.pdf",
+      "tipo": "ATIVIDADE",
+      "status": "PROCESSADO",
+      "resumo": "- Contextualização da empresa LogiX e seus objetivos de digitalização.\n- Definição de papéis no Scrum: Product Owner (Maria), Scrum Master (João) e Equipe de Desenvolvimento (Ana, Pedro, Carla e Lucas).\n- Estrutura do Product Backlog baseada em User Stories.\n- Planejamento detalhado de 4 Sprints, com tarefas específicas e atribuição de responsáveis.\n- Ciclo de execução e ritos: Daily Meetings, Revisões e Retrospectivas quinzenais.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/198156",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/198156_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "197940",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "Aula_05_Metodologias.pdf",
+      "tipo": "SLIDE",
+      "status": "PROCESSADO",
+      "resumo": "- Definição e importância das metodologias de desenvolvimento.\n- Benefícios da sistematização: redução de riscos, controle de custos, prazos e escopo.\n- Melhoria na comunicação entre stakeholders e garantia de qualidade do software.\n- Divisão das abordagens em três grandes grupos: Tradicionais (rígidas), Ágeis (flexíveis) e Híbridas (mistas).",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/197940",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/197940_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "196290",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "Aula__Historia_Usuario_Metodologias_Ageis.pdf",
+      "tipo": "SLIDE",
+      "status": "PROCESSADO",
+      "resumo": "- Introdução ao Processo de Software e Metodologia Ágil (Scrum).\n- Componentes do Plano de Gerenciamento: Objetivos, Escopo, EAP (Estrutura Analítica de Projeto), Riscos e Recursos.\n- Foco central na História do Usuário como ferramenta de requisitos.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/196290",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/196290_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "195971",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "Artigo_Manifesto__Agil.pdf",
+      "tipo": "SLIDE",
+      "status": "PROCESSADO",
+      "resumo": "• Comemoração dos 20 anos do Manifesto Ágil e análise do cenário brasileiro;\n• Perfil do profissional: experiente em gestão tradicional, mas ainda iniciante/intermediário em métodos ágeis;\n• Maturidade organizacional: a maioria das empresas brasileiras adota o ágil há menos de 5 anos e ainda busca maturidade média;\n• Frameworks dominantes: Scrum (62%) e Kanban (15%);\n• Modelo Híbrido: predominância de abordagens que misturam ágil com métodos preditivos (PMBOK/Prince2);\n• Competências essenciais: foco em integridade, comunicação, trabalho em equipe e colaboração estreita com o cliente.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/195971",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/195971_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "195042",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "Sistema_Farmacia_Desktop.docx",
+      "tipo": "ATIVIDADE",
+      "status": "PROCESSADO",
+      "resumo": "• Estudo de caso da Farmácia Vida Plena (médio porte) com processos manuais e ineficientes.\n• Diagnóstico de problemas: falhas no controle de estoque, riscos regulatórios (ANVISA) e lentidão no atendimento.\n• Necessidade de transição para um sistema desktop integrado e offline.\n• Requisitos de projeto: definição de escopo, cronograma, requisitos funcionais/não funcionais e EAP.\n• Perfil de usuário: funcionários com baixa familiaridade tecnológica.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/195042",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/195042_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "194689",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "04_Requisitos.pdf",
+      "tipo": "SLIDE",
+      "status": "PROCESSADO",
+      "resumo": "- Definição de requisitos como especificações do que o sistema deve fazer;\n- Descrição detalhada do comportamento esperado do software;\n- Importância do papel dos stakeholders (partes interessadas) no processo;\n- Termos fundamentais associados: exigências, critérios, necessidades, premissas e padrões;\n- Função dos requisitos como guia central para a equipe de desenvolvimento.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/194689",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/194689_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "192263",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "03 - Fases_do_Projeto.pptx.pdf",
+      "tipo": "SLIDE",
+      "status": "PROCESSADO",
+      "resumo": "- Relação entre Projeto, Processos, Atividades e Produto.\n- Definição de Software como conjunto de instruções para o processador.\n- O conceito de Produto de Software voltado para necessidades do usuário.\n- Definição de Processo como um grupo estruturado de atividades para entrega de resultados.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/192263",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/192263_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "191822",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "01_02 - PS__Introdução.pdf",
+      "tipo": "ADMIN",
+      "status": "PROCESSADO",
+      "resumo": "- Apresentação institucional da disciplina de Processo de Software conduzida pelo professor Paulo Peres;\n- Estrutura da Agenda: Ambientação, Objetivos, Metodologia, Mercado de Trabalho e Introdução aos Conceitos;\n- Detalhamento do sistema de avaliação dividido em dois ciclos (A1 e A2);\n- Regras de composição de nota: Provas individuais (50%) e Trabalhos (50%), variando entre formatos individual e em grupo.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/191822",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/191822_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "191823",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "Plano Processo de Software __2026_1.pdf",
+      "tipo": "ADMIN",
+      "status": "PROCESSADO",
+      "resumo": "• Fundamentos do Ciclo de Vida de Software (SDLC) e Processos de Desenvolvimento;\n• Gestão de Requisitos: elicitação, análise, validação e estórias de usuário;\n• Arquitetura e Modelagem: modularização, padrões de projeto e frameworks;\n• Qualidade e Verificação: técnicas de testes, validação e DevOps;\n• Gestão e Economia: análise de riscos, viabilidade econômica e gerenciamento de projetos (PMBOK);\n• Metodologia Ativa: foco no protagonismo do aluno e atividades práticas (80% da carga);\n• Sistema de Avaliação: Composto por duas notas (A1 e A2), integrando provas teóricas e trabalhos práticos.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/191823",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/191823_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187790",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "Manuais e Regulamentos",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/187790",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/187790_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187789",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "Calendário Acadêmico",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/187789",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/187789_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187788",
+      "data": "13/04/2026",
+      "disciplina": "PROCESSO DE SOFTWARE - MATUTINO",
+      "titulo": "Plano de Ensino",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8229/modules/items/187788",
+        "resumo_docx": "/resumos/PROCESSO%20DE%20SOFTWARE%20-%20MATUTINO/187788_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "%7B%7B%20id%20%7D%7D",
+      "data": "13/04/2026",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "titulo": "",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8231/modules/items/%7B%7B%20id%20%7D%7D",
+        "resumo_docx": "/resumos/Técnicas%20de%20Programação%20e%20Análise%20de%20Algoritmos/%7B%7B%20id%20%7D%7D_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "196678",
+      "data": "13/04/2026",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "titulo": "Manipulação de Programas e Introdução ao C++ - Parte 02",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8231/modules/items/196678",
+        "resumo_docx": "/resumos/Técnicas%20de%20Programação%20e%20Análise%20de%20Algoritmos/196678_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "193855",
+      "data": "13/04/2026",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "titulo": "Manipulação de Programas e Introdução ao C++ - Parte 01",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8231/modules/items/193855",
+        "resumo_docx": "/resumos/Técnicas%20de%20Programação%20e%20Análise%20de%20Algoritmos/193855_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "193193",
+      "data": "13/04/2026",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "titulo": "Complexidade Assintótica - Parte 03",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8231/modules/items/193193",
+        "resumo_docx": "/resumos/Técnicas%20de%20Programação%20e%20Análise%20de%20Algoritmos/193193_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "192495",
+      "data": "13/04/2026",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "titulo": "Complexidade Assintótica - Parte 02",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8231/modules/items/192495",
+        "resumo_docx": "/resumos/Técnicas%20de%20Programação%20e%20Análise%20de%20Algoritmos/192495_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "191540",
+      "data": "13/04/2026",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "titulo": "Complexidade Assintótica - Parte 01",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8231/modules/items/191540",
+        "resumo_docx": "/resumos/Técnicas%20de%20Programação%20e%20Análise%20de%20Algoritmos/191540_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "191180",
+      "data": "13/04/2026",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "titulo": "Apresentação da Disciplina e Introdução",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8231/modules/items/191180",
+        "resumo_docx": "/resumos/Técnicas%20de%20Programação%20e%20Análise%20de%20Algoritmos/191180_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "195715",
+      "data": "13/04/2026",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "titulo": "Roteiro - Configuração do Ambiente de Programação",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8231/modules/items/195715",
+        "resumo_docx": "/resumos/Técnicas%20de%20Programação%20e%20Análise%20de%20Algoritmos/195715_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187796",
+      "data": "13/04/2026",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "titulo": "Manuais e Regulamentos",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8231/modules/items/187796",
+        "resumo_docx": "/resumos/Técnicas%20de%20Programação%20e%20Análise%20de%20Algoritmos/187796_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187795",
+      "data": "13/04/2026",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "titulo": "Calendário Acadêmico",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8231/modules/items/187795",
+        "resumo_docx": "/resumos/Técnicas%20de%20Programação%20e%20Análise%20de%20Algoritmos/187795_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187794",
+      "data": "13/04/2026",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "titulo": "Plano de Ensino",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8231/modules/items/187794",
+        "resumo_docx": "/resumos/Técnicas%20de%20Programação%20e%20Análise%20de%20Algoritmos/187794_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "%7B%7B%20id%20%7D%7D",
+      "data": "13/04/2026",
+      "disciplina": "Programação Orientada a Objetos - Matutino",
+      "titulo": "",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8230/modules/items/%7B%7B%20id%20%7D%7D",
+        "resumo_docx": "/resumos/Programação%20Orientada%20a%20Objetos%20-%20Matutino/%7B%7B%20id%20%7D%7D_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187793",
+      "data": "13/04/2026",
+      "disciplina": "Programação Orientada a Objetos - Matutino",
+      "titulo": "Manuais e Regulamentos",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8230/modules/items/187793",
+        "resumo_docx": "/resumos/Programação%20Orientada%20a%20Objetos%20-%20Matutino/187793_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187792",
+      "data": "13/04/2026",
+      "disciplina": "Programação Orientada a Objetos - Matutino",
+      "titulo": "Calendário Acadêmico",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8230/modules/items/187792",
+        "resumo_docx": "/resumos/Programação%20Orientada%20a%20Objetos%20-%20Matutino/187792_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187791",
+      "data": "13/04/2026",
+      "disciplina": "Programação Orientada a Objetos - Matutino",
+      "titulo": "Plano de Ensino",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8230/modules/items/187791",
+        "resumo_docx": "/resumos/Programação%20Orientada%20a%20Objetos%20-%20Matutino/187791_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "%7B%7B%20id%20%7D%7D",
+      "data": "13/04/2026",
+      "disciplina": "Oficina em Soluções Web - Matutino",
+      "titulo": "",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8228/modules/items/%7B%7B%20id%20%7D%7D",
+        "resumo_docx": "/resumos/Oficina%20em%20Soluções%20Web%20-%20Matutino/%7B%7B%20id%20%7D%7D_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "196675",
+      "data": "13/04/2026",
+      "disciplina": "Oficina em Soluções Web - Matutino",
+      "titulo": "Postagem da atividade 02 - 24/03",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8228/modules/items/196675",
+        "resumo_docx": "/resumos/Oficina%20em%20Soluções%20Web%20-%20Matutino/196675_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "196674",
+      "data": "13/04/2026",
+      "disciplina": "Oficina em Soluções Web - Matutino",
+      "titulo": "Postagem da atividade 01 - 24/03",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8228/modules/items/196674",
+        "resumo_docx": "/resumos/Oficina%20em%20Soluções%20Web%20-%20Matutino/196674_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "196668",
+      "data": "13/04/2026",
+      "disciplina": "Oficina em Soluções Web - Matutino",
+      "titulo": "Scrum - Visualização Geral",
+      "tipo": "SLIDE",
+      "status": "PROCESSADO",
+      "resumo": "Fundamentos do Empirismo (Transparência, Inspeção, Adaptação); Papéis do Scrum Team (Product Owner, Scrum Master, Developers); Eventos (Sprint, Planning, Daily, Review, Retrospective); Artefatos (Product Backlog, Sprint Backlog, Increment); Definição de Pronto (DoD) e Metas de Entrega.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8228/modules/items/196668",
+        "resumo_docx": "/resumos/Oficina%20em%20Soluções%20Web%20-%20Matutino/196668_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "196669",
+      "data": "13/04/2026",
+      "disciplina": "Oficina em Soluções Web - Matutino",
+      "titulo": "Guia Scrum",
+      "tipo": "SLIDE",
+      "status": "PROCESSADO",
+      "resumo": "- Definição de Scrum: Framework leve para gerar valor em problemas complexos.\n- Pilares do Empirismo: Transparência, Inspeção e Adaptação.\n- Pensamento Enxuto (Lean Thinking): Redução de desperdícios e foco no essencial.\n- Valores do Scrum: Compromisso, Foco, Abertura, Respeito e Coragem.\n- Dinâmica Básica: Product Owner ordena o trabalho; Time transforma em incremento; Stakeholders inspecionam; Repetição do ciclo.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8228/modules/items/196669",
+        "resumo_docx": "/resumos/Oficina%20em%20Soluções%20Web%20-%20Matutino/196669_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "196676",
+      "data": "13/04/2026",
+      "disciplina": "Oficina em Soluções Web - Matutino",
+      "titulo": "Postagem da atividade 17/03",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8228/modules/items/196676",
+        "resumo_docx": "/resumos/Oficina%20em%20Soluções%20Web%20-%20Matutino/196676_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187787",
+      "data": "13/04/2026",
+      "disciplina": "Oficina em Soluções Web - Matutino",
+      "titulo": "Manuais e Regulamentos",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8228/modules/items/187787",
+        "resumo_docx": "/resumos/Oficina%20em%20Soluções%20Web%20-%20Matutino/187787_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187786",
+      "data": "13/04/2026",
+      "disciplina": "Oficina em Soluções Web - Matutino",
+      "titulo": "Calendário Acadêmico",
+      "tipo": "ADMIN",
+      "status": "PROCESSADO",
+      "resumo": "• A lógica temporal na governança acadêmica: Sincronização de processos administrativos e pedagógicos;\n• Arquitetura de sistemas de gestão (SIS/ERP): Como calendários são traduzidos em triggers de banco de dados e fluxos de trabalho;\n• Gestão de Stakeholders: O impacto das datas críticas na retenção de alunos e na conformidade regulatória;\n• Otimização de Cronogramas: Metodologias ágeis aplicadas ao planejamento semestral institucional.",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8228/modules/items/187786",
+        "resumo_docx": "/resumos/Oficina%20em%20Soluções%20Web%20-%20Matutino/187786_Resumo_PRO.docx"
+      }
+    },
+    {
+      "id": "187785",
+      "data": "13/04/2026",
+      "disciplina": "Oficina em Soluções Web - Matutino",
+      "titulo": "Plano de Ensino",
+      "tipo": "MATERIAL",
+      "status": "PENDENTE",
+      "resumo": "Aguardando processamento da IA...",
+      "links": {
+        "original": "https://ambientevirtual.idp.edu.br/courses/8228/modules/items/187785",
+        "resumo_docx": "/resumos/Oficina%20em%20Soluções%20Web%20-%20Matutino/187785_Resumo_PRO.docx"
+      }
+    }
+  ]
+}

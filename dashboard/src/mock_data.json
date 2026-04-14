@@ -1,0 +1,46 @@
+{
+  "status": {
+    "bot": "ONLINE",
+    "ultima_varredura": "2026-04-13T22:30:00Z",
+    "versao": "2.0.0"
+  },
+  "disciplinas": [
+    {
+      "id": "8231",
+      "nome": "Técnicas de Programação e Análise de Algoritmos",
+      "monitorar": true,
+      "github": "https://github.com/exemplo/algoritmos",
+      "novos_materiais": 3
+    },
+    {
+      "id": "8245",
+      "nome": "Sistemas Operacionais",
+      "monitorar": true,
+      "novos_materiais": 0
+    },
+    {
+      "id": "8290",
+      "nome": "Banco de Dados II",
+      "monitorar": false,
+      "novos_materiais": 0
+    }
+  ],
+  "timeline": [
+    {
+      "id": "191540",
+      "nome": "Complexidade Assintótica - Parte 01",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "tipo": "SLIDE",
+      "data": "2026-04-12T10:00:00Z",
+      "ia_detalhes": "Aula abordando Notação Big-O, Big-Theta e Big-Omega. Inclui exemplos práticos de loops e recursão."
+    },
+    {
+      "id": "195715",
+      "nome": "Roteiro - Configuração do Ambiente",
+      "disciplina": "Técnicas de Programação e Análise de Algoritmos",
+      "tipo": "ATIVIDADE",
+      "data": "2026-04-12T09:00:00Z",
+      "ia_detalhes": "Guia passo-a-passo para instalação do WSL2, GCC 13 e VS Code no Windows."
+    }
+  ]
+}

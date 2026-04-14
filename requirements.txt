@@ -1,0 +1,13 @@
+# Automação e Scraping
+selenium
+webdriver-manager
+requests
+beautifulsoup4
+
+# Inteligência Artificial e Processamento
+google-generativeai
+pymupdf
+python-docx
+
+# Utilidades
+python-dotenv

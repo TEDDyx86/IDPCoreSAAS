@@ -1,0 +1,13 @@
+MATERIAL: 03 - Fases_do_Projeto.pptx.pdf
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+------------------------------
+
+TÓPICOS PRINCIPAIS:
+- Relação entre Projeto, Processos, Atividades e Produto.
+- Definição de Software como conjunto de instruções para o processador.
+- O conceito de Produto de Software voltado para necessidades do usuário.
+- Definição de Processo como um grupo estruturado de atividades para entrega de resultados.
+
+EXPLICAÇÃO DO PROFESSOR MENTOR:
+Olá, aluno! Vamos compreender a lógica por trás da criação de sistemas. Pense no desenvolvimento de software não como um ato isolado de programar, mas como uma cadeia de valor. O material nos ensina que tudo começa com um 'Projeto' (o objetivo), que é executado através de um 'Processo' (o caminho estruturado). Esse processo é composto por 'Atividades' práticas que, ao final, resultam no 'Produto'. É fundamental distinguir que 'Software' são as instruções técnicas, mas um 'Produto de Software' é algo maior: é uma solução pensada para resolver um problema real de alguém. O 'Processo' serve justamente para garantir que o resultado final não seja apenas código funcional, mas um serviço ou produto que agregue valor ao usuário.

@@ -1,0 +1,12 @@
+MATERIAL: Aula__Historia_Usuario_Metodologias_Ageis.pdf
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+------------------------------
+
+TÓPICOS PRINCIPAIS:
+- Introdução ao Processo de Software e Metodologia Ágil (Scrum).
+- Componentes do Plano de Gerenciamento: Objetivos, Escopo, EAP (Estrutura Analítica de Projeto), Riscos e Recursos.
+- Foco central na História do Usuário como ferramenta de requisitos.
+
+EXPLICAÇÃO DO PROFESSOR MENTOR:
+Como seu Mentor, explico que este material aborda a transição do planejamento estruturado para a execução ágil. O ponto central é entender que o desenvolvimento de software não é apenas codificação, mas um processo de gestão que exige clareza de objetivos e mapeamento de riscos. A inclusão da 'História do Usuário' na agenda indica uma mudança de paradigma: em vez de documentos técnicos extensos, focamos na necessidade real do usuário para guiar o desenvolvimento. A Estrutura Analítica de Projeto (EAP) mencionada é fundamental para decompor a complexidade do projeto em partes gerenciáveis, garantindo que a equipe saiba exatamente o que entregar dentro do framework Scrum.

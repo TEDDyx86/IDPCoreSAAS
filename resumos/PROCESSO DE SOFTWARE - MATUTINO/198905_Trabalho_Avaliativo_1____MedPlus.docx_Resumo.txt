@@ -1,0 +1,16 @@
+MATERIAL: Trabalho_Avaliativo_1____MedPlus.docx
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: ATIVIDADE
+------------------------------
+
+TÓPICOS PRINCIPAIS:
+• Contextualização da Clínica MedPlus (médio porte, atendimento ambulatorial em Goiânia);
+• Problema central: Processos fragmentados (planilhas eletrônicas e prontuários físicos);
+• Necessidade de centralização: Integração de agendas, histórico clínico e faturamento;
+• Perfis de usuários: Recepção, médicos, administrativo e diretoria;
+• Tarefas solicitadas: Levantamento de requisitos (RF, RNF, RN), Histórias de Usuário, Escopo e Cronograma.
+
+EXPLICAÇÃO DO PROFESSOR MENTOR:
+Olá, aluno! Este material é um estudo de caso prático que simula um cenário real de consultoria em TI para a área da saúde. O foco aqui não é apenas construir um software, mas resolver um problema de gestão: a Clínica MedPlus sofre com a 'fragmentação de dados'. Quando informações de agendamento e prontuários estão desconectadas, a clínica perde eficiência e segurança. O exercício propõe que você atue como o elo entre o negócio e a tecnologia. Você precisará aplicar a lógica da Engenharia de Requisitos para traduzir as 'dores' da clínica (como a lentidão no faturamento) em funções do sistema, e utilizar ferramentas de Gestão de Projetos para planejar como e quando essa solução será entregue. É uma oportunidade de aprender como a tecnologia organiza o caos operacional.
+
+PRAZOS ENCONTRADOS: Não há datas ou prazos específicos informados no texto; as seções de cronograma e planejamento estão presentes apenas como modelos para preenchimento pelo aluno.

@@ -1,0 +1,60 @@
+=== MATERIAL PRO: Scrum - Visualização Geral ===
+DISCIPLINA: Oficina em Soluções Web - Matutino
+CLASSIFICAÇÃO: SLIDE
+========================================
+
+TÓPICOS VITAIS:
+Fundamentos do Empirismo (Transparência, Inspeção, Adaptação); Papéis do Scrum Team (Product Owner, Scrum Master, Developers); Eventos (Sprint, Planning, Daily, Review, Retrospective); Artefatos (Product Backlog, Sprint Backlog, Increment); Definição de Pronto (DoD) e Metas de Entrega.
+
+AULA MAGISTRAL DO PROFESSOR MENTOR ULTIMATE (PRO):
+# CONTEXTO HISTÓRICO E MERCADOLÓGICO
+
+O Scrum não nasceu no vácuo da engenharia de software; ele emergiu da necessidade de gerenciar o caos. Originado formalmente nos anos 90 por Jeff Sutherland e Ken Schwaber, suas raízes bebem da fonte do 'The New New Product Development Game' (1986), de Takeuchi e Nonaka, que observaram como empresas de alta performance (como Toyota e Honda) trabalhavam de forma holística, como um time de rúgbi. No cenário atual das Big Techs, o Scrum é o motor que permite a empresas como Amazon e Spotify iterarem em escala massiva. O mercado abandonou o modelo 'Waterfall' (Cascata) porque o custo do erro tardio é proibitivo. Nas Big Techs, o Scrum é adaptado para o modelo de 'Squads', onde a autonomia é equilibrada com o alinhamento estratégico, permitindo que o 'Time-to-Market' seja reduzido drasticamente.
+
+# NÚCLEO TÉCNICO APROFUNDADO
+
+O Scrum é fundamentado no empirismo e no Lean Thinking. O empirismo afirma que o conhecimento vem da experiência e da tomada de decisão baseada no que é observado. 
+
+1. **Os Três Pilares:**
+   - **Transparência:** O processo e o trabalho devem ser visíveis tanto para quem executa quanto para quem recebe.
+   - **Inspeção:** Os artefatos e o progresso em direção aos objetivos devem ser inspecionados com frequência para detectar variações indesejadas.
+   - **Adaptação:** Se um processo se desvia dos limites aceitáveis, o ajuste deve ser feito o mais rápido possível.
+
+2. **Papéis (A Trindade de Responsabilidades):**
+   - **Product Owner (PO):** Otimizador de valor. Ele não é um 'anotador de pedidos', mas um estrategista que gerencia o Product Backlog para maximizar o ROI (Retorno sobre Investimento).
+   - **Scrum Master (SM):** O líder servidor e coach. Sua função é remover impedimentos e garantir que o time compreenda a teoria e a prática do Scrum. Ele é o guardião do processo.
+   - **Developers:** Profissionais multidisciplinares que se comprometem a criar qualquer aspecto de um incremento utilizável a cada Sprint.
+
+3. **Eventos (O Ritmo do Coração):**
+   - **Sprint:** O container para todos os outros eventos, com duração fixa (geralmente 1 a 4 semanas).
+   - **Sprint Planning:** Define o 'O quê' (objetivo) e o 'Como' (plano).
+   - **Daily Scrum:** Evento de 15 minutos para os desenvolvedores sincronizarem e adaptarem o plano das próximas 24 horas.
+   - **Sprint Review:** Inspeção do incremento e adaptação do Product Backlog com stakeholders.
+   - **Sprint Retrospective:** Foco em pessoas, relacionamentos, processos e ferramentas para melhoria contínua.
+
+# LABORATÓRIO E CÓDIGO
+
+A visualização de um fluxo Scrum pode ser descrita via lógica de estados. Imagine um sistema de gestão de tarefas (Jira/Azure DevOps) operando sob a seguinte lógica de fluxo:
+
+text
+[BACKLOG GERAL] -> (Refinement) -> [SPRINT BACKLOG]
+                                          |
+                                          v
+ [TODO] -> [IN PROGRESS] -> [TESTING] -> [DONE (DoD)]
+                                          |
+                                          v
+                                  [INCREMENTO POTENCIALMENTE RELEASÁVEL]
+
+
+Exemplo de estrutura de uma 'User Story' técnica para o laboratório:
+- **Título:** Autenticação via OAuth2.
+- **Como** Usuário final,
+- **Eu quero** me autenticar usando minha conta Google,
+- **Para que** eu não precise memorizar uma nova senha.
+- **Critérios de Aceite (DoD):** Token JWT retornado com sucesso; Log de auditoria gerado; Erro 401 tratado para logins inválidos.
+
+# ANÁLISE CRÍTICA DO MENTOR
+
+O que a maioria falha em entender é que o Scrum não é uma metodologia de 'fazer mais rápido', mas sim de 'errar mais cedo'. O erro mais comum em exames de certificação (como PSM I) e no dia a dia é a confusão entre o Scrum Master e um Gerente de Projetos tradicional. O SM não 'manda' no time; ele empodera o time para que este se autogerencie. 
+
+Outro ponto nevrálgico: a 'Velocidade' do time. No mercado, gestores tóxicos usam a velocidade para comparar times. Isso é um erro técnico crasso. Velocidade é uma métrica interna de capacidade, não de produtividade comparativa. Se você aumenta a pressão pela velocidade, o time sacrifica a qualidade (Dívida Técnica), o que viola o pilar da Transparência, pois o 'Done' deixa de ser verdadeiramente 'Done'. O verdadeiro domínio do Scrum exige entender que o framework é propositalmente incompleto; ele apenas expõe as ineficiências da sua organização para que você possa resolvê-las.

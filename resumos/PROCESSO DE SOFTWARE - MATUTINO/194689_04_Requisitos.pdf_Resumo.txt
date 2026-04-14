@@ -1,0 +1,14 @@
+MATERIAL: 04_Requisitos.pdf
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+------------------------------
+
+TÓPICOS PRINCIPAIS:
+- Definição de requisitos como especificações do que o sistema deve fazer;
+- Descrição detalhada do comportamento esperado do software;
+- Importância do papel dos stakeholders (partes interessadas) no processo;
+- Termos fundamentais associados: exigências, critérios, necessidades, premissas e padrões;
+- Função dos requisitos como guia central para a equipe de desenvolvimento.
+
+EXPLICAÇÃO DO PROFESSOR MENTOR:
+Olá, sou seu Mentor e vamos entender a essência deste material. O conteúdo introduz o conceito de 'Requisitos de Software' como a base fundamental de qualquer projeto tecnológico. Imagine que o requisito é o contrato e o mapa que orienta o desenvolvedor: ele traduz as necessidades do cliente (stakeholders) em especificações técnicas. O professor Paulo Peres destaca que não se trata apenas de uma lista de desejos, mas de um detalhamento rigoroso do comportamento do sistema. Para aprender de verdade, pense nos requisitos como a resposta para a pergunta: 'O que o sistema deve fazer para resolver o problema do usuário?'. Sem definições claras de critérios, condições e premissas, a equipe corre o risco de construir algo tecnicamente perfeito, mas funcionalmente inútil.

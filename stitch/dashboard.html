@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline": "#859399",
+                      "tertiary": "#f4d1ff",
+                      "on-secondary-fixed-variant": "#42474f",
+                      "inverse-primary": "#00677f",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-container": "#e6abff",
+                      "secondary": "#c2c7d0",
+                      "surface-bright": "#38393f",
+                      "on-primary-fixed-variant": "#004e60",
+                      "on-background": "#e3e1e9",
+                      "on-surface": "#e3e1e9",
+                      "secondary-fixed": "#dee2ec",
+                      "primary-fixed": "#b6ebff",
+                      "surface-container": "#1e1f25",
+                      "error": "#ffb4ab",
+                      "surface-container-lowest": "#0d0e13",
+                      "primary-container": "#00d2ff",
+                      "surface": "#121318",
+                      "inverse-on-surface": "#2f3036",
+                      "on-primary": "#003543",
+                      "surface-tint": "#47d6ff",
+                      "on-secondary": "#2c3138",
+                      "on-tertiary-fixed-variant": "#7200a3",
+                      "surface-container-highest": "#34343a",
+                      "on-secondary-container": "#b1b5bf",
+                      "tertiary-fixed": "#f6d9ff",
+                      "surface-container-high": "#292a2f",
+                      "surface-container-low": "#1a1b21",
+                      "inverse-surface": "#e3e1e9",
+                      "background": "#121318",
+                      "on-surface-variant": "#bbc9cf",
+                      "on-primary-fixed": "#001f28",
+                      "tertiary-fixed-dim": "#e9b3ff",
+                      "secondary-container": "#42474f",
+                      "on-error": "#690005",
+                      "primary": "#a5e7ff",
+                      "on-tertiary-fixed": "#310048",
+                      "on-primary-container": "#00566a",
+                      "primary-fixed-dim": "#47d6ff",
+                      "outline-variant": "#3c494e",
+                      "on-secondary-fixed": "#171c23",
+                      "surface-dim": "#121318",
+                      "on-tertiary-container": "#7e04b2",
+                      "error-container": "#93000a",
+                      "on-tertiary": "#510074",
+                      "secondary-fixed-dim": "#c2c7d0",
+                      "surface-variant": "#34343a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Inter"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: #161b2290;
+            backdrop-filter: blur(10px);
+            border: 0.5px solid rgba(60, 73, 78, 0.2);
+        }
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        }
+        .status-dot {
+            box-shadow: 0 0 8px #00d2ff;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container/30">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#161b2290] backdrop-blur-[10px] shadow-[0_40px_40px_-10px_rgba(0,210,255,0.08)] flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a digital artificial intelligence avatar with blue circuit line highlights on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLJB286pe68A4y9J1u7gWOTKPnMlxoDh3nVoez41k4qsUo2Uj0n4U5gtpHyUVIikDTxR6w_BHj9TW2a-BDlezI5JY94HHBjEUWHTAioCjz2yQ-lDBUkVeqnF0Rl_ptLzEQTVEsqeI3rbKHtzJcoBApQ6ZBBNLCi29WBpQq-wqUcRC165TElyFsxuzWvAWwcD4zGLMuDnr6Lugq_l_8s0md3b8yL1pmt_2X-DYfQkbl369tsk4jCYZTjShg6qQxyf80Xm5nub_ZWtc"/>
+</div>
+<h1 class="text-xl font-bold tracking-[-0.02em] text-[#00d2ff] font-['Inter']">Monitor Acadêmico</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex gap-8 px-6">
+<a class="text-[#a5e7ff] font-bold transition-all duration-300 hover:bg-white/5 px-3 py-1 rounded" href="#">Dashboard</a>
+<a class="text-[#bbc9cf] transition-all duration-300 hover:bg-white/5 px-3 py-1 rounded" href="#">Disciplines</a>
+<a class="text-[#bbc9cf] transition-all duration-300 hover:bg-white/5 px-3 py-1 rounded" href="#">Timeline</a>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-full border border-outline-variant/10 scale-95 active:scale-90 transition-all duration-300">
+<span class="w-2 h-2 rounded-full bg-[#00d2ff] status-dot animate-pulse"></span>
+<span class="text-[10px] font-['Inter'] uppercase tracking-[0.05em] text-[#00d2ff] font-bold">Bot: Online</span>
+</div>
+</div>
+</header>
+<!-- Main Content Wrapper -->
+<main class="pt-24 pb-28 px-6 max-w-7xl mx-auto flex flex-col gap-10">
+<!-- Welcome Hero Section -->
+<section class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<span class="font-['Inter'] uppercase tracking-[0.05em] text-xs text-[#00d2ff] font-bold">System Status: Stable</span>
+<div class="h-[1px] flex-grow bg-gradient-to-r from-outline-variant/20 to-transparent"></div>
+</div>
+<h2 class="text-4xl md:text-5xl font-extrabold tracking-[-0.02em] text-on-surface">Welcome back, Student.</h2>
+<p class="text-on-surface-variant text-lg max-w-2xl">All systems optimal. Your academic progress is being synchronized across all neural clusters.</p>
+<div class="flex gap-4 mt-4">
+<div class="flex items-center gap-2 text-xs font-['Inter'] uppercase tracking-[0.05em] text-on-surface-variant bg-surface-container-low px-3 py-1 rounded">
+<span class="material-symbols-outlined text-[14px]">sync</span>
+                    Last Scan: 2m ago
+                </div>
+</div>
+</section>
+<!-- Summary Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Stat 1 -->
+<div class="glass-card p-6 rounded-xl flex flex-col justify-between group hover:shadow-[0_0_30px_rgba(0,210,255,0.1)] transition-all">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-[#00d2ff]">layers</span>
+<span class="text-[10px] font-['Inter'] uppercase tracking-[0.05em] text-on-tertiary-container bg-tertiary-container/10 px-2 py-0.5 rounded">Live</span>
+</div>
+<div class="mt-8">
+<div class="text-3xl font-black text-on-surface tracking-tighter">142</div>
+<div class="text-xs font-['Inter'] uppercase tracking-[0.05em] text-on-surface-variant mt-1">Materials Processed</div>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="glass-card p-6 rounded-xl flex flex-col justify-between border-primary/20 bg-primary/5">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary">pending_actions</span>
+<span class="w-2 h-2 rounded-full bg-primary status-dot"></span>
+</div>
+<div class="mt-8">
+<div class="text-3xl font-black text-primary tracking-tighter">03</div>
+<div class="text-xs font-['Inter'] uppercase tracking-[0.05em] text-primary/80 mt-1">Pending Analysis</div>
+</div>
+</div>
+<!-- Stat 3 (Double wide for Academic Rail) -->
+<div class="glass-card p-6 rounded-xl col-span-1 md:col-span-2">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#00d2ff]">analytics</span>
+<h3 class="text-xs font-['Inter'] uppercase tracking-[0.05em] font-bold">Semester Velocity</h3>
+</div>
+<span class="text-xs font-bold text-[#00d2ff]">84%</span>
+</div>
+<div class="flex gap-1.5 h-8">
+<div class="flex-1 bg-gradient-to-br from-[#a5e7ff] to-[#00d2ff] rounded-sm"></div>
+<div class="flex-1 bg-gradient-to-br from-[#a5e7ff] to-[#00d2ff] rounded-sm"></div>
+<div class="flex-1 bg-gradient-to-br from-[#a5e7ff] to-[#00d2ff] rounded-sm"></div>
+<div class="flex-1 bg-gradient-to-br from-[#a5e7ff] to-[#00d2ff] rounded-sm"></div>
+<div class="flex-1 bg-gradient-to-br from-[#a5e7ff] to-[#00d2ff] rounded-sm opacity-50"></div>
+<div class="flex-1 bg-secondary-container rounded-sm"></div>
+<div class="flex-1 bg-secondary-container rounded-sm"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-4 font-['Inter'] uppercase tracking-[0.05em]">Projected completion: Dec 12</p>
+</div>
+</section>
+<!-- New Materials Horizontal Section -->
+<section class="flex flex-col gap-6">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="text-xs font-['Inter'] uppercase tracking-[0.05em] text-[#00d2ff] font-bold">Neural Feed</h3>
+<h2 class="text-2xl font-bold tracking-tight">Recent Synchronizations</h2>
+</div>
+<button class="text-xs font-['Inter'] uppercase tracking-[0.05em] text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2">
+                    View Archive <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="flex overflow-x-auto gap-6 pb-6 no-scrollbar snap-x">
+<!-- Card 1 -->
+<div class="min-w-[300px] glass-card rounded-xl p-5 snap-start group cursor-pointer hover:bg-[#1c232c90] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="px-2 py-1 bg-[#161b22] border border-[#00d2ff]/30 rounded text-[9px] font-black tracking-widest text-[#00d2ff] uppercase">CS102: Pipeline</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="h-32 w-full rounded-lg overflow-hidden mb-4">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Macro photography of a high-tech computer processor circuit board with neon blue lighting glowing through silicon paths" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvpdrQIRXN3NDTVZTgopq46FUwRswgSl60bkejuo4fvrvV9Mje70lKqCwt7BjgYh_Qt7ezkF99XrucEqU7cfQIX3afDt8WtdRGfOs5Bml2i7tlgw0xU4iLSJUypeNj1WxK5JmTY8hSsJ41FU3O-oZxfSvZPJhlBXiuR8C-gRhVd89qRGJHdPWB1GbPu38u-2u_lA4yoXFgeEnQp8twnnc_UOCKLpXe7hFEAaY-jGyx03yRvxZG8mCa8RqAAVVnMPcpE__g1E9fAAQ"/>
+</div>
+<h4 class="font-bold text-on-surface mb-1">Instruction Set Architecture</h4>
+<p class="text-xs text-on-surface-variant line-clamp-2 leading-relaxed">Deep analysis of RISC-V pipeline stages and hazard mitigation strategies...</p>
+<div class="mt-4 pt-4 border-t border-outline-variant/10 flex justify-between items-center">
+<span class="text-[10px] text-[#00d2ff] font-bold">94% MATCH</span>
+<span class="text-[10px] text-on-surface-variant">DOC_ID: #492</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[300px] glass-card rounded-xl p-5 snap-start group cursor-pointer hover:bg-[#1c232c90] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="px-2 py-1 bg-[#161b22] border border-[#00d2ff]/30 rounded text-[9px] font-black tracking-widest text-[#00d2ff] uppercase">MAT401: Calc</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="h-32 w-full rounded-lg overflow-hidden mb-4">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Abstract mathematical visualization of complex geometric shapes with glowing particles in dark void space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpzGeBsXT97UdzJ7zUHWDK8qE6uiJHFbOQy7-Xlq84E3_5KzLQ2ze66OxmXQxfAz8i5Eq8Jx7R9mHv-Qz0XsuqOBsuZkTcYblo1OJ7lCcrcBFamEWjTuP9WKk5kzXYqGOkTxEsFgJxHywLo5CjE07M0F9KJTAS0M7fh_G9gGpdWupYAFd-h8hV7PLqn2bC7BjZxuYCyIiD8Nml8GCtnpDq-34KwXrg0x7UXGmqTmWybmTRHK6GI7lbYDr1lWYI7CyafOrobS6AyEk"/>
+</div>
+<h4 class="font-bold text-on-surface mb-1">Vector Field Integration</h4>
+<p class="text-xs text-on-surface-variant line-clamp-2 leading-relaxed">Multivariable calculus applied to electromagnetic field simulation models...</p>
+<div class="mt-4 pt-4 border-t border-outline-variant/10 flex justify-between items-center">
+<span class="text-[10px] text-[#00d2ff] font-bold">88% MATCH</span>
+<span class="text-[10px] text-on-surface-variant">DOC_ID: #488</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="min-w-[300px] glass-card rounded-xl p-5 snap-start group cursor-pointer hover:bg-[#1c232c90] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="px-2 py-1 bg-[#161b22] border border-[#00d2ff]/30 rounded text-[9px] font-black tracking-widest text-[#00d2ff] uppercase">ENG202: AI Ethics</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="h-32 w-full rounded-lg overflow-hidden mb-4">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Symmetrical human face profile made of binary code and glowing wires on a dark tech background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJmKSv8WuM4xSC50CbJaXoyVtQi2xp1I-kh8640q0LNeKSDrZEeOMqCKlZ23WqeVyiKViObui_-yd7fOabd2oU2yTHniaNn0_HM0acrULvQo8hrBHdLpZA3j12dEinot-l12ZoI13Y7L6Q-UM6IuP-mwAGVaBb6CXc-IykhQRnvPf_RQwviq1ahANvVotpr30OKK48IA0Ci_KqpKkL1uZ_ScTxtEfsZ8wJZW3Frk9Cd_0U_bAyeLzeg3a0_TTcFrVQFdKwa7zooco"/>
+</div>
+<h4 class="font-bold text-on-surface mb-1">Bias in LLM Clusters</h4>
+<p class="text-xs text-on-surface-variant line-clamp-2 leading-relaxed">Critique of algorithmic fairness and socio-technical implications of neural nets...</p>
+<div class="mt-4 pt-4 border-t border-outline-variant/10 flex justify-between items-center">
+<span class="text-[10px] text-[#00d2ff] font-bold">100% MATCH</span>
+<span class="text-[10px] text-on-surface-variant">DOC_ID: #475</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Command Module (Logs) -->
+<section class="glass-card rounded-xl overflow-hidden mb-10">
+<div class="bg-surface-container-highest px-6 py-3 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#00d2ff] text-sm">terminal</span>
+<span class="text-[10px] font-['Inter'] uppercase tracking-[0.05em] font-bold text-on-surface">System Terminal</span>
+</div>
+<div class="flex gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-outline-variant/30"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-outline-variant/30"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-outline-variant/30"></div>
+</div>
+</div>
+<div class="p-6 font-mono text-[11px] leading-6 text-on-surface-variant bg-[#121318]">
+<div class="flex gap-4">
+<span class="text-primary">[14:22:01]</span>
+<span>Synchronizing repository 'Computer_Systems_Architecture'...</span>
+</div>
+<div class="flex gap-4">
+<span class="text-primary">[14:22:04]</span>
+<span class="text-tertiary-container">PARSING_SUCCESS: Extracted 24 keywords from 'Pipeline_Hazards.pdf'</span>
+</div>
+<div class="flex gap-4">
+<span class="text-primary">[14:22:05]</span>
+<span>Updating dashboard vector space...</span>
+</div>
+<div class="flex gap-4">
+<span class="text-[#00d2ff] animate-pulse">_</span>
+</div>
+</div>
+</section>
+</main>
+<!-- NavigationDrawer (Visible on MD+) -->
+<nav class="hidden md:flex flex-col h-full w-64 fixed left-0 top-0 bg-[#121318] p-4 border-r border-outline-variant/5 z-[60]">
+<div class="flex items-center gap-3 mb-10 mt-4 px-2">
+<span class="text-lg font-black text-[#a5e7ff]">Academic AI</span>
+</div>
+<div class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 rounded text-[#00d2ff] bg-[#161b22] border-r-2 border-[#00d2ff] transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Inter'] uppercase tracking-[0.05em] text-xs">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-[#bbc9cf] hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-['Inter'] uppercase tracking-[0.05em] text-xs">Disciplines</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-[#bbc9cf] hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">timeline</span>
+<span class="font-['Inter'] uppercase tracking-[0.05em] text-xs">Timeline</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-[#bbc9cf] hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-['Inter'] uppercase tracking-[0.05em] text-xs">Logs</span>
+</a>
+</div>
+<div class="mt-auto p-4 glass-card rounded-lg flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary text-[10px] font-bold">AI</div>
+<div>
+<div class="text-[10px] font-black text-[#a5e7ff] leading-none uppercase">Monitor Bot</div>
+<div class="text-[8px] text-on-surface-variant leading-none mt-1">Syncing: 2m ago</div>
+</div>
+</div>
+</div>
+</nav>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 bg-[#161b2290] backdrop-blur-[10px] z-50 rounded-t-xl shadow-[0_-10px_30px_rgba(0,0,0,0.5)] border-t border-white/10">
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#a5e7ff] to-[#00d2ff] text-[#121318] rounded-lg p-2 scale-105 transition-transform">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-['Inter'] text-[10px] font-medium">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#bbc9cf] p-2 hover:opacity-80 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">school</span>
+<span class="font-['Inter'] text-[10px] font-medium">Units</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#bbc9cf] p-2 hover:opacity-80 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">history_toggle_off</span>
+<span class="font-['Inter'] text-[10px] font-medium">Timeline</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#bbc9cf] p-2 hover:opacity-80 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-['Inter'] text-[10px] font-medium">Logs</span>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,15 @@
+MATERIAL: Artigo_Manifesto__Agil.pdf
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+------------------------------
+
+TÓPICOS PRINCIPAIS:
+• Comemoração dos 20 anos do Manifesto Ágil e análise do cenário brasileiro;
+• Perfil do profissional: experiente em gestão tradicional, mas ainda iniciante/intermediário em métodos ágeis;
+• Maturidade organizacional: a maioria das empresas brasileiras adota o ágil há menos de 5 anos e ainda busca maturidade média;
+• Frameworks dominantes: Scrum (62%) e Kanban (15%);
+• Modelo Híbrido: predominância de abordagens que misturam ágil com métodos preditivos (PMBOK/Prince2);
+• Competências essenciais: foco em integridade, comunicação, trabalho em equipe e colaboração estreita com o cliente.
+
+EXPLICAÇÃO DO PROFESSOR MENTOR:
+Olá, aluno! Como seu Professor Mentor, quero que você compreenda que este material é um Editorial Científico que faz um 'raio-x' da agilidade no Brasil após duas décadas do Manifesto Ágil. A lógica central aqui é notar que existe um abismo entre 'saber a teoria' e 'ter maturidade organizacional'. Embora o manifesto seja de 2001, muitas empresas brasileiras começaram sua jornada há menos de 5 anos. Por isso, vemos o fenômeno da Gestão Híbrida: as organizações tentam equilibrar a flexibilidade do Ágil (Scrum/Kanban) com o controle dos métodos tradicionais (Cascata), especialmente em setores que exigem muita documentação. O aprendizado fundamental para você não é apenas decorar os frameworks, mas entender que a agilidade real depende de competências humanas — como comunicação e confiança — e da participação ativa do cliente em todo o processo, e não apenas no início ou fim do projeto. A transição para o ágil é, antes de tudo, uma mudança cultural e educacional que ocorre 'na prática' dentro dos projetos.

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#859399",
+                        "tertiary": "#f4d1ff",
+                        "on-secondary-fixed-variant": "#42474f",
+                        "inverse-primary": "#00677f",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#e6abff",
+                        "secondary": "#c2c7d0",
+                        "surface-bright": "#38393f",
+                        "on-primary-fixed-variant": "#004e60",
+                        "on-background": "#e3e1e9",
+                        "on-surface": "#e3e1e9",
+                        "secondary-fixed": "#dee2ec",
+                        "primary-fixed": "#b6ebff",
+                        "surface-container": "#1e1f25",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0d0e13",
+                        "primary-container": "#00d2ff",
+                        "surface": "#121318",
+                        "inverse-on-surface": "#2f3036",
+                        "on-primary": "#003543",
+                        "surface-tint": "#47d6ff",
+                        "on-secondary": "#2c3138",
+                        "on-tertiary-fixed-variant": "#7200a3",
+                        "surface-container-highest": "#34343a",
+                        "on-secondary-container": "#b1b5bf",
+                        "tertiary-fixed": "#f6d9ff",
+                        "surface-container-high": "#292a2f",
+                        "surface-container-low": "#1a1b21",
+                        "inverse-surface": "#e3e1e9",
+                        "background": "#121318",
+                        "on-surface-variant": "#bbc9cf",
+                        "on-primary-fixed": "#001f28",
+                        "tertiary-fixed-dim": "#e9b3ff",
+                        "secondary-container": "#42474f",
+                        "on-error": "#690005",
+                        "primary": "#a5e7ff",
+                        "on-tertiary-fixed": "#310048",
+                        "on-primary-container": "#00566a",
+                        "primary-fixed-dim": "#47d6ff",
+                        "outline-variant": "#3c494e",
+                        "on-secondary-fixed": "#171c23",
+                        "surface-dim": "#121318",
+                        "on-tertiary-container": "#7e04b2",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#510074",
+                        "secondary-fixed-dim": "#c2c7d0",
+                        "surface-variant": "#34343a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #121318; color: #e3e1e9; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { background: #161b2290; backdrop-filter: blur(10px); }
+        .inner-stroke { box-shadow: inset 0 0 0 0.5px rgba(60, 73, 78, 0.2); }
+        .card-gradient-border { position: relative; }
+        .card-gradient-border::before {
+            content: ""; position: absolute; inset: 0; border-radius: 0.5rem; 
+            padding: 1px; background: linear-gradient(135deg, rgba(165, 231, 255, 0.3), rgba(0, 210, 255, 0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen pb-24 md:pb-0 md:pl-64">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#161b2290] backdrop-blur-[10px] shadow-[0_40px_40px_-10px_rgba(0,210,255,0.08)] flex justify-between items-center px-6 py-4 md:left-64 md:w-[calc(100%-16rem)]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a professional student wearing glasses in a moody blue-lit study environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo7fb3ll5S4lyPbo2Qu1VJxInQG3gAQHyb7nsmJlXGNDSnISZL-vrkntGG2mhOStdS4lWmiRPQlDswgLpEBoBGWee-vHOyURq9_7ZLeKz1rzevkm_1leX28D3AcFyRdcPhG9P0QapQcPv8sISFFYgJCfFXNsSzcF5Vg5cnJYF0ZFyghJArIJx-YgyGUyZIJKvj80Hg1iy27HlDYB2VLO617drBSFMoPrcvEurPk79khA0tEyUcdfuAwDouq_RK9HonL9CSoEbjSi4"/>
+</div>
+<h1 class="text-xl font-bold tracking-[-0.02em] text-[#00d2ff] font-['Inter']">Monitor Acadêmico</h1>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/10">
+<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_#00d2ff]"></span>
+<span class="text-xs font-['Inter'] uppercase tracking-[0.05em] text-[#00d2ff]">Bot: Online</span>
+</div>
+</header>
+<!-- NavigationDrawer (Web) -->
+<aside class="hidden md:flex h-full w-64 fixed left-0 top-0 bg-[#121318] flex-col p-4 border-r border-outline-variant/10 z-[60]">
+<div class="flex items-center gap-3 mb-10 px-2">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#a5e7ff] to-[#00d2ff] flex items-center justify-center">
+<span class="material-symbols-outlined text-background text-sm">school</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-[#a5e7ff] font-['Inter']">Academic AI</h2>
+<p class="text-[10px] font-['Inter'] text-on-surface-variant uppercase tracking-[0.05em]">Syncing: 2m ago</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#bbc9cf] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="font-['Inter'] uppercase tracking-[0.05em] text-xs">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#00d2ff] bg-[#161b22] border-r-2 border-[#00d2ff] group" href="#">
+<span class="material-symbols-outlined text-xl">menu_book</span>
+<span class="font-['Inter'] uppercase tracking-[0.05em] text-xs">Disciplines</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#bbc9cf] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl">timeline</span>
+<span class="font-['Inter'] uppercase tracking-[0.05em] text-xs">Timeline</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#bbc9cf] hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl">terminal</span>
+<span class="font-['Inter'] uppercase tracking-[0.05em] text-xs">Logs</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-6 md:px-12 max-w-7xl mx-auto">
+<!-- Search & Header -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<span class="text-primary text-sm font-['Inter'] uppercase tracking-[0.1em] mb-2 block">Currículo Acadêmico</span>
+<h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface">Disciplinas</h2>
+</div>
+<div class="relative w-full md:w-96 group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant transition-colors group-focus-within:text-primary">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-on-surface-variant focus:ring-1 focus:ring-primary/40 transition-all font-['Inter'] shadow-inner" placeholder="Buscar algoritmos, IA, arquitetura..." type="text"/>
+</div>
+</div>
+</section>
+<!-- Disciplines Vertical/Asymmetric Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-12">
+<!-- Card 1: Algoritmos -->
+<div class="card-gradient-border group relative bg-surface-container-low rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95">
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 rounded-xl bg-[#161b22] border border-outline-variant/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">code</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-primary text-[10px] font-bold tracking-widest uppercase flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,210,255,0.15)]">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> New
+                        </span>
+</div>
+<div class="mb-8">
+<p class="text-[10px] font-medium text-on-surface-variant uppercase tracking-widest mb-1">CC-102 • Algoritmos e Estruturas</p>
+<h3 class="text-2xl font-bold text-on-surface tracking-tight group-hover:text-primary transition-colors">Algoritmos</h3>
+</div>
+<div class="flex items-center gap-3 pt-6 border-t border-outline-variant/5">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" data-alt="professional male professor headshot with high contrast lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjTn0GsgTDMJC6j4O3fZhXMwtv2wlFf1XLWq3m5AZflOnyz2YEKUgYow6-mRD0NspVrx7cQqxpB6aTdtMpbJ77r6gv6p7sfc_n_pfz-iuWl0vziJpo1xsTwgWwUGoyyF0guNJYXV_Lz_6MOe9SR7zzg7ivoFgK1JhGn6Mu1_6aP8f1tvxQ0IC-6u_FLV62JNwIHmi7W1W1ZHFnblNtbJXgDn83MgxIx42P_u2gCjuC8Qi8kuab9Kgd-ywZXt_vB8g4nvMrKo3nvc8"/>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-[0.05em]">Professor</p>
+<p class="text-sm font-semibold text-on-surface">Dr. Roberto Silva</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Arquitetura -->
+<div class="card-gradient-border group relative bg-surface-container-low rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95">
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 rounded-xl bg-[#161b22] border border-outline-variant/10 flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined text-2xl">memory</span>
+</div>
+</div>
+<div class="mb-8">
+<p class="text-[10px] font-medium text-on-surface-variant uppercase tracking-widest mb-1">CC-204 • Hardware e Organização</p>
+<h3 class="text-2xl font-bold text-on-surface tracking-tight group-hover:text-primary transition-colors">Arquitetura</h3>
+</div>
+<div class="flex items-center gap-3 pt-6 border-t border-outline-variant/5">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" data-alt="confident female computer science professor in a modern office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHdmEVrVtsBTayYe5r4DZIWTBU8eQsTjJht-zxEBfgVTyGcrFYudzbXA4UXWfdPhhSF_AF1BqR0KeLHuqyqOcyGPTLunG6Et5jWdxs1hcU8H67j-kpludUvSQaIGPiGtIqyOoP76Ovxsx1pVy8h4SsOHeIofBhEI-EEXWSzqG0NGJslFlRcEabhXGuwd1nEUs3tlFQOd4BXRRRHV0TxFyjTxkxMW8cadERtBtni0HKseGXH83HFMc4dWq9yMQw_4HidPgbuh_Rwoc"/>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-[0.05em]">Professora</p>
+<p class="text-sm font-semibold text-on-surface">Dra. Helena Costa</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3: IA -->
+<div class="card-gradient-border group relative bg-surface-container-low rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95">
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 rounded-xl bg-[#161b22] border border-outline-variant/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">psychology</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-primary text-[10px] font-bold tracking-widest uppercase flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,210,255,0.15)]">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> New
+                        </span>
+</div>
+<div class="mb-8">
+<p class="text-[10px] font-medium text-on-surface-variant uppercase tracking-widest mb-1">CC-401 • Inteligência Artificial</p>
+<h3 class="text-2xl font-bold text-on-surface tracking-tight group-hover:text-primary transition-colors">IA Aplicada</h3>
+</div>
+<div class="flex items-center gap-3 pt-6 border-t border-outline-variant/5">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" data-alt="male academic researcher headshot with neutral lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLDrj1Eb5VcPlEdnL-LKjj4P3ZQCgs-oUS5A8OwZoamF7hdTtxPJjLsUkTbeoJ1p-c67R_XzohiVannNFQcHDjyDifzqgNKCcEmxRzRYxtify8HJiXrEZerUEnfTNqnHgHLA51Gq1MEBY4VWbb_4G5szyb1V5A-VH2PyLLotDKq8W5bw-r9rCFZ-YACNdsPqlQbZERatVHgzT1h11icy7Q0VOyW8BdNN1OepePmOrY6X2m2bUb7bcPG1F1mlahsQVgHJrjXo_sTRA"/>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-[0.05em]">Professor</p>
+<p class="text-sm font-semibold text-on-surface">Dr. André Martins</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4: Redes -->
+<div class="card-gradient-border group relative bg-surface-container-low rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95">
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 rounded-xl bg-[#161b22] border border-outline-variant/10 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-2xl">lan</span>
+</div>
+</div>
+<div class="mb-8">
+<p class="text-[10px] font-medium text-on-surface-variant uppercase tracking-widest mb-1">CC-302 • Sistemas Distribuídos</p>
+<h3 class="text-2xl font-bold text-on-surface tracking-tight group-hover:text-primary transition-colors">Redes de Comp.</h3>
+</div>
+<div class="flex items-center gap-3 pt-6 border-t border-outline-variant/5">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" data-alt="middle-aged male professor portrait with soft directional light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJbP_SAZu1I3-WSj0PfJHOpADSPtobxGVgRaRxZ8H2tH2JBcKMUsz4b_Us-Mk0XoC_Rbx539tC1Pr-8WHU8Ik6zvFuSMRTSLlnVmfheuA39n7mNj3_z-6KJG0KdrgAD6k1gaIkzuQxr8n0Ano8wBdC1gLfc7GnkqGy-5sThIXTB3dXKYt0t6wXfmC1wPb9ob0JB-KcVGw90snMiO50JKpQaj5un5h9wTMX9IhVxVd6U3LR-lAf6e8wwRWB9j8QXoj6uCqiX-qbuxY"/>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-[0.05em]">Professor</p>
+<p class="text-sm font-semibold text-on-surface">Msc. Paulo Neves</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 5: Banco de Dados -->
+<div class="card-gradient-border group relative bg-surface-container-low rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95">
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 rounded-xl bg-[#161b22] border border-outline-variant/10 flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined text-2xl">database</span>
+</div>
+</div>
+<div class="mb-8">
+<p class="text-[10px] font-medium text-on-surface-variant uppercase tracking-widest mb-1">CC-201 • Modelagem e SQL</p>
+<h3 class="text-2xl font-bold text-on-surface tracking-tight group-hover:text-primary transition-colors">Banco de Dados</h3>
+</div>
+<div class="flex items-center gap-3 pt-6 border-t border-outline-variant/5">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" data-alt="professional woman professor headshot with clean minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIVvD1FfVIsQ-6IG1rkEk9CE8TZVBIuSemhvsADSVQn-3uEUWMiiXeESZGHOIye78lHqBcpSATGumZjl42uqzekg2Nfz1dHSkHeP7HGjsqkQ6-Xr08F5Ovap9Qm7Sw-rA8vbTBjJV8LiYvvlX5SyBYwYja-J5KVrjJP5_HNxOCjhzoYG8QT-l62tvQDpeZHXCMLQal2xPuuxshTmyzUCWPkly5CbMqZugl6LTBNp2q3tRKJ_4QaM7HQ4OBfjYGjTHT1bKIhNe1y98"/>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-[0.05em]">Professora</p>
+<p class="text-sm font-semibold text-on-surface">Dra. Lucia Barros</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-[#161b2290] backdrop-blur-[10px] rounded-t-xl shadow-[0_-10px_30px_rgba(0,0,0,0.5)] inner-stroke flex justify-around items-center px-4 py-3">
+<div class="flex flex-col items-center justify-center text-[#bbc9cf] p-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-['Inter'] text-[10px] font-medium">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#a5e7ff] to-[#00d2ff] text-[#121318] rounded-lg p-2 transition-transform scale-105 active:scale-95 shadow-[0_0_20px_rgba(0,210,255,0.3)]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="font-['Inter'] text-[10px] font-bold">Units</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#bbc9cf] p-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined">history_toggle_off</span>
+<span class="font-['Inter'] text-[10px] font-medium">Timeline</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#bbc9cf] p-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-['Inter'] text-[10px] font-medium">Logs</span>
+</div>
+</footer>
+</body></html>

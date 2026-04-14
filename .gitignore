@@ -1,0 +1,15 @@
+# Configurações e Segredos
+.env
+
+# Temporários e Logs
+.tmp/
+__pycache__/
+*.pkl
+*.log
+
+# Pasta de Resumos (Sincronizada com Dashboard)
+# resumos/ 
+
+# IDEs
+.vscode/
+.idea/
