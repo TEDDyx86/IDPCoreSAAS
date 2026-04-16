@@ -1,0 +1,75 @@
+=== MATERIAL PRO: 03 - Fases_do_Projeto.pptx.pdf ===
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+========================================
+
+TÓPICOS VITAIS:
+• Definição de Projeto, Processo, Atividades e Produto;
+• Diferença conceitual entre Software e Produto de Software;
+• Ciclo de Vida do Software (SDLC) em 7 fases detalhadas;
+• Tipologias de Teste: Funcional, Estrutural, Não-Funcional e Mudança;
+• Modelos de Processo: Cascata (Waterfall), Iterativo/Incremental, Ágil e DevOps;
+• Características de um Projeto: Temporalidade, Unicidade e Resultados Mensuráveis.
+
+AULA MAGISTRAL DO PROFESSOR MENTOR ULTIMATE (PRO):
+# Aula Magistral: Engenharia e Processos de Software (PS)
+
+## 1. CONTEXTO HISTÓRICO E MERCADOLÓGICO
+
+A disciplina de Processos de Software não nasceu por acaso; ela é a resposta direta à chamada 'Crise do Software' da década de 60, quando o hardware evoluía exponencialmente enquanto o desenvolvimento de sistemas permanecia artesanal, resultando em custos astronômicos, atrasos crônicos e falhas catastróficas. 
+
+Hoje, nas Big Techs (Google, Amazon, Meta), o processo de software não é apenas uma sequência de passos, mas a espinha dorsal da competitividade. O conceito de 'Time-to-Market' exige que o Ciclo de Vida do Desenvolvimento de Software (SDLC) seja otimizado ao extremo. Enquanto no passado o foco era o modelo Cascata (estático e rígido), o mercado atual respira o DevOps e a Agilidade, onde o ciclo de feedback é medido em minutos, não em meses. O processo garante a reprodutibilidade e a qualidade, transformando o 'codar' individual em uma engenharia coletiva escalável.
+
+## 2. NÚCLEO TÉCNICO APROFUNDADO
+
+### A Ontologia do Desenvolvimento
+O material estabelece uma hierarquia fundamental: **Projeto → Processo → Atividades → Produto**. 
+- **Projeto:** Um esforço temporário (com início e fim) focado em criar um resultado único. 
+- **Processo:** O conjunto estruturado de atividades que transforma insumos (requisitos) em entrega final (produto/serviço).
+- **Produto de Software:** Diferencia-se de um 'script' comum por ser desenvolvido para atender necessidades específicas de usuários, possuindo documentação, manuais e suporte.
+
+### O Ciclo de Vida do Software (7 Fases)
+O Ciclo de Vida é representado como um loop de continuidade, subdividido em etapas críticas:
+
+1.  **Planejamento:** É a fase estratégica. Define-se o escopo (o que será feito e, principalmente, o que NÃO será feito), viabilidade econômica e formação de equipe. Sem um planejamento sólido, o projeto sofre de 'Scope Creep' (crescimento descontrolado do escopo).
+2.  **Análise de Requisitos:** O momento de 'entender o problema'. Utiliza-se a interação com stakeholders para coletar necessidades e priorizá-las. É a fase onde o erro é mais barato para corrigir.
+3.  **Projeto (Design):** Aqui, a solução é arquitetada. Define-se o design de interface (UI), a experiência do usuário (UX), esquemas de banco de dados e algoritmos. O foco é a escalabilidade e eficiência.
+4.  **Implementação:** A tradução do design em código. O material enfatiza a legibilidade e o uso de testes unitários simultâneos, garantindo que cada módulo funcione isoladamente.
+5.  **Teste:** Fase de rigor técnico. O material categoriza os testes em quatro eixos cruciais:
+    - **Funcionais:** O sistema faz o que deve fazer? (Ex: Teste de Sistema, Aceitação).
+    - **Estruturais (White-box):** O código interno está correto? (Ex: Unidade, Integração).
+    - **Não-Funcionais:** O sistema é rápido e seguro? (Ex: Carga, Usabilidade, Segurança).
+    - **Relacionados à Mudança:** Novos códigos quebraram o que já funcionava? (Ex: Regressão, Confirmação).
+6.  **Implantação:** A transição para o ambiente de produção. Envolve migração de dados, configuração de servidores e treinamento do usuário final.
+7.  **Manutenção e Evolução:** A fase mais longa. O software nunca está 'terminado'. Ele evolui para corrigir bugs pós-implantação e para adicionar novas funcionalidades exigidas pelo mercado.
+
+### Comparativo de Modelos de Processo
+- **Cascata (Waterfall):** Linear e sequencial. Ideal para projetos onde os requisitos são imutáveis e bem conhecidos desde o início. Sua falha é a dificuldade de lidar com mudanças tardias.
+- **Iterativo e Incremental:** O projeto é dividido em ciclos. Cada ciclo entrega uma versão funcional 'melhorada'. Reduz riscos ao permitir feedbacks constantes.
+- **Ágil (Agile):** Foco total em flexibilidade e ciclos curtíssimos (Sprints). A documentação é valorizada, mas o software em funcionamento é a principal métrica de progresso.
+
+## 3. LABORATÓRIO E FLUXOGRAMA
+
+Para visualizar a transição da teoria para a prática, imagine o fluxograma de um **Pipeline de CI/CD (Continuous Integration / Continuous Deployment)** que materializa essas fases automaticamente:
+
+mermaid
+graph LR
+    A[Commit de Código] --> B(Fase 4: Implementação)
+    B --> C{Fase 5: Testes Automatizados}
+    C -- Falha --> D[Notificar Desenvolvedor]
+    C -- Sucesso --> E(Fase 6: Deploy em Homologação)
+    E --> F[Fase 5: Teste de Aceitação/QA]
+    F --> G(Fase 6: Deploy em Produção)
+    G --> H(Fase 7: Monitoramento e Manutenção)
+
+
+No ambiente de 'Laboratório', um desenvolvedor sênior aplicaria o conceito de **TDD (Test Driven Development)** dentro da Fase 4, escrevendo o teste antes do código, unindo assim as fases de Implementação e Teste Estrutural em um único fluxo de alta qualidade.
+
+## 4. ANÁLISE CRÍTICA DO MENTOR
+
+O que o material apresenta é a base canônica, mas a realidade do mercado impõe nuances severas:
+
+1.  **A Armadilha do 'Waterfall Disfarçado':** Muitas empresas dizem usar Ágil, mas planejam tudo rigidamente no início (Fase 1) e testam apenas no fim (Fase 5). Isso é o pior de dois mundos. O verdadeiro processo ágil dilui o teste e o planejamento em cada iteração.
+2.  **O Custo do Erro:** Um erro de requisito detectado na Fase 2 custa $1. Se detectado na Fase 7 (Manutenção), pode custar $100 ou até inviabilizar o produto. Por isso, a análise de requisitos é a fase mais intelectualmente densa.
+3.  **Dívida Técnica:** Na Fase 7, o maior perigo é a dívida técnica acumulada. Se as Fases 3 (Design) e 4 (Código) forem feitas às pressas, a manutenção se torna impossível, levando ao 'refactoring' total ou morte do software.
+4.  **O Papel do DevOps:** O material menciona DevOps brevemente, mas entenda que ele é a fusão definitiva das fases 4, 5, 6 e 7. Ele elimina o muro entre quem desenvolve e quem opera, usando automação para garantir que o Ciclo de Vida seja um fluxo contínuo e ininterrupto.

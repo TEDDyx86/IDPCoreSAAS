@@ -1,0 +1,95 @@
+=== MATERIAL PRO: Guia Scrum ===
+DISCIPLINA: OFICINA EM SOLUÇÕES WEB - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+========================================
+
+TÓPICOS VITAIS:
+• Definição de Scrum como framework leve para problemas complexos;
+• Pilares Empíricos: Transparência, Inspeção e Adaptação;
+• Valores do Scrum: Compromisso, Foco, Abertura, Respeito e Coragem;
+• Estrutura do Scrum Team: Developers, Product Owner e Scrum Master;
+• Eventos do Scrum: Sprint, Sprint Planning, Daily Scrum, Sprint Review e Sprint Retrospective;
+• Artefatos e Compromissos: Product Backlog (Meta do Produto), Sprint Backlog (Meta da Sprint) e Incremento (Definição de Pronto);
+• Transição da versão 2017 para 2020: Foco em autogerenciamento e simplificação de linguagem.
+
+AULA MAGISTRAL DO PROFESSOR MENTOR ULTIMATE (PRO):
+### CONTEXTO HISTÓRICO E MERCADOLÓGICO
+
+O Scrum, concebido por Ken Schwaber e Jeff Sutherland no início dos anos 90, não nasceu como uma metodologia de gestão de projetos convencional, mas como uma resposta à falha catastrófica do modelo 'Waterfall' (Cascata) em ambientes de alta incerteza. Enquanto o modelo tradicional pressupõe previsibilidade, o Scrum aceita o caos. 
+
+No cenário atual das Big Techs (Google, Amazon, Meta), o Scrum evoluiu de uma ferramenta estritamente voltada ao desenvolvimento de software para um framework de agilidade organizacional. A atualização de novembro de 2020, que analisamos aqui, marca um ponto de inflexão: o Guia tornou-se menos prescritivo e mais focado na unidade do time. O mercado moderno exige o que o Guia chama de 'soluções adaptativas'. Em um mundo de Inteligência Artificial e mudanças vertiginosas, o Scrum é o sistema operacional que permite que empresas de trilhões de dólares operem com a agilidade de uma startup, focando obsessivamente na entrega de valor iterativo e na redução do desperdício através do Lean Thinking.
+
+### NÚCLEO TÉCNICO APROFUNDADO
+
+O Scrum é fundamentado no **Empirismo** e no **Lean Thinking**. O empirismo dita que o conhecimento vem da experiência; portanto, o Scrum não tenta prever o futuro distante, mas toma decisões baseadas no que foi observado no passado recente. 
+
+#### 1. Os Três Pilares Empíricos:
+*   **Transparência:** O processo e o trabalho devem ser visíveis para todos. Sem transparência, a inspeção é falha.
+*   **Inspeção:** Os artefatos e o progresso devem ser avaliados frequente e diligentemente. O Guia prescreve cinco eventos para garantir essa cadência.
+*   **Adaptação:** Se houver desvio, o ajuste deve ser imediato. O Guia enfatiza que a adaptação é impossível se os envolvidos não forem autogerenciados.
+
+#### 2. Responsabilidades no Scrum Team (O Fim das Hierarquias):
+A versão 2020 eliminou o termo 'Development Team' para evitar a mentalidade de 'nós contra eles' dentro do time. Agora, existe apenas o **Scrum Team**, composto por:
+*   **Developers:** Responsáveis pelo plano da Sprint (Sprint Backlog) e pela qualidade (Definição de Pronto). Devem possuir todas as habilidades para criar um incremento útil.
+*   **Product Owner (PO):** O maximizador de valor. Ele é o único responsável pela gestão do Product Backlog e pela definição da Meta do Produto. É uma pessoa, não um comitê.
+*   **Scrum Master (SM):** O líder que serve. Sua função é garantir a eficácia do time, removendo impedimentos e promovendo a teoria do Scrum tanto no time quanto na organização.
+
+#### 3. Os Eventos e seus Timeboxes:
+*   **Sprint:** O container. Duração máxima de 1 mês. 
+*   **Sprint Planning:** Define o 'Por que' (Meta), o 'O quê' (Itens) e o 'Como' (Plano). Máximo de 8 horas para uma Sprint de um mês.
+*   **Daily Scrum:** Evento de 15 minutos para Developers. Foco no progresso em direção à Meta da Sprint.
+*   **Sprint Review:** Inspeção do incremento e adaptação do Product Backlog. Máximo de 4 horas.
+*   **Sprint Retrospective:** Foco em qualidade e eficácia (pessoas, processos e ferramentas). Máximo de 3 horas.
+
+#### 4. A Tríade Artefato-Compromisso (Inovação 2020):
+Cada artefato agora possui um 'Compromisso' que traz foco e transparência:
+*   **Product Backlog → Meta do Produto:** O objetivo de longo prazo.
+*   **Sprint Backlog → Meta da Sprint:** O porquê do trabalho atual.
+*   **Incremento → Definição de Pronto:** O padrão de qualidade que torna o trabalho utilizável.
+
+### LABORATÓRIO E CÓDIGO: O ALGORITMO DO SCRUM
+
+Podemos visualizar o funcionamento lógico do Scrum como um loop de controle de malha fechada. Abaixo, uma representação em Pseudo-código do Ciclo de Vida do Scrum:
+
+markdown
+ALGORITMO Ciclo_Scrum_2020
+    INICIALIZAR Product_Goal
+    ENQUANTO (Product_Goal não atingido OU não abandonado):
+        EXECUTAR Sprint_Planning
+            - Definir Sprint_Goal (O PORQUÊ)
+            - Selecionar Backlog_Items (O QUÊ)
+            - Decompor em Tasks (O COMO)
+        
+        PARA CADA dia NA Sprint_Duration:
+            EXECUTAR Daily_Scrum (15 min)
+                - Inspecionar progresso para Sprint_Goal
+                - Adaptar Sprint_Backlog
+            DESENVOLVER Incremento (respeitando Definição_de_Pronto)
+        
+        EXECUTAR Sprint_Review
+            - Inspecionar Incremento com Stakeholders
+            - Adaptar Product_Backlog
+        
+        EXECUTAR Sprint_Retrospective
+            - Inspecionar Processos/Pessoas
+            - Identificar melhorias imediatas
+            - Adicionar melhoria ao próximo Sprint_Backlog (opcional)
+        
+        SE Incremento atende Definição_de_Pronto:
+            GERAR Novo_Valor_Entregue
+    FIM_ENQUANTO
+FIM_ALGORITMO
+
+
+### ANÁLISE CRÍTICA DO MENTOR
+
+Como seu Mentor Ultimate, preciso que você entenda o que separa os amadores dos mestres:
+
+1.  **A Armadilha do 'Scrum-but':** Muitas empresas dizem 'fazemos Scrum, MAS não fazemos a Retrospectiva' ou 'fazemos Scrum, MAS o PO é um comitê'. O Guia é claro na página 15: Scrum é imutável. Implementar apenas partes pode trazer resultados, mas isso não é Scrum. É um sistema incompleto que mascara disfunções.
+2.  **Autogerenciamento vs. Auto-organização:** A mudança de terminologia em 2020 é profunda. 'Auto-organizado' focava em *como* fazer o trabalho. 'Autogerenciado' foca em *quem, como e no que* trabalhar. É um empoderamento muito maior para o time.
+3.  **A Meta do Produto como Âncora:** Antes de 2020, o Product Backlog era muitas vezes uma lista infinita de desejos sem fim. A introdução da 'Meta do Produto' obriga o PO a ter uma visão estratégica. Se um item do backlog não contribui para a Meta do Produto, ele é desperdício.
+4.  **Definição de Pronto (DoD) não é opcional:** É o contrato de qualidade. Se algo não atende à DoD, não pode ser apresentado na Review nem ser considerado um Incremento. É trabalho inacabado que gera dívida técnica.
+
+Lembre-se: O Scrum é simples de entender, mas extremamente difícil de dominar porque exige uma mudança cultural, não apenas processual.
+
+PRAZOS E ALERTAS: Novembro de 2020

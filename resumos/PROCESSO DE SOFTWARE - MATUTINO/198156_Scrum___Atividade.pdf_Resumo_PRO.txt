@@ -1,0 +1,89 @@
+=== MATERIAL PRO: Scrum___Atividade.pdf ===
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+========================================
+
+TÓPICOS VITAIS:
+• Estudo de caso: Digitalização da LogiX através do Framework Scrum.
+• Estrutura de Papéis: Product Owner (Maria), Scrum Master (João) e Equipe de Desenvolvimento Multifuncional.
+• Gestão de Backlog: Priorização de funcionalidades core como Rastreamento, Notificações e Otimização de Rotas.
+• Ciclo de Sprints: Divisão em 4 sprints incrementais focadas em entregáveis funcionais.
+• Cerimônias Ágeis: Aplicação de Daily Scrums, Reviews e Retrospectivas quinzenais para melhoria contínua.
+
+AULA MAGISTRAL DO PROFESSOR MENTOR ULTIMATE (PRO):
+# AULA MESTRA: ENGENHARIA DE SOFTWARE ÁGIL E O CASE LOGIX
+
+## 1. CONTEXTO HISTÓRICO E MERCADOLÓGICO
+A transição da logística tradicional para a **Logística 4.0** é o pano de fundo deste material. Historicamente, empresas como a LogiX operavam sob o modelo *Waterfall* (Cascata), onde requisitos eram congelados por meses, resultando em sistemas obsoletos antes mesmo do lançamento. No cenário atual das Big Techs (como Amazon, Uber e FedEx), a agilidade não é apenas uma escolha metodológica, mas uma necessidade de sobrevivência. O uso do Scrum permite que a LogiX responda à volatilidade do mercado, integrando tecnologias de geolocalização e análise de dados em tempo real. Este case exemplifica como a digitalização de processos físicos — rastreamento de veículos, otimização de rotas e gestão de inventário — exige uma abordagem iterativa para mitigar riscos técnicos e operacionais.
+
+## 2. NÚCLEO TÉCNICO APROFUNDADO
+
+### A Tríade de Papéis no Scrum
+O material apresenta uma divisão clássica de papéis que merece análise técnica:
+- **Product Owner (Maria):** Atua como a ponte entre o negócio e a tecnologia. Seu conhecimento em 'operações diárias' é crucial para a priorização do Backlog (ROI - Retorno sobre Investimento). No Scrum, o PO é o único responsável pela 'voz do cliente'.
+- **Scrum Master (João):** Não é um gerente de projetos, mas um facilitador e líder servidor. Sua função é garantir que a equipe não sofra interferências externas e que o framework seja seguido rigorosamente.
+- **Equipe de Desenvolvimento (Ana, Pedro, Carla, Lucas):** Note a **multifuncionalidade**. Temos UX/UI (Carla), Backend/Frontend (Ana/Pedro) e QA/Testes (Lucas). O Scrum exige que o time seja capaz de transformar um item de backlog em um incremento pronto sem dependências externas.
+
+### Arquitetura das Sprints e Backlog
+O Backlog da LogiX foi decomposto em itens granulares. Vamos analisar a lógica de dependência:
+- **Sprint 1 (Fundação):** Foca no CRUD (Create, Read, Update, Delete) de pedidos e na lógica matemática inicial de rotas. Sem os pedidos, não há o que rastrear.
+- **Sprint 2 (Valor Externo):** Introduz APIs de terceiros para rastreamento e sistemas de notificação (Push/SMS/Email). É o momento em que o sistema ganha 'conectividade'.
+- **Sprint 3 (Gestão e Controle):** Move-se para o back-office, focando no cadastro de ativos (veículos e motoristas).
+- **Sprint 4 (Inteligência de Dados):** Finaliza com Dashboards e Alertas Preventivos. Isso caracteriza o amadurecimento do sistema, saindo do operacional para o analítico.
+
+### Cerimônias e Fluxo de Execução
+O documento destaca as **Reuniões Quinzenais** (sugerindo Sprints de 2 semanas) e as **Reuniões Diárias (Dailies)**. A Daily é o coração da sincronização técnica: 'O que fiz ontem?', 'O que farei hoje?' e 'Existem impedimentos?'. A **Retrospectiva** é o momento de inspeção do processo humano e técnico, enquanto a **Revisão** foca no produto (o Incremento).
+
+## 3. LABORATÓRIO E CÓDIGO
+
+Para materializar a **Sprint 1 e 2**, um desenvolvedor como o Pedro utilizaria estruturas de dados eficientes para o algoritmo de rotas. Abaixo, um exemplo de como a lógica de rastreamento (Sprint 2) poderia ser estruturada em uma API (Python/Flask) para receber coordenadas:
+
+python
+# Exemplo de lógica para o Módulo de Rastreamento (Pedro)
+from flask import Flask, request, jsonify
+import datetime
+
+app = Flask(__name__)
+
+# Simulando um Banco de Dados de localização
+veiculo_track = {}
+
+@app.route('/update_location', methods=['POST'])
+def update_location():
+    data = request.json
+    veiculo_id = data.get('id_veiculo')
+    lat = data.get('latitude')
+    lng = data.get('longitude')
+    
+    # Armazenamento com timestamp para análise de performance posterior (Sprint 3)
+    veiculo_track[veiculo_id] = {
+        "lat": lat,
+        "lng": lng,
+        "timestamp": datetime.datetime.now().isoformat()
+    }
+    
+    # Gatilho para o Sistema de Notificações (Sprint 2 - Ana/Carla)
+    verificar_geofencing(veiculo_id, lat, lng)
+    
+    return jsonify({"status": "success", "message": "Localização atualizada"}), 200
+
+def verificar_geofencing(id, lat, lng):
+    # Lógica simplificada: Se o motorista chegar perto do destino, notifica o cliente
+    print(f"DEBUG: Verificando proximidade para o veículo {id}")
+    pass
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+Para o **Planejamento de Rotas (Sprint 1)**, o algoritmo inicial poderia usar a biblioteca `NetworkX` para calcular o caminho mais curto em um grafo de cidades.
+
+## 4. ANÁLISE CRÍTICA DO MENTOR
+
+O que separa um Scrum Master comum de um mestre de elite é a percepção das nuances deste material:
+1.  **O Risco do Silo de Testes:** O documento lista 'Testes Iniciais' e 'Testes de Integração' como tarefas do Lucas ao final das Sprints. **Cuidado!** No Scrum moderno, o teste não é uma fase final, mas algo contínuo. Lucas deve participar desde a escrita das User Stories para definir o 'Critério de Aceite'. Se ele testar apenas no fim, a Sprint corre risco de falhar no último dia.
+2.  **Product Backlog vs. Sprint Backlog:** Muitos confundem a lista do item 2 (Product Backlog) com as tarefas das Sprints. O Product Backlog é o 'o quê', o Sprint Backlog é o 'como' (as tarefas de Ana, Pedro, etc.).
+3.  **A Armadilha da Sprint 4:** Notem que a Sprint 4 lida com 'Alertas Preventivos'. Isso geralmente exige Machine Learning ou heurísticas complexas. Se a Sprint 1 e 2 atrasarem devido a problemas de integração de API, o valor mais alto (inteligência) será sacrificado. Um mentor experiente sugeriria um MVP (Minimum Viable Product) de alertas já na Sprint 2.
+4.  **Dívida Técnica:** No incremento contínuo (página 3), o texto menciona 'correção de bugs'. Em Scrum puro, o incremento entregue em cada Sprint deve ter 'zero bugs' conhecidos que impeçam o lançamento. A correção de bugs pós-lançamento deve ser minimizada pela excelência técnica (TDD - Test Driven Development).
+
+PRAZOS E ALERTAS: Reuniões Quinzenais (Sprints de 14 dias sugeridas).

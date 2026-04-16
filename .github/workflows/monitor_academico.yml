@@ -38,6 +38,7 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           GITHUB_ACTIONS: "true"
           HEADLESS: "true"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python orchestrator.py
 
       - name: Commit and Push Changes

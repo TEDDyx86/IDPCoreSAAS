@@ -27,8 +27,10 @@
       "id": "8230",
       "nome": "PROGRAMAÇÃO ORIENTADA A OBJETOS - MATUTINO",
       "monitorar": [
-        "CANVAS_MODULES"
-      ]
+        "CANVAS_MODULES",
+        "GITHUB_REPO"
+      ],
+      "github_url": "https://github.com/fabriciosantana/poo/"
     },
     {
       "id": "8231",

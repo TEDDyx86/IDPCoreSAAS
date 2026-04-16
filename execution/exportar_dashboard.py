@@ -5,6 +5,7 @@ from datetime import datetime
 # Caminhos de entrada
 MODULOS_PATH = ".tmp/modulos_detectados.json"
 CONFIG_PATH = "config.json"
+GITHUB_PATH = ".tmp/github_detectados.json"
 
 # Caminho de saída (Dashboard)
 OUTPUT_PATH = "dashboard/src/data/db.json"
@@ -54,7 +55,31 @@ def exportar():
         }
         dashboard_db["historico"].append(entry)
 
+    # 2. Adicionamos o histórico do GitHub se existir
+    if os.path.exists(GITHUB_PATH):
+        try:
+            with open(GITHUB_PATH, "r", encoding="utf-8") as f:
+                github_data = json.load(f)
+            for disc_id, data in github_data.items():
+                disc_nome = next((d["nome"] for d in config.get("disciplinas", []) if d["id"] == disc_id), "Disciplina")
+                entry = {
+                    "id": data.get("sha", "code")[:8],
+                    "data": datetime.now().strftime("%d/%m/%Y"),
+                    "disciplina": disc_nome,
+                    "titulo": f"GitHub: {data.get('mensagem', '').splitlines()[0]}",
+                    "tipo": "CODE",
+                    "status": "REPO",
+                    "resumo": f"Última atualização por {data.get('autor', 'Autor')}. Clique para abrir o repositório.",
+                    "links": {
+                        "original": data.get("url")
+                    }
+                }
+                dashboard_db["historico"].append(entry)
+        except Exception as e:
+            print(f"!!! Erro ao ler GitHub para export: {e}")
+
     # Inverte a ordem para mostrar os mais novos primeiro
+    # (Nota: O ideal seria sortear por timestamp real, mas o append seguido de reverse funciona para logs recentes)
     dashboard_db["historico"].reverse()
 
     # Salva no diretório do Dashboard

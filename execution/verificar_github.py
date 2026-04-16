@@ -33,11 +33,16 @@ def verificar_repo(disciplina):
         # Tenta pegar o hash do último commit via API pública (sem autenticação)
         # Se falhar, tentamos scrape básico (menos confiável)
         repo_path = url.split("github.com/")[1].rstrip("/")
-        api_url = f"https://api.github.com/repos/{repo_path}/commits/main"
+        api_url = f"https://api.github.com/repos/{repo_path}/commits"
         
-        response = requests.get(api_url, timeout=10)
+        headers = {}
+        token = os.getenv("GITHUB_TOKEN")
+        if token:
+            headers["Authorization"] = f"token {token}"
+            
+        response = requests.get(api_url, headers=headers, timeout=10)
         if response.status_code == 200:
-            data = response.json()
+            data = response.json()[0] # Pega o commit mais recente da lista
             last_sha = data["sha"]
             mensagem = data["commit"]["message"]
             autor = data["commit"]["author"]["name"]

@@ -1,0 +1,71 @@
+=== MATERIAL PRO: Aula_05_Metodologias.pdf ===
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+========================================
+
+TÓPICOS VITAIS:
+• Evolução dos Processos de Software: Do Cascata (Waterfall) ao Ágil.
+• Fundamentos do Manifesto Ágil: Valores, Princípios e a mudança de paradigma de 2001.
+• Framework Scrum em profundidade: Papéis (PO, Scrum Master, Time), Artefatos (Backlogs, Incremento) e Cerimônias (Planning, Daily, Review, Retrospective).
+• Kanban como Sistema de Gestão Visual: Cartões, colunas, fluxo de trabalho e diferenciação entre Kanban de Produção e Movimentação.
+• Análise Comparativa: Scrum (Iterativo/Prescritivo) vs. Kanban (Contínuo/Evolutivo) vs. Tradicional (Linear/Rígido).
+
+AULA MAGISTRAL DO PROFESSOR MENTOR ULTIMATE (PRO):
+### CONTEXTO HISTÓRICO E MERCADOLÓGICO
+
+A engenharia de software nasceu sob a égide da engenharia civil e mecânica, herdando o modelo **Cascata (Waterfall)**, onde a previsibilidade e a documentação exaustiva eram dogmas. Contudo, a 'Crise do Software' e a volatilidade do mercado tecnológico exigiram uma mudança radical. Em 2001, o **Manifesto Ágil** surgiu como um divisor de águas, não apenas como uma técnica, mas como um 'mindset'. 
+
+Nas Big Techs contemporâneas (como Google, Amazon e Spotify), a agilidade não é opcional; é a base da sobrevivência. O modelo Waterfall, descrito no slide 6, foca no 'O quê' e no 'Como' de forma isolada, gerando riscos altíssimos de o produto final não atender às necessidades reais do cliente após meses de desenvolvimento. O movimento ágil inverteu essa lógica, priorizando a entrega de valor contínuo através de ciclos iterativos e incrementais, permitindo que empresas como a Netflix façam milhares de deploys diários com risco controlado.
+
+### NÚCLEO TÉCNICO APROFUNDADO
+
+#### 1. A Estrutura de Metodologia (Slide 3 e 4)
+Uma metodologia robusta serve para mitigar o caos inerente ao desenvolvimento. O material destaca que ela ajuda a organizar a equipe, reduzir retrabalho e garantir a manutenibilidade. O fluxo visual do slide 4 apresenta uma transição lógica: Entendimento do Problema (Elicitação e User Stories) -> Planejamento (Escopo, Cronograma, EAP) -> Escolha da Metodologia. Aqui, o mentor observa: a escolha da metodologia deve ser baseada na incerteza do projeto; projetos com requisitos nebulosos exigem agilidade total.
+
+#### 2. O Framework Scrum (Slides 13 a 27)
+O Scrum é definido como um **framework iterativo e incremental**. 
+- **Os Pilares (Slide 14):** Transparência (visibilidade total), Inspeção (avaliação constante) e Adaptação (ajuste de rota). Sem esses pilares, o Scrum torna-se apenas uma burocracia vazia (o temido 'Zombie Scrum').
+- **Os Papéis (Slides 18-22):** 
+    - **Product Owner (PO):** O guardião do valor. Ele prioriza o Backlog e representa os stakeholders.
+    - **Scrum Master (SM):** O líder servidor. Ele não manda no time, ele remove impedimentos e garante que o processo seja seguido.
+    - **Time de Desenvolvimento:** Multidisciplinar e autogerenciado (5 a 9 membros). Não há hierarquia interna para evitar gargalos de decisão.
+- **Os Artefatos (Slide 23):** O **Product Backlog** é a lista mestre; o **Sprint Backlog** é a meta imediata; e o **Incremento** é a única métrica de sucesso: software funcionando ao final da Sprint.
+- **As Cerimônias (Slides 24-27):** A **Daily Scrum** de 15 minutos é vital para sincronização técnica, focada no que foi feito, o que será feito e impedimentos. A **Review** olha para o produto, enquanto a **Retrospective** olha para o processo e para as relações humanas.
+
+#### 3. Kanban: Fluxo Visual (Slides 30 a 37)
+Originário do Sistema Toyota de Produção, o Kanban foca na gestão do fluxo de trabalho. 
+- **Estrutura:** Cartões (tarefas), Colunas (status) e Quadro (o sistema visual).
+- **Diferenciação Crítica (Slide 35):** O material distingue o **Kanban de Produção** (focado no que deve ser feito) do **Kanban de Movimentação** (sinalização física de estoque/necessidade), um conceito avançado que remete à logística 'Just-in-Time'.
+- **Diferença Kanban vs. Scrum (Slide 38):** Esta tabela é fundamental. Enquanto o Scrum é estruturado em blocos de tempo fixos (Sprints) e papéis definidos, o Kanban é um fluxo contínuo sem papéis obrigatórios, focado na otimização da entrega e redução do 'Lead Time'.
+
+### LABORATÓRIO E CÓDIGO
+
+Para materializar a teoria, um engenheiro de software deve saber estruturar um item de backlog. 
+
+**Exemplo de User Story (Padrão de Mercado):**
+markdown
+ID: US001
+Título: Autenticação de Usuário
+Descrição: Como um [Usuário Cadastrado], eu quero [Fazer login com e-mail e senha] para que [Eu possa acessar meus dados privados].
+Critérios de Aceite:
+1. O sistema deve validar e-mails no formato RFC 5322.
+2. Senhas devem ser mascaradas durante a digitação.
+3. Após 3 tentativas falhas, a conta deve ser bloqueada por 15 minutos.
+
+
+**Fluxograma do Ciclo Scrum (Descritivo):**
+1. `Product Backlog` (Insumo do PO)
+2. `Sprint Planning` (Entrada: Itens prioritários; Saída: Sprint Backlog + Sprint Goal)
+3. `Sprint (2-4 semanas)` (Execução com Daily Scrums diárias)
+4. `Sprint Review` (Demo do software funcional para o cliente)
+5. `Sprint Retrospective` (Ações de melhoria para a próxima Sprint)
+6. `Incremento` (Entrega de valor real)
+
+### ANÁLISE CRÍTICA DO MENTOR
+
+O que o material não diz explicitamente, mas que define o sucesso de um profissional de elite:
+1. **A Armadilha do 'Cascágil':** Muitas empresas usam Scrum mas mantêm um planejamento rígido de 6 meses no topo. Isso mata a agilidade. Agilidade exige desapego ao plano original em favor do valor real.
+2. **Documentação no Ágil:** Ao contrário do mito popular, o Ágil *tem* documentação, mas ela é 'just-in-time' e 'just-enough'. Documentamos para manter o conhecimento, não para burocratizar o processo.
+3. **Métricas de Kanban:** Para dominar o Kanban, o aluno deve pesquisar sobre **WIP Limits (Work In Progress)**. Limitar o trabalho em andamento é o que realmente acelera a entrega, pois força a resolução de gargalos em vez de iniciar novas tarefas.
+4. **Papéis Híbridos:** No mercado, muitas vezes o Scrum Master também é desenvolvedor. Isso gera conflitos de interesse. O SM deve ter o tempo protegido para cuidar da saúde do processo.
+5. **A pegadinha da Sprint Review:** Não é apenas uma reunião de status. É uma reunião de *inspeção do produto*. Se o cliente não der feedback real, a cerimônia falhou.

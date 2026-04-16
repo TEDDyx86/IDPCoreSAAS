@@ -1,0 +1,64 @@
+=== MATERIAL PRO: 01_02 - PS__Introdução.pdf ===
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+========================================
+
+TÓPICOS VITAIS:
+• Definição de Software segundo Pressman e Sommerville;
+• Distinção ontológica entre 'Projeto' (esforço temporário, resultado único) e 'Processo' (repetitivo, contínuo);
+• Ciclo de vida de projetos baseado no framework PMBOK (Início, Planejamento, Execução, Monitoramento e Encerramento);
+• Interação entre grupos de processos ao longo do tempo;
+• Metodologia de avaliação acadêmica e objetivos da disciplina de Processo de Software.
+
+AULA MAGISTRAL DO PROFESSOR MENTOR ULTIMATE (PRO):
+# CONTEXTO HISTÓRICO E MERCADOLÓGICO
+
+A engenharia de software surge da necessidade de transformar a 'arte' de programar em uma disciplina industrial rigorosa. Nas Big Techs modernas, como Google, Amazon e Meta, o conceito de 'Processo de Software' evoluiu de modelos rígidos para frameworks ágeis e DevOps. O material apresentado estabelece a base dessa transição ao citar autoridades como Pressman (2011) e Sommerville (2019). No mercado atual, a compreensão de que software não é apenas o binário executável, mas um conjunto de programas e documentação associada, é o que separa desenvolvedores juniores de arquitetos de sistemas. A disciplina existe para mitigar a 'crise do software', garantindo previsibilidade, qualidade e suporte a longo prazo em ambientes onde a escala e a complexidade tornam impossível o desenvolvimento ad-hoc.
+
+# NÚCLEO TÉCNICO APROFUNDADO
+
+### Ontologia do Desenvolvimento: Projeto vs. Processo
+O cerne técnico do material reside na diferenciação fundamental entre projeto e processo. Um **Projeto** é definido como um esforço temporário com início e fim delimitados, visando um resultado exclusivo. Tecnicamente, isso implica em restrições de escopo, tempo e custo (o Triângulo de Ferro da Gestão). Já o **Processo** é a infraestrutura de execução: é repetitivo, padronizado e visa a manutenção da operação.
+
+### Ciclo de Vida PMBOK
+O material detalha as fases de um projeto conforme o PMBOK (Project Management Body of Knowledge):
+1. **Início:** Definição de escopo e objetivos primordiais.
+2. **Planejamento:** Alocação de recursos, orçamentação e cronogramas. Aqui, a densidade técnica reside na análise de riscos e viabilidade econômica.
+3. **Execução:** Onde o desenvolvimento propriamente dito ocorre.
+4. **Monitoramento:** Fase crítica que utiliza indicadores de desempenho (KPIs) para garantir que o planejado está sendo executado.
+5. **Encerramento:** Entrega do artefato final e documentação.
+
+### Análise do Gráfico de Interação
+O gráfico no slide 20 é vital: ele ilustra o nível de interação entre processos ao longo do tempo. Observa-se que o 'Grupo de Processos de Planejamento' atinge seu pico precocemente, enquanto o 'Grupo de Processos de Execução' domina o meio do ciclo de vida. O 'Monitoramento e Controle' é transversal, ocorrendo do início ao fim, o que demonstra que a gestão não é uma fase estática, mas uma atividade de vigilância contínua.
+
+# LABORATÓRIO E CÓDIGO
+
+Embora o material seja teórico-administrativo, a aplicação prática pode ser visualizada em um fluxo de trabalho (Workflow) simulado em YAML para um pipeline de CI/CD que reflete o processo de monitoramento e execução:
+
+yaml
+project_phases:
+  initiation:
+    - define_scope: "Sistema de Gestão de Processos"
+    - stakeholders: [Paulo Peres, Alunos]
+  planning:
+    - budget_allocation: 50% P1/P2, 50% T1/T2
+    - schedule: "Semestre 2026/1"
+  execution:
+    - development: "Codificação dos módulos"
+    - group_work: "T2 - Trabalho em grupo"
+  monitoring:
+    - quality_gate: "Média Final >= (A1 + A2) / 2"
+    - feedback_loop: "Mensagens do Canvas"
+  closing:
+    - final_delivery: "Documentação e Deploy"
+
+
+# ANÁLISE CRÍTICA DO MENTOR
+
+O que muitos alunos ignoram é que a 'Média Final' descrita no slide 5 não é apenas uma regra acadêmica, mas um modelo de gestão de risco: ao dividir a nota entre prova individual (P) e trabalho (T), o professor avalia tanto a competência técnica individual quanto a capacidade de operar em um 'Processo de Software' colaborativo. 
+
+**Pegadinha de Prova:** A distinção entre 'resultado exclusivo' (Projeto) e 'resultado padrão' (Processo). No desenvolvimento de um novo software, você está em um projeto. Na manutenção e aplicação de patches de segurança diários, você está operando um processo. 
+
+**Insight Avançado:** O material menciona a importância do aspecto econômico-financeiro (Slide 8). No mundo real, a escolha de um processo de software (Waterfall vs. Agile) é, antes de tudo, uma decisão financeira baseada no custo da mudança. Processos rígidos têm custo de mudança ascendente, enquanto processos modernos tentam achatar essa curva.
+
+PRAZOS E ALERTAS: Referência temporal: Ano e Semestre de 2026/1.

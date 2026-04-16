@@ -1,0 +1,66 @@
+=== MATERIAL PRO: Artigo_Manifesto__Agil.pdf ===
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+========================================
+
+TÓPICOS VITAIS:
+• Evolução do Manifesto Ágil (2001) para a Agilidade Organizacional contemporânea.
+• Perfil demográfico da gestão de projetos no Brasil: alta escolaridade vs. baixa experiência específica em métodos ágeis.
+• Análise temporal de adoção: o paradoxo da maturidade tardia.
+• Métodos predominantes: Scrum (90%) e Kanban (70%) coexistindo.
+• O fenômeno do Hibridismo: PMBOK (67%) como base estruturante.
+• Competências gerenciais: a convergência de soft skills entre o tradicional e o ágil.
+• Motivações vs. Benefícios reais: o gap entre a expectativa de velocidade e a entrega de valor.
+• Desafios do Ágil Escalado (SAFe) e barreiras culturais/humanas.
+• Gestão de Riscos: a negligência sistemática no contexto ágil.
+
+AULA MAGISTRAL DO PROFESSOR MENTOR ULTIMATE (PRO):
+# AULA MESTRAL: DO MANIFESTO ÁGIL À AGILIDADE ORGANIZACIONAL
+
+## CONTEXTO HISTÓRICO E MERCADOLÓGICO
+
+O Manifesto Ágil, redigido em 2001, não foi apenas uma declaração de princípios técnicos, mas uma ruptura paradigmática com a era fordista da gestão de projetos. No entanto, como o material da *Revista de Gestão e Projetos (GeP)* demonstra, há um hiato temporal significativo entre a teoria e a institucionalização prática. Enquanto as Big Techs (Google, Amazon, Netflix) nasceram ou se reinventaram sob a égide da agilidade radical, o mercado brasileiro, em 2021, ainda apresentava um cenário de 'adolescência ágil'. 
+
+Embora 62% dos gestores tenham mais de 10 anos de experiência em gestão de projetos, a maioria (49%) atua com métodos ágeis há menos de uma década. Isso indica que a agilidade no Brasil não foi uma evolução natural para muitos, mas uma imposição de mercado para sobrevivência digital. O foco migrou do desenvolvimento de software puro para a 'Business Agility' — a capacidade da organização inteira de responder a mudanças, e não apenas o time de dev.
+
+## NÚCLEO TÉCNICO APROFUNDADO
+
+### 1. Demografia e Maturidade (Análise das Figuras 1 e 2)
+O material apresenta dados cruciais: 76% das organizações brasileiras possuem menos de 5 anos de adoção de métodos ágeis. Este dado é alarmante quando comparado aos 20 anos de existência do Manifesto. 
+- **Figura 1 (Tempo de Adoção):** Apenas 13% das empresas são 'veteranas' (>10 anos). A massa crítica está na faixa de 2 a 5 anos (47%), o que explica a percepção de imaturidade.
+- **Figura 2 (Estágio de Maturidade):** 38% das empresas possuem 'bom nível de competência em alguns projetos', mas apenas 11% reportam alto nível em 'maior parte dos projetos'. Isso revela que a agilidade ainda é tratada em silos ou 'ilhas de excelência', e não como uma cultura sistêmica.
+
+### 2. O Ecossistema de Métodos e a Hegemonia Híbrida
+A pesquisa revela uma realidade pragmática: o **Hibridismo**. 
+- **Frameworks:** O Scrum domina com 90% de uso, seguido pelo Kanban com 70%. É importante notar que muitas empresas utilizam ambos (Scrumban).
+- **O Guia PMBOK vive:** 67% das organizações ainda utilizam o PMBOK como referência, evidenciando que o controle preditivo (Plan-Driven) ainda é a âncora de governança para a alta gestão.
+- **Ágil Escalado:** O uso do SAFe (Scaled Agile Framework) aparece com 62% entre as empresas que tentam escalar (apenas 40 das 120), indicando que a complexidade de coordenar múltiplos times ainda é o maior gargalo técnico.
+
+### 3. Competências e Motivações (Análise das Figuras 3 e 4)
+As competências essenciais (Integridade, Comunicação, Trabalho em Equipe, Estratégia e Engajamento) são exigidas tanto no ágil quanto no tradicional, mas a *ordenação* de importância muda. No ágil, a adaptabilidade e o engajamento direto com o cliente tornam-se o motor primário.
+- **Motivações (Figura 3):** Acelerar a entrega (60%) e atender melhor o cliente (59%) são as promessas que vendem o ágil para a diretoria.
+- **Benefícios Percebidos (Figura 4):** Há uma frustração estatística. Enquanto 60% queriam velocidade, apenas 41% sentiram melhora real no tempo de entrega. O maior benefício real foi a 'habilidade de gerenciar mudanças de prioridades' (52%), o que prova que o ágil entrega *flexibilidade*, mas não necessariamente *pressa*.
+
+## LABORATÓRIO E FLUXOGRAMA DE TRANSIÇÃO
+
+Para implementar a agilidade organizacional descrita, o gestor deve compreender o fluxo de maturidade sugerido implicitamente pelos editores:
+
+1. **Fase de Experimentação (15% das empresas):** Adoção de práticas isoladas (Daily, Sprints) em projetos de baixo risco.
+2. **Fase Híbrida/V-Model (Transição):** Conforme o artigo sobre a empresa de Telecom, utiliza-se o Modelo-V para fases de controle e Agilidade para a execução e entregas particionadas.
+3. **Fase de Escalonamento (SAFe/Scrum of Scrums):** Desafio de sincronização de portfólio.
+
+**Exemplo de Configuração de Cerimônias (Dados da Pesquisa):**
+- Sprint Planning: 90% de adesão.
+- Daily Meeting: 85% de adesão.
+- Retrospective: 70% (Aqui mora o perigo: 30% não refletem sobre o processo, impedindo a melhoria contínua).
+- Review: 68%.
+- Product Owner Dedicado: Apenas 58% (Um gap crítico de papel e responsabilidade).
+
+## ANÁLISE CRÍTICA DO MENTOR
+
+O que o material revela nas entrelinhas, e que o aluno de elite deve perceber:
+
+1. **A 'Agilidade de Fachada':** A alta taxa de adoção do Scrum (90%) contra a baixa taxa de Retrospectivas (70%) e de POs dedicados (58%) sugere que muitas empresas praticam o 'Zombie Scrum'. Fazem as reuniões, mas não alteram a estrutura de poder ou a capacidade de reflexão crítica.
+2. **O Abandono do Risco:** A Gestão de Riscos aparece apenas em 5º lugar como motivação e 8º como benefício. No ágil, o risco é mitigado por entregas curtas, mas o mercado brasileiro ainda não aprendeu a formalizar isso, tratando o risco como algo secundário à velocidade.
+3. **Barreiras Culturais vs. Técnicas:** A falta de *skills* (59%) e a cultura organizacional (51%) são barreiras maiores que qualquer ferramenta. O ágil escalado falha não por falta de software (Jira/Azure DevOps), mas porque o sistema de remuneração e cargos (mencionado no artigo de TI) permanece fixo no modelo hierárquico.
+4. **O Insight de Ouro:** O ágil não é sobre 'fazer mais rápido', é sobre 'errar mais barato e mudar de direção com menor custo político'. As empresas que focam apenas na Figura 3 (Acelerar entrega) tendem a se frustrar, pois a maturidade real (Figura 2) exige tempo e mudança de mindset, não apenas de cronograma.

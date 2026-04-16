@@ -112,10 +112,26 @@ def descobrir_cursos():
             novas_disciplinas.append(disciplina_obj)
 
         if novas_disciplinas:
+            # Mantém configurações manuais (como GitHub) se a disciplina já existia
+            disciplinas_antigas = {d["id"]: d for d in CONFIG.get("disciplinas", [])}
+            
+            for d in novas_disciplinas:
+                if d["id"] in disciplinas_antigas:
+                    antiga = disciplinas_antigas[d["id"]]
+                    
+                    # Preserva a URL do GitHub
+                    if "github_url" in antiga and antiga["github_url"]:
+                        d["github_url"] = antiga["github_url"]
+                    
+                    # Preserva a flag de monitoramento do GitHub
+                    if "GITHUB_REPO" in antiga.get("monitorar", []):
+                        if "GITHUB_REPO" not in d["monitorar"]:
+                            d["monitorar"].append("GITHUB_REPO")
+
             CONFIG["disciplinas"] = novas_disciplinas
             with open("config.json", "w", encoding="utf-8") as f:
                 json.dump(CONFIG, f, indent=2, ensure_ascii=False)
-            print(f"\nSucesso: {len(novas_disciplinas)} disciplinas configuradas automaticamente!")
+            print(f"\nSucesso: {len(novas_disciplinas)} disciplinas atualizadas (configurações manuais preservadas)!")
         else:
             print("\nNenhum curso do semestre atual foi encontrado.")
 

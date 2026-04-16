@@ -1,0 +1,72 @@
+=== MATERIAL PRO: Aula__Historia_Usuario_Metodologias_Ageis.pdf ===
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+========================================
+
+TÓPICOS VITAIS:
+• Ciclo de Vida do Software: Do levantamento de requisitos à manutenção pós-implantação.
+• Planejamento e Escopo: Definição de objetivos, riscos e a importância da EAP (Estrutura Analítica de Projeto).
+• User Stories (Histórias de Usuário): Técnica de elicitação centrada no valor para o cliente e a fórmula dos Três C's (Cartão, Conversa, Confirmação).
+• Manifesto Ágil: Os 4 pilares e 12 princípios que revolucionaram o desenvolvimento moderno.
+• Framework Scrum: Papeis (PO, Scrum Master, Time), Artefatos (Backlogs, Incremento) e Cerimônias (Planning, Daily, Review, Retrospective).
+• Método Kanban: Gestão visual de fluxo, diferenciação entre Kanban de produção e movimentação.
+• Análise Comparativa: Tradicional vs. Ágil vs. Híbrido e Scrum vs. Kanban.
+
+AULA MAGISTRAL DO PROFESSOR MENTOR ULTIMATE (PRO):
+# AULA MESTRAL: ENGENHARIA E GESTÃO DE PROCESSOS DE SOFTWARE
+
+## CONTEXTO HISTÓRICO E MERCADOLÓGICO
+A gestão de projetos de software evoluiu drasticamente nas últimas décadas. Antigamente, utilizava-se o modelo 'Waterfall' (Cascata), herdado da engenharia civil e industrial, onde uma fase só começava após o término completo da anterior. Nas Big Techs de hoje (Google, Amazon, Meta), esse modelo é inviável devido à volatilidade do mercado. O material analisado apresenta a transição fundamental ocorrida em 2001 com o **Manifesto Ágil**, onde 17 representantes de métodos 'leves' decidiram que o foco deveria ser o software funcionando e a resposta rápida a mudanças, em vez de documentação exaustiva e contratos rígidos. Atualmente, o domínio de frameworks como Scrum e ferramentas de fluxo como Kanban não é apenas um diferencial, mas um pré-requisito para a sobrevivência organizacional em ambientes de alta incerteza.
+
+## NÚCLEO TÉCNICO APROFUNDADO
+
+### 1. O Planejamento Estruturado (EAP/WBS)
+Antes de mergulhar na agilidade, o material enfatiza a **Estrutura Analítica do Projeto (EAP)**, ou *Work Breakdown Structure (WBS)*. Tecnicamente, a EAP é uma decomposição hierárquica do escopo total do trabalho. 
+- **Função:** Subdividir as entregas em itens menores e mais gerenciáveis.
+- **Lógica:** Se você não consegue descrever o que deve ser feito em níveis granulares (como mostrado no slide 12, que vai do projeto 1.0 até subcomponentes 1.1.1.1), você não tem controle sobre o cronograma ou custos.
+
+### 2. User Stories: A Unidade de Valor
+As **Histórias de Usuário** substituem os antigos e extensos documentos de especificação. Elas seguem o modelo: *'Eu, como [persona], quero [funcionalidade], para [valor de negócio]'.*
+- **Os Três C's de Ron Jeffries:** 
+    1. **Cartão (Card):** A história deve caber em um post-it; se for grande demais, é um 'Épico'.
+    2. **Conversa (Conversation):** O detalhamento ocorre na troca de ideias entre o time e o cliente.
+    3. **Confirmação (Confirmation):** São os critérios de aceite (testes) que validam se a história foi realmente concluída.
+
+### 3. O Ecossistema Scrum
+O Scrum é definido como um framework iterativo e incremental. 
+- **Papeis Críticos:** 
+    - **Product Owner (PO):** O guardião do valor. Ele prioriza o Backlog e decide o 'O Quê'.
+    - **Scrum Master (SM):** O líder servidor. Ele não manda no time, mas remove impedimentos e garante que o framework seja seguido.
+    - **Time de Desenvolvimento:** Multidisciplinar (5 a 9 membros), responsável pelo 'Como'.
+- **O Ciclo da Sprint (2 a 4 semanas):** Começa com o **Planning** (seleção do que será feito), possui sincronizações diárias (**Daily Scrum** de 15 min), termina com a **Review** (demonstração do incremento ao cliente) e a **Retrospective** (análise interna de melhoria do processo).
+
+### 4. Kanban e a Fluidez do Trabalho
+Originado no sistema Toyota, o Kanban foca na visualização. 
+- **Diferenciação Visual:** O uso de colunas (To Do, Doing, Done) permite identificar gargalos instantaneamente. 
+- **Kanban de Produção vs. Movimentação:** Enquanto o primeiro foca na criação da tarefa, o segundo foca no fluxo entre centros de trabalho ou estoques.
+
+## LABORATÓRIO E PRÁTICA
+
+### Exemplo de Estrutura Analítica (EAP) para um App de Delivery:
+1. **App Delivery**
+   - 1.1 Gestão de Usuários
+     - 1.1.1 Cadastro de Cliente
+     - 1.1.2 Autenticação (Login/Logout)
+   - 1.2 Catálogo de Produtos
+     - 1.2.1 Busca de Restaurantes
+     - 1.2.2 Visualização de Menu
+   - 1.3 Módulo de Pagamento
+     - 1.3.1 Integração com Cartão de Crédito
+     - 1.3.2 Cálculo de Frete
+
+### Exemplo de User Story Técnica:
+> **Como** um cliente faminto, **quero** poder filtrar restaurantes por tempo de entrega, **para** que eu possa receber minha comida o mais rápido possível.
+> **Critérios de Aceite:** 
+> - O filtro deve ter opções: < 20 min, 20-40 min, > 40 min.
+> - A lista deve atualizar em menos de 2 segundos após o filtro ser aplicado.
+
+## ANÁLISE CRÍTICA DO MENTOR
+O que muitos profissionais ignoram e que o material sugere nas entrelinhas:
+1. **O Erro do 'Agile Waterfall':** Muitas empresas dizem usar Scrum, mas o PO define todo o backlog do ano no início (planejamento rígido) e não permite mudanças na Sprint. Isso mata a essência da **Adaptação**, um dos pilares do Scrum.
+2. **A Armadilha do Kanban sem Limite de WIP:** O material mostra o quadro (slide 39), mas o segredo de um Kanban eficiente é o *Work In Progress (WIP)*. Se você tem 20 cartões na coluna 'Fazendo' e apenas 3 desenvolvedores, você tem um gargalo, não um fluxo. 
+3. **Documentação vs. Agilidade:** O Manifesto Ágil diz 'Software em funcionamento MAIS QUE documentação abrangente', e não 'AO INVÉS DE'. A EAP (slide 10) continua sendo vital para grandes projetos governamentais ou de infraestrutura, mesmo que a execução das tarefas siga ritos ágeis. A chave é o equilíbrio híbrido (slide 35).

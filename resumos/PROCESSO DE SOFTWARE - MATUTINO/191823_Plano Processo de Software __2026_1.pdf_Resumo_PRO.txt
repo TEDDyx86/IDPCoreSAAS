@@ -1,0 +1,83 @@
+=== MATERIAL PRO: Plano Processo de Software __2026_1.pdf ===
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: ADMIN
+========================================
+
+TÓPICOS VITAIS:
+• Estruturação do Ciclo de Vida do Software (SDLC) e Modelos de Processo.
+• Engenharia de Requisitos: Elicitação, análise, especificação (Casos de Uso e User Stories) e validação.
+• Gestão de Projetos sob a ótica do PMBOK: Foco em Escopo, Riscos, Tempo, Custo e Comunicação.
+• Dicotomia e Hibridismo: Métodos Ágeis (Manifesto Ágil, Scrum, Lean) versus Métodos Tradicionais.
+• Engenharia Econômica aplicada ao Software: Análise de viabilidade, riscos e incertezas financeiras.
+• Qualidade e Sustentabilidade: Testes, Refatoração, DevOps, Manutenção e Documentação.
+• Inovação: Integração de processos de desenvolvimento com Inteligência Artificial (IA).
+
+AULA MAGISTRAL DO PROFESSOR MENTOR ULTIMATE (PRO):
+# AULA MAGISTRAL: DOMÍNIO DOS PROCESSOS DE SOFTWARE (REF. 2026/1)
+
+## CONTEXTO HISTÓRICO E MERCADOLÓGICO
+
+A disciplina de **Processo de Software** não nasceu no vácuo; ela é a resposta direta à 'Crise do Software' da década de 1960, onde sistemas eram entregues com atrasos astronômicos, custos proibitivos e falhas críticas. No cenário contemporâneo de Big Techs como Google, Meta e Amazon, o processo deixou de ser um conjunto rígido de regras (modelo Waterfall) para se tornar um organismo vivo e altamente automatizado (DevOps e CI/CD). 
+
+O mercado atual não busca apenas programadores, mas engenheiros que compreendam o **ROI (Retorno sobre Investimento)** de cada funcionalidade. O plano de ensino apresentado pelo Prof. Paulo Tadeu foca justamente nessa intersecção: a eficiência técnica aliada à viabilidade econômica. A inclusão da Inteligência Artificial no processo (Aula 37) demonstra que o IDP está alinhado com a fronteira do conhecimento, onde a IA não apenas escreve código, mas otimiza o ciclo de vida do projeto.
+
+---
+
+## NÚCLEO TÉCNICO APROFUNDADO
+
+### 1. O Ciclo de Vida do Software (SDLC) e Abstração
+O fundamento reside em transformar necessidades humanas nebulosas em algoritmos precisos. O programa aborda desde a **Abstração (1.2)** até o **Manuseio de Requisitos (3)**. O núcleo aqui é entender que o processo é o 'veículo' e o produto é o 'destino'. Sem um processo definido, a entropia toma conta do desenvolvimento.
+
+### 2. Engenharia Econômica e Gestão (PMBOK)
+Um diferencial crítico deste plano é a **Análise Econômica (Unidade 2)**. No nível de doutorado, entendemos que o software é um ativo financeiro. O curso explora:
+- **Ciclo de Vida Econômico:** O momento em que o custo de manutenção supera o valor de negócio.
+- **Gestão de Riscos (PMBOK):** Diferente do que muitos pensam, gerir riscos não é evitá-los, mas provisionar planos de contingência para incertezas técnicas e de mercado.
+
+### 3. Arquitetura e Implementação Moderna
+A modularização e componentização (4.2) são as chaves para a escalabilidade. O plano mergulha em **Padrões de Projeto (Design Patterns)** e **Refatoração (5.5)**. A refatoração não é apenas 'limpar o código', é garantir a manutenibilidade sem alterar o comportamento externo, combatendo o 'Débito Técnico'.
+
+### 4. A dualidade Ágil vs. Tradicional
+O cronograma (Aulas 10 e 11) propõe um embate necessário. Enquanto o tradicional preza pela documentação exaustiva e previsibilidade, o Ágil foca em ciclos curtos e feedback constante. O segredo das empresas de alta performance hoje é o **Hibridismo**, pegando o rigor do PMBOK para grandes organizações e a velocidade do Scrum para a entrega de valor imediato.
+
+---
+
+## LABORATÓRIO E CÓDIGO (SIMULAÇÃO DE PROCESSO)
+
+Para o **Projeto Prático (A2)** mencionado no plano, o aluno deve dominar o fluxo de trabalho. Abaixo, uma representação em Markdown de um processo de integração contínua (DevOps 5.7) que o aluno deverá implementar:
+
+mermaid
+graph LR
+    A[Feature Request] --> B[Backlog Refinement]
+    B --> C[Sprints/Desenvolvimento]
+    C --> D{Testes Automatizados}
+    D -- Falha --> C
+    D -- Sucesso --> E[Code Review]
+    E --> F[Merge para Main]
+    F --> G[Continuous Deployment]
+    G --> H[Monitoramento/IA Ops]
+
+
+**Exemplo de Critério de Aceitação (User Story 3.4):**
+*   **Como** Gestor de RH,
+*   **Quero** visualizar o relatório de produtividade mensal,
+*   **Para que** eu possa bonificar os colaboradores de destaque.
+*   **Critério de Sucesso:** O sistema deve gerar um PDF em menos de 5 segundos com dados do banco SQL atualizados até às 23:59 do dia anterior.
+
+---
+
+## ANÁLISE CRÍTICA DO MENTOR
+
+**O que quase ninguém entende:** Processo de Software não é sobre burocracia, é sobre **REDUÇÃO DE VARIABILIDADE**. 
+
+1.  **A Armadilha do Código**: Muitos alunos acreditam que a fase de 'Implementação' (Unidade 5) é a mais importante. No entanto, o plano dedica 9 unidades a todo o ecossistema. Um erro na Unidade 3 (Requisitos) custa 100x mais para ser corrigido na Unidade 8 (Manutenção).
+2.  **Pegadinha de Prova (Avaliação 1/2)**: O Prof. Paulo Tadeu integrou 'Análise Econômica' logo após o 'Processo'. Fique atento: em questões de prova, a resposta correta raramente será apenas técnica; ela quase sempre envolverá a viabilidade de custo e o impacto no cronograma.
+3.  **Insight Avançado**: A Unidade 37 (Integração com IA) sugere que os processos estão evoluindo para 'Self-healing processes' (processos de autocorreção). Entender como a IA pode validar requisitos ou gerar casos de teste automaticamente será o diferencial competitivo do aluno IDP no mercado de 2026.
+
+PRAZOS E ALERTAS: • Início do Semestre: 23/02
+• Avaliação A1 (Prova + Atividades): 24/04
+• Correção e Debate A1: 27/04
+• Entrega do Projeto Prático A2: 15/06
+• Avaliação A2 (Prova): 19/06
+• Feedback A2: 22/06
+• Prova Substitutiva: 10/07
+• Fechamento da Disciplina: 11/07

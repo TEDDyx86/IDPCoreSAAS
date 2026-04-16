@@ -1,0 +1,70 @@
+=== MATERIAL PRO: 04_Requisitos.pdf ===
+DISCIPLINA: PROCESSO DE SOFTWARE - MATUTINO
+CLASSIFICAÇÃO: SLIDE
+========================================
+
+TÓPICOS VITAIS:
+• Definição Epistemológica de Requisitos: O 'quê' vs. o 'como'.
+• O Ciclo de Vida de Desenvolvimento de Sistemas (SDLC) e a centralidade do levantamento.
+• Ontologia dos Stakeholders: Mapeamento de influências internas e externas.
+• Atributos de Qualidade de Requisitos: Clareza, concisão e verificabilidade.
+• Taxonomia de Requisitos: Funcionais (RF), Não Funcionais (RNF) e Regras de Negócio (RN).
+• Técnicas de Elicitação: Entrevistas, Brainstorming, Observação e Prototipagem.
+• Estudo de Caso Prático: Engenharia de Requisitos aplicada a um Sistema de Gestão de Bibliotecas.
+
+AULA MAGISTRAL DO PROFESSOR MENTOR ULTIMATE (PRO):
+# AULA MAGISTRAL: ENGENHARIA DE REQUISITOS — DA ABSTRAÇÃO AO SISTEMA
+
+## 1. CONTEXTO HISTÓRICO E MERCADOLÓGICO
+A Engenharia de Requisitos (ER) não é meramente uma fase preliminar, mas o alicerce de sustentabilidade de qualquer projeto de software. Historicamente, a 'Crise do Software' da década de 60 revelou que o maior gargalo não era a codificação, mas a incompreensão do que deveria ser construído. Nas Big Techs contemporâneas (Google, Amazon, Meta), a ER evoluiu do modelo cascata rígido para o 'Product Discovery' contínuo. Nessas organizações, um requisito mal definido custa até 100 vezes mais para ser corrigido na fase de manutenção do que na fase de concepção. O material de Paulo Peres aborda essa transição, focando na necessidade de transformar necessidades abstratas em especificações técnicas tangíveis que sirvam como contrato entre stakeholders e desenvolvedores.
+
+## 2. NÚCLEO TÉCNICO APROFUNDADO
+
+### 2.1. O Processo de Desenvolvimento
+Conforme visualizado no slide 3, o fluxo de desenvolvimento segue uma progressão lógica: **Levantamento -> Análise -> Projeto -> Implementação -> Testes -> Implantação**. O 'Levantamento de Requisitos' é a porta de entrada. Se a entrada for ruidosa, todo o fluxo subsequente será comprometido (GIGO - *Garbage In, Garbage Out*).
+
+### 2.2. Ontologia dos Requisitos e Stakeholders
+O slide 4 apresenta uma tríade vital: **Pessoas -> Necessidades -> Abstração**. O desafio da ER é a 'des-abstração'. No slide 6, o mapa de **Stakeholders** demonstra que o 'cliente' não é o único interessado. Temos:
+- **Internos:** Empregados, Acionistas.
+- **Externos:** Governo (leis de privacidade/LGPD), Comunidade, ONGs, Sociedade.
+Cada grupo impõe restrições que se transformam em requisitos.
+
+### 2.3. Atributos de um Requisito de Alta Performance (Slide 7)
+Para que um requisito seja válido, ele deve ser:
+1. **Claro e Não Ambíguo:** Sem margem para interpretações duplas.
+2. **Específico:** Focado em uma única funcionalidade.
+3. **Conciso:** Sem redundâncias.
+4. **Verificável (Testável):** Se não é possível criar um teste para o requisito, ele é um desejo, não um requisito.
+
+### 2.4. Taxonomia: RF vs. RNF vs. RN
+- **Requisitos Funcionais (RF):** Descrevem o comportamento do sistema (O que o sistema faz). Ex: 'Emitir cupom fiscal'.
+- **Requisitos Não Funcionais (RNF):** Descrevem atributos de qualidade ou restrições (Como o sistema deve ser). Ex: 'O sistema deve responder em < 2s'. O slide 10 detalha Usabilidade, Escalabilidade (suportar 10.000 usuários) e Disponibilidade (99,9%).
+- **Regras de Negócio (RN):** Políticas organizacionais que transcendem o software. O slide 11 exemplifica: 'Desconto de 10% para membros'. Se a empresa mudar a política, a RN muda, impactando o RF.
+
+## 3. LABORATÓRIO E PRÁTICA: O CASO DA BIBLIOTECA
+
+O material propõe uma 'Situação Problema' (Slide 18) para uma Biblioteca Comunitária. Abaixo, a decomposição técnica dos requisitos apresentados nos slides 22 a 27:
+
+### Engenharia de Requisitos do Acervo (RFs do Slide 22)
+O sistema deve permitir operações CRUD (Create, Read, Update, Delete) com especificidades:
+- **RF01:** Cadastro com metadados (ISBN, autor, gênero).
+- **RF10:** Importação via CSV/XLSX (Interoperabilidade de dados).
+
+### Gestão de Empréstimos e Devoluções (RFs dos Slides 23 e 24)
+Aqui entra a lógica de estado do objeto 'Livro'.
+- **RF05 (Empréstimo):** Controle de concorrência (Bloquear empréstimo se exceder 'X' livros).
+- **RF03 (Devolução):** Cálculo de multa por atraso (Integração com Regra de Negócio).
+
+### Arquitetura de Requisitos Não Funcionais (Slide 26)
+- **RNF01:** Web-based (Acessibilidade via navegador).
+- **RNF04:** Backup diário (Resiliência de dados).
+- **RNF10:** Criptografia (Segurança e conformidade normativa).
+
+## 4. ANÁLISE CRÍTICA DO MENTOR
+
+O que o aluno médio ignora e o Professor Mentor Ultimate ressalta:
+
+1. **O Perigo do 'I'll know it when I see it' (IKIWISI):** Muitos desenvolvedores saltam para a Prototipagem (Slide 17) sem análise documental. O protótipo é uma ferramenta de validação, não de descoberta. Use-o para extrair requisitos implícitos (aqueles que o cliente esquece de mencionar porque são 'óbvios' para ele).
+2. **Requisitos Não Funcionais como 'Showstoppers':** Um sistema com todos os RFs funcionando perfeitamente, mas que não escala (RNF de Escalabilidade falho), é um fracasso comercial. No mercado real, RNFs definem a arquitetura (Microserviços vs. Monólito).
+3. **UML como Linguagem Franca:** O slide 17 menciona Casos de Uso e Diagramas de Classes. O domínio da UML é o que separa o 'programador' do 'engenheiro'. O diagrama de Casos de Uso é o mapeamento visual dos RFs, enquanto o de Classes é a estrutura de dados que suporta as RNs.
+4. **Pegadinha de Prova/Mercado:** A confusão entre Requisito Funcional e Regra de Negócio. Lembre-se: A Regra de Negócio existe mesmo se o software for desligado (ex: o cálculo da multa). O Requisito Funcional é a implementação automatizada dessa regra no sistema.

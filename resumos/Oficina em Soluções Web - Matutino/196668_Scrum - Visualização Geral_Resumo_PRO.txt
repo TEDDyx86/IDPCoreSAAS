@@ -1,60 +1,66 @@
 === MATERIAL PRO: Scrum - Visualização Geral ===
-DISCIPLINA: Oficina em Soluções Web - Matutino
+DISCIPLINA: OFICINA EM SOLUÇÕES WEB - MATUTINO
 CLASSIFICAÇÃO: SLIDE
 ========================================
 
 TÓPICOS VITAIS:
-Fundamentos do Empirismo (Transparência, Inspeção, Adaptação); Papéis do Scrum Team (Product Owner, Scrum Master, Developers); Eventos (Sprint, Planning, Daily, Review, Retrospective); Artefatos (Product Backlog, Sprint Backlog, Increment); Definição de Pronto (DoD) e Metas de Entrega.
+• Anatomia do Scrum: Papéis (PO, SM, Dev Team), Artefatos e Eventos.
+• Ciclo de Vida do Sprint: Do Planejamento à Retrospectiva.
+• Gerenciamento de Backlog: Refinamento, Priorização e Sprint Backlog.
+• Visibilidade e Transparência: O uso do Quadro Kanban (To Do, Doing, Done) e o Incremento do Produto.
+• Feedback Loops: Daily Scrum, Sprint Review e o conceito de melhoria contínua.
 
 AULA MAGISTRAL DO PROFESSOR MENTOR ULTIMATE (PRO):
 # CONTEXTO HISTÓRICO E MERCADOLÓGICO
 
-O Scrum não nasceu no vácuo da engenharia de software; ele emergiu da necessidade de gerenciar o caos. Originado formalmente nos anos 90 por Jeff Sutherland e Ken Schwaber, suas raízes bebem da fonte do 'The New New Product Development Game' (1986), de Takeuchi e Nonaka, que observaram como empresas de alta performance (como Toyota e Honda) trabalhavam de forma holística, como um time de rúgbi. No cenário atual das Big Techs, o Scrum é o motor que permite a empresas como Amazon e Spotify iterarem em escala massiva. O mercado abandonou o modelo 'Waterfall' (Cascata) porque o custo do erro tardio é proibitivo. Nas Big Techs, o Scrum é adaptado para o modelo de 'Squads', onde a autonomia é equilibrada com o alinhamento estratégico, permitindo que o 'Time-to-Market' seja reduzido drasticamente.
+O Scrum surge no final dos anos 80 e início dos 90, consolidado pelo 'Manifesto Ágil' em 2001, como uma resposta direta à falha catastrófica do modelo em 'Cascata' (Waterfall) no desenvolvimento de software complexo. Em Big Techs como Google, Amazon e Spotify, o Scrum não é apenas um método, mas uma filosofia operacional. Ele permite que essas organizações lidem com a volatilidade do mercado, entregando valor de forma incremental. O uso do Scrum permite que uma empresa pivote sua estratégia em questão de semanas (o tempo de um Sprint), em vez de meses ou anos, garantindo que o produto final ainda seja relevante para o usuário quando chegar ao mercado.
 
 # NÚCLEO TÉCNICO APROFUNDADO
 
-O Scrum é fundamentado no empirismo e no Lean Thinking. O empirismo afirma que o conhecimento vem da experiência e da tomada de decisão baseada no que é observado. 
+A visualização apresentada decompõe o ecossistema Scrum em três pilares fundamentais: Papéis, Eventos e Artefatos.
 
-1. **Os Três Pilares:**
-   - **Transparência:** O processo e o trabalho devem ser visíveis tanto para quem executa quanto para quem recebe.
-   - **Inspeção:** Os artefatos e o progresso em direção aos objetivos devem ser inspecionados com frequência para detectar variações indesejadas.
-   - **Adaptação:** Se um processo se desvia dos limites aceitáveis, o ajuste deve ser feito o mais rápido possível.
+1. **Os Papéis (O Time Scrum):**
+   - **Product Owner (PO):** O guardião do 'O Quê'. Ele traduz as necessidades dos Stakeholders (representados no topo do diagrama com a lâmpada de ideias) em itens acionáveis no Product Backlog. O PO maximiza o ROI (Retorno sobre Investimento).
+   - **Scrum Master (SM):** O líder servidor. Ele não gerencia pessoas, mas o processo. Sua função é remover impedimentos e garantir que o time entenda a teoria e a prática do Scrum.
+   - **Development Team (Time de Desenvolvimento):** Profissionais multifuncionais que transformam itens do backlog em um Incremento funcional. Notem que no diagrama eles são representados como um grupo coeso, enfatizando a ausência de hierarquias internas.
 
-2. **Papéis (A Trindade de Responsabilidades):**
-   - **Product Owner (PO):** Otimizador de valor. Ele não é um 'anotador de pedidos', mas um estrategista que gerencia o Product Backlog para maximizar o ROI (Retorno sobre Investimento).
-   - **Scrum Master (SM):** O líder servidor e coach. Sua função é remover impedimentos e garantir que o time compreenda a teoria e a prática do Scrum. Ele é o guardião do processo.
-   - **Developers:** Profissionais multidisciplinares que se comprometem a criar qualquer aspecto de um incremento utilizável a cada Sprint.
+2. **Os Artefatos (Transparência):**
+   - **Product Backlog:** Uma lista ordenada de tudo o que pode ser necessário no produto. O diagrama mostra o 'Product Backlog Refinement' como um funil, indicando que as ideias brutas são filtradas e detalhadas.
+   - **Sprint Backlog:** O subconjunto de itens selecionados para o Sprint atual. É visualizado através do quadro 'To Do, Doing, Done', que fornece visibilidade em tempo real sobre o progresso.
+   - **Product Increment:** A soma de todos os itens do backlog concluídos durante um Sprint que atingiram a 'Definição de Pronto' (DoD). Representado como um presente, simbolizando o valor entregue ao cliente.
 
-3. **Eventos (O Ritmo do Coração):**
-   - **Sprint:** O container para todos os outros eventos, com duração fixa (geralmente 1 a 4 semanas).
-   - **Sprint Planning:** Define o 'O quê' (objetivo) e o 'Como' (plano).
-   - **Daily Scrum:** Evento de 15 minutos para os desenvolvedores sincronizarem e adaptarem o plano das próximas 24 horas.
-   - **Sprint Review:** Inspeção do incremento e adaptação do Product Backlog com stakeholders.
-   - **Sprint Retrospective:** Foco em pessoas, relacionamentos, processos e ferramentas para melhoria contínua.
+3. **Os Eventos (Inspeção e Adaptação):**
+   - **Sprint Planning:** Onde o 'Como' e o 'O Quê' são definidos.
+   - **Daily Scrum:** O ciclo de feedback de 24 horas para alinhar o time.
+   - **Sprint Review:** Inspeção do incremento com Stakeholders.
+   - **Sprint Retrospective:** Foco na melhoria do processo e das pessoas (representada pelo ícone de ajuste de engrenagens).
 
 # LABORATÓRIO E CÓDIGO
 
-A visualização de um fluxo Scrum pode ser descrita via lógica de estados. Imagine um sistema de gestão de tarefas (Jira/Azure DevOps) operando sob a seguinte lógica de fluxo:
+Embora o Scrum seja um framework de gestão, ele se traduz em ferramentas de engenharia. Um exemplo clássico é a automação do fluxo de trabalho em ferramentas como Jira ou GitHub Projects via CLI ou automações:
 
-text
-[BACKLOG GERAL] -> (Refinement) -> [SPRINT BACKLOG]
-                                          |
-                                          v
- [TODO] -> [IN PROGRESS] -> [TESTING] -> [DONE (DoD)]
-                                          |
-                                          v
-                                  [INCREMENTO POTENCIALMENTE RELEASÁVEL]
+bash
+# Exemplo de fluxo de automação para mover cards no Sprint Backlog
+# Usando GitHub CLI (gh) para simular a transição de um item do Backlog
+
+# 1. Listar itens no status 'To Do'
+gh project item-list 1 --owner "@meu-time" --format json
+
+# 2. Mover item para 'Doing' ao iniciar a branch de desenvolvimento
+git checkout -b feature/refactor-api-v1
+gh project item-edit 1 --id "ITEM_ID" --field "Status" --value "Doing"
+
+# 3. Marcar como 'Done' após o Merge Request aprovado
+gh project item-edit 1 --id "ITEM_ID" --field "Status" --value "Done"
 
 
-Exemplo de estrutura de uma 'User Story' técnica para o laboratório:
-- **Título:** Autenticação via OAuth2.
-- **Como** Usuário final,
-- **Eu quero** me autenticar usando minha conta Google,
-- **Para que** eu não precise memorizar uma nova senha.
-- **Critérios de Aceite (DoD):** Token JWT retornado com sucesso; Log de auditoria gerado; Erro 401 tratado para logins inválidos.
+O fluxogama operacional segue a lógica: `Input (Stakeholders/Ideias) -> Filter (Refinement) -> Queue (Backlog) -> Cycle (Sprint) -> Output (Increment) -> Feedback (Review/Retro)`.
 
 # ANÁLISE CRÍTICA DO MENTOR
 
-O que a maioria falha em entender é que o Scrum não é uma metodologia de 'fazer mais rápido', mas sim de 'errar mais cedo'. O erro mais comum em exames de certificação (como PSM I) e no dia a dia é a confusão entre o Scrum Master e um Gerente de Projetos tradicional. O SM não 'manda' no time; ele empodera o time para que este se autogerencie. 
+O que a maioria dos profissionais ignora é que o Scrum não é um processo de 'entrega rápida', mas de 'descoberta rápida'. 
 
-Outro ponto nevrálgico: a 'Velocidade' do time. No mercado, gestores tóxicos usam a velocidade para comparar times. Isso é um erro técnico crasso. Velocidade é uma métrica interna de capacidade, não de produtividade comparativa. Se você aumenta a pressão pela velocidade, o time sacrifica a qualidade (Dívida Técnica), o que viola o pilar da Transparência, pois o 'Done' deixa de ser verdadeiramente 'Done'. O verdadeiro domínio do Scrum exige entender que o framework é propositalmente incompleto; ele apenas expõe as ineficiências da sua organização para que você possa resolvê-las.
+- **A Armadilha do Daily Scrum:** Muitos o transformam em um 'status report' para o gestor. Errado. O Daily é para o Time de Desenvolvimento sincronizar entre si.
+- **O 'Shadow' Scrum Master:** Em muitas empresas, o Scrum Master acaba agindo como um Secretário de Luxo ou um Project Manager disfarçado. Isso mata a auto-organização do time.
+- **Dívida Técnica:** O diagrama mostra o 'Incremento do Produto' como algo pronto. No entanto, se a 'Definição de Pronto' não incluir testes automatizados e refatoração, o time está apenas criando uma 'bola de lama' técnica que explodirá em Sprints futuros.
+- **Insight de Prova:** Lembre-se, o Scrum não dita 'como' desenvolver (não impõe TDD ou Pair Programming), ele fornece o 'framework' de gestão dentro do qual as práticas de engenharia devem ser adaptadas.
