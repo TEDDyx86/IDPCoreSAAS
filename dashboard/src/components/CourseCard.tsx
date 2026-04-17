@@ -1,43 +1,32 @@
 import React from 'react';
-import { BookOpen, Github, ArrowUpRight } from 'lucide-react';
+import { BookOpen, ChevronRight } from 'lucide-react';
 
 interface CourseCardProps {
   nome: string;
   id: string;
-  githubUrl?: string;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ nome, id, githubUrl }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ nome, id }) => {
   return (
-    <div className="glass glass-hover animate-fade" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-        <div className="badge badge-purple" style={{ padding: '6px' }}>
+    <div className="glass glass-card glass-hover" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1.5rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div className="badge badge-cyan" style={{ padding: '8px' }}>
           <BookOpen size={14} />
         </div>
-        {githubUrl && (
-          <a href={githubUrl} target="_blank" rel="noreferrer" className="badge badge-cyan" style={{ textDecoration: 'none', cursor: 'pointer' }}>
-            <Github size={12} /> REPO
-          </a>
-        )}
+        <span className="text-dim font-display" style={{ fontSize: '0.6rem', fontWeight: 800 }}>MODULE_ID: {id.slice(0, 6)}</span>
+      </div>
+      
+      <div style={{ flex: 1 }}>
+        <h3 className="font-display" style={{ fontSize: '1rem', letterSpacing: '0.02em', textTransform: 'none', margin: 0, color: 'white' }}>
+          {nome}
+        </h3>
       </div>
 
-      <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', flex: 1 }}>{nome}</h3>
-      
-      <div style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid hsla(var(--border-glass))', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: '0.75rem', color: 'hsl(var(--text-muted))', fontFamily: 'monospace' }}>ID: {id}</span>
-        <button style={{ 
-          background: 'none', 
-          border: 'none', 
-          color: 'hsl(var(--accent-cyan))', 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: '4px', 
-          fontSize: '0.8rem', 
-          fontWeight: 600, 
-          cursor: 'pointer' 
-        }}>
-          Disciplinas <ArrowUpRight size={14} />
-        </button>
+      <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.6 }}>
+        <div style={{ width: '100%', height: '2px', background: 'hsla(var(--glass-border))', borderRadius: '1px' }}>
+          <div style={{ width: '40%', height: '100%', background: 'hsl(var(--accent-cyan))', boxShadow: '0 0 10px hsl(var(--accent-cyan))' }}></div>
+        </div>
+        <ChevronRight size={14} className="text-dim" />
       </div>
     </div>
   );

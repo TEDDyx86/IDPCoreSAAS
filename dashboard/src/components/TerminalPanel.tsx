@@ -1,61 +1,65 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Terminal as TerminalIcon, Cpu, Globe } from 'lucide-react';
 
 const TerminalPanel: React.FC = () => {
-  const logs = [
-    { type: 'SYS', msg: 'Monitor Acadêmico Inicializado v3.1', time: '08:00:01' },
-    { type: 'NET', msg: 'Conexão estabelecida com Campus IDP (Canvas API)', time: '08:00:05' },
-    { type: 'BOT', msg: 'Varredura completa: 0 novos materiais detectados', time: '20:15:33' },
-    { type: 'GIT', msg: 'Monitorando repositórios: laboratório-poo, teoria-algoritmos', time: '20:15:35' },
-    { type: 'AI', msg: 'Gemini-1.5-Flash pronto para processamento de resumos', time: '20:15:40' },
-  ];
+  const [logs, setLogs] = useState<string[]>([]);
+
+  useEffect(() => {
+    const initialLogs = [
+      '[SYSTEM] IDP CORE ONYX INITIALIZED',
+      '[AUTH] RLS POLICIES APPLIED',
+      '[NET] HANDSHAKE WITH SUPABASE EDGE SUCCESSFUL',
+      '[SYNC] LISTENING FOR INCOMING ACADEMIC DATA...',
+    ];
+    setLogs(initialLogs);
+
+    // Simulated real-time logs
+    const interval = setInterval(() => {
+      const timestamp = new Date().toLocaleTimeString();
+      const events = [
+        `[SCAN] CHECKING DATA SOURCES AT ${timestamp}`,
+        `[AUTH] REFRESHING SESSION TOKEN...`,
+        `[SYNC] NO LATENCY DETECTED`,
+        `[AI] GEMINI ANALYSIS ENGINE READY`,
+        `[SYS] MEMORY OPTIMIZATION COMPLETE`
+      ];
+      const randomEvent = events[Math.floor(Math.random() * events.length)];
+      setLogs(prev => [...prev.slice(-12), randomEvent]);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="glass" style={{ padding: '1.5rem', fontFamily: 'monospace', fontSize: '0.8rem', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', borderBottom: '1px solid hsla(var(--border-glass))', paddingBottom: '0.75rem' }}>
-        <TerminalIcon size={16} color="hsl(var(--accent-green))" />
-        <span style={{ fontWeight: 'bold' }}>BOT SYSTEM CONSOLE</span>
-        <div style={{ display: 'flex', gap: '6px', marginLeft: 'auto' }}>
-          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff5f56' }}></div>
-          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffbd2e' }}></div>
-          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27c93f' }}></div>
+    <div className="glass glass-card" style={{ height: 'calc(100vh - 400px)', minHeight: '500px', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', borderBottom: '1px solid hsla(var(--glass-border))', paddingBottom: '1rem' }}>
+        <TerminalIcon size={18} className="text-gradient" />
+        <h2 style={{ fontSize: '0.8rem', letterSpacing: '0.2em', margin: 0 }}>SECURITY_CONSOLE</h2>
+        <div style={{ display: 'flex', gap: '0.4rem', marginLeft: 'auto' }}>
+           <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ff5f56' }}></div>
+           <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ffbd2e' }}></div>
+           <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#27c93f' }}></div>
         </div>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+      <div style={{ flex: 1, fontFamily: 'monospace', fontSize: '0.75rem', color: 'hsl(var(--accent-cyan))', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
         {logs.map((log, i) => (
-          <div key={i} style={{ display: 'flex', gap: '1rem', opacity: 1 - (i * 0.15) }}>
-            <span style={{ color: 'hsl(var(--text-muted))' }}>[{log.time}]</span>
-            <span style={{ 
-              color: log.type === 'SYS' ? '#00d2ff' : log.type === 'GIT' ? '#bd93f9' : '#50fa7b',
-              fontWeight: 'bold',
-              minWidth: '40px'
-            }}>[{log.type}]</span>
-            <span style={{ color: 'hsl(var(--text-secondary))' }}>{log.msg}</span>
+          <div key={i} style={{ display: 'flex', gap: '0.75rem', opacity: (i + 1) / logs.length }}>
+            <span style={{ color: 'hsl(var(--text-ghost))' }}>[{new Date().toLocaleTimeString([], { hour12: false })}]</span>
+            <span style={{ color: log.includes('ERR') ? '#ff4d4d' : 'inherit' }}>{log}</span>
           </div>
         ))}
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginTop: '4px' }}>
-          <span style={{ color: 'hsl(var(--text-muted))' }}>[LIVE]</span>
-          <span style={{ color: '#50fa7b' }}>{'>'}</span>
-          <span className="cursor-blink" style={{ width: '8px', height: '16px', background: 'hsl(var(--accent-green))' }}></span>
+        <div className="pulse-animation" style={{ width: '8px', height: '12px', background: 'hsl(var(--accent-cyan))', marginTop: '4px' }}></div>
+      </div>
+
+      <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid hsla(var(--glass-border))', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.65rem', fontWeight: 700 }} className="font-display">
+          <Cpu size={12} /> ENGINE_V2.4
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.65rem', fontWeight: 700, color: 'hsl(var(--success))' }} className="font-display">
+          <Globe size={12} /> REGIONAL_EDGE_NODE
         </div>
       </div>
-
-      <div style={{ 
-        position: 'absolute', 
-        top: 0, 
-        right: 0, 
-        padding: '1rem', 
-        opacity: 0.05, 
-        pointerEvents: 'none' 
-      }}>
-        <Globe size={120} />
-      </div>
-
-      <style>{`
-        .cursor-blink { animation: blink 1s step-end infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
-      `}</style>
     </div>
   );
 };

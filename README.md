@@ -1,55 +1,98 @@
-# IDP Core Academic Monitor 🎓✨
+# 🌌 IDP Core: Autonomous Academic Intelligence
 
-O seu assistente acadêmico inteligente de alto nível. Este projeto automatiza o monitoramento de portais Canvas e repositórios GitHub, baixando materiais, classificando-os e gerando resumos didaticamente fundamentados usando a **IA Gemini 1.5 Flash**.
-
-## 🚀 Funcionalidades
-
-- **Zero Configuration (Autodescoberta)**: No primeiro acesso, o robô identifica suas matérias do semestre automaticamente no Canvas e configura o sistema para você.
-- **Monitoramento Híbrido**: Verifica novos commits no GitHub e novos itens nos Módulos do Canvas.
-- **Download Inteligente**: Captura arquivos (.pdf, .ppt) ignorando o overhead do navegador via requisições HTTP rápidas.
-- **Motor de IA "Professor Mentor"**: 
-    - **Classificação por Intenção**: Diferencia automaticamente entre Slides Teóricos e Atividades Práticas.
-    - **Resumos Duplos**: Gera tópicos rápidos e explicações didáticas aprofundadas.
-    - **Persona Didática**: A IA explica o "porquê" dos conceitos, não apenas os fatos.
-- **Exportação Multiformato**: Gera automaticamente arquivos `.txt` e `.docx` organizados por disciplina.
-- **Notificações em Tempo Real**: Alertas visuais no Discord via Webhook com cores dinâmicas.
-
-## 🏗️ Arquitetura
-
-O projeto segue um protocolo de **Auto-cura (Auto-anneal)** e uma estrutura de 3 camadas:
-1. **Verificação**: Scripts que detectam mudanças no DOM e APIs.
-2. **Execução**: Motor de download e processamento de documentos.
-3. **Distribuição**: Gerenciamento de notificações e persistência física.
-
-## 🛠️ Configuração Rápida (Windows)
-
-1. **Prepare as credenciais**:
-   - Renomeie o arquivo `.env.example` para `.env`.
-   - Preencha com sua **API Key do Gemini** e seu login do **Canvas**.
-
-2. **Dê um duplo clique**:
-   - Execute o arquivo `run.bat`.
-   - O robô irá instalar as dependências, buscar suas matérias automaticamente e começar o monitoramento!
+> **Elite Monitoring for Higher Education**  
+> Um sistema autônomo de monitoramento acadêmico de 3 camadas projetado para converter materiais de aula em inteligência acionável utilizando IA Generativa.
 
 ---
 
-## 🛠️ Configuração Manual (Outros Sistemas)
+## 🏗️ Arquitetura do Sistema (Three-Layer Model)
 
-1. **Instale as dependências**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+O IDP Core não é apenas um script de scraping; é um agente orquestrador construído sobre o **Protocolo IDP Core**.
 
-2. **Execute o orquestrador**:
-   ```bash
-   python orchestrator.py
-   ```
+### Layer 1: Diretivas (Intenção)
+- Localizadas em `directives/`.
+- Procedimentos Operacionais Padrão (SOPs) em Markdown.
+- Define o "O Que" deve ser feito de forma determinística.
 
-## 📂 Estrutura de Pastas
+### Layer 2: Orquestração (Cérebro)
+- O **Agente IA** (`orchestrator.py`).
+- Toma decisões em tempo real, gerencia o fluxo de trabalho e aplica o protocolo de **Auto-anneal** (auto-cura de scripts) quando falhas de layout são detectadas.
 
-- `execution/`: Scripts de núcleo do sistema.
-- `resumos/`: (Ignorado no Git) Onde seus arquivos `.docx` e `.txt` são salvos.
-- `.tmp/`: Cache de sessão, cookies e metadados.
+### Layer 3: Execução (Operação)
+- Localizada em `execution/`.
+- Scripts Python robustos para Login, Monitoramento de Canvas/GitHub, Processamento e Notificação.
 
 ---
-*Desenvolvido com o protocolo IDP Core para Excelência Acadêmica.*
+
+## 🛠️ Stack Tecnológica
+
+| Componente | Tecnologia | Função |
+| :--- | :--- | :--- |
+| **Núcleo** | Python 3.10+ | Lógica de negócio e orquestração. |
+| **Inteligência** | Gemini 1.5 Flash | Resumos magistrais e inteligência de "Professor Mentor". |
+| **Web Ops** | Playwright / Selenium | Autenticação e extração de dados dinâmicos. |
+| **Database** | Supabase (PostgreSQL) | Persistência de metadados e histórico acadêmico. |
+| **Segurança** | Supabase Vault | Armazenamento seguro de credenciais e segredos. |
+| **Alertas** | Discord Webhooks | Notificação instantânea com rich embeds. |
+
+---
+
+## 📊 Fluxo de Trabalho (Workflow)
+
+```mermaid
+graph TD
+    A[Orchestrator] -->|Read SOP| B(Directives)
+    A -->|Monitor| C[Canvas Modules]
+    A -->|Monitor| D[GitHub Repos]
+    C -->|New Item| E[Download & Store]
+    D -->|New Commit| E
+    E -->|Context Transfer| F[Gemini AI Engine]
+    F -->|Analyze| G[Master Summary .docx/.txt]
+    G -->|Persistence| H[Supabase / Local]
+    H -->|Alert| I[Discord Notification]
+    I -->|Health Check| J{Success?}
+    J -- No --> K[Auto-anneal Protocol]
+    K -->|Heal| A
+```
+
+---
+
+## 🚀 Guia de Início Rápido
+
+### Instalação Automatizada (Recomendado)
+Apenas para ambientes Windows:
+1.  Clone este repositório.
+2.  Renomeie `.env.example` para `.env` e insira suas chaves (Gemini API, Supabase).
+3.  Execute o arquivo `run.bat`. O sistema configurará o ambiente virtual e baixará as dependências automaticamente.
+
+### Configuração Supabase
+Execute o script `supabase_setup.sql` no seu console do Supabase para inicializar as tabelas de métricas e configurações.
+
+---
+
+## 🛡️ Protocolo de Auto-cura (Auto-anneal)
+
+Diferente de automações convencionais, o IDP Core é resiliente. Se a plataforma acadêmica mudar seu layout:
+1.  O script de execução detecta o erro de seletor.
+2.  O **Orquestrador IA** analisa o erro e o HTML atual.
+3.  O agente propõe ou aplica a correção no script de execução.
+4.  As **Diretivas** são atualizadas com o histórico da correção.
+
+---
+
+## 📂 Estrutura de Diretórios
+
+- `directives/`: Manuais e estratégias de scraping.
+- `execution/`: O motor de processamento acadêmico.
+- `resumos/`: Output final em PDF/DOCX (ignorado pelo Git).
+- `.tmp/`: Cache volátil, cookies de sessão e logs de auditoria.
+- `stitch/`: (Opcional) Design tokens e assets de interface.
+
+---
+
+## 📖 Documentação Adicional
+
+Para detalhes profundos sobre scripts, infraestrutura Supabase e guias de desenvolvimento, consulte nossa **[Wiki Técnica Mestre](file:///c:/Users/Administrator/Documents/GitHub/antigravity/TECHNICAL_WIKI.md)**.
+
+---
+*Desenvolvido para Excelência Acadêmica - Powered by Advanced Agentic Coding.*
