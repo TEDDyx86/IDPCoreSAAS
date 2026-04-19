@@ -1,6 +1,8 @@
 name: 24/7 Academic Monitor
 
 on:
+  push:
+    branches: [ main ]
   schedule:
     - cron: '0 * * * *' # Roda a cada 1 hora
   workflow_dispatch: # Permite rodar manualmente para testes
