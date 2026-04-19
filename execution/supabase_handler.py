@@ -24,8 +24,8 @@ class SupabaseHandler:
         response = requests.get(url, headers=self.headers)
         return response.json() if response.status_code == 200 else []
 
-    def save_update(self, user_id, disciplina, titulo, tipo, resumo, links=None):
-        """Salva uma nova atualização acadêmica"""
+    def save_update(self, user_id, disciplina, titulo, tipo, resumo, origin_id, links=None):
+        """Salva uma nova atualização acadêmica com origin_id para deduplicação"""
         url = f"{self.base_url}/academic_updates"
         payload = {
             "user_id": user_id,
@@ -33,10 +33,21 @@ class SupabaseHandler:
             "titulo": titulo,
             "tipo": tipo,
             "resumo": resumo,
+            "origin_id": str(origin_id),
             "links": links or {}
         }
+        # Nota: O banco agora tem um índice único em (user_id, origin_id)
+        # Requisitaremos o retorno do objeto inserido
         response = requests.post(url, headers=self.headers, json=payload)
-        return response.json()
+        return response.json() if response.status_code == 201 else None
+
+    def update_profile_info(self, config_id, student_name, courses_list=None):
+        """Sincroniza o nome real do aluno e opcionalmente a lista de cursos"""
+        url = f"{self.base_url}/monitor_configs?id=eq.{config_id}"
+        payload = {"student_name": student_name}
+        if courses_list is not None:
+            payload["courses_list"] = courses_list
+        requests.patch(url, headers=self.headers, json=payload)
 
     def update_last_run(self, config_id):
         """Atualiza o timestamp da última execução do bot para aquele usuário"""
