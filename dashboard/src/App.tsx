@@ -110,17 +110,12 @@ const App: React.FC = () => {
     }
   }, [user, hasConfig]);
 
-  if (authLoading || (user && hasConfig === null)) {
+  if (authLoading) {
     return (
       <div className="login-container">
         <div className="animate-fade" style={{ textAlign: 'center' }}>
-          <img 
-            src={logo} 
-            alt="Logo" 
-            style={{ width: '80px', height: 'auto', marginBottom: '1.5rem', filter: 'drop-shadow(0 0 15px rgba(0,242,255,0.2))' }} 
-            className="pulse-animation" 
-          />
-          <p className="font-display" style={{ letterSpacing: '0.2em', fontSize: '0.8rem', opacity: 0.6 }}>Sincronizando Monitor...</p>
+          <img src={logo} alt="Logo" style={{ width: '80px', marginBottom: '1.5rem' }} className="pulse-animation" />
+          <p className="font-display" style={{ opacity: 0.6 }}>Onyx Engine v3.0...</p>
         </div>
       </div>
     );
