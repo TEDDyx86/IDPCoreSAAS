@@ -51,6 +51,7 @@ const App: React.FC = () => {
   useEffect(() => {
     if (user) {
       const checkConfig = async () => {
+        try {
           // Consultamos apenas o que existe no seu schema atual (id e user_id)
           const { data, error } = await supabase
             .from('monitor_configs')
@@ -68,7 +69,7 @@ const App: React.FC = () => {
         } catch (err: any) {
           console.error("Erro crítico ao verificar configuração:", err);
           setError("Erro de conexão com o banco de dados.");
-          setHasConfig(false); // Libera o loading mesmo com erro
+          setHasConfig(false); 
         }
       };
       checkConfig();
