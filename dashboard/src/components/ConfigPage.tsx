@@ -51,18 +51,22 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
 
     setSaving(true);
     setMessage(null);
-
     try {
+      console.log("Supabase: Tentando upsert para", user.email);
       const { error } = await supabase
         .from('monitor_configs')
         .upsert({
           user_id: user.id,
+          email: user.email,
           canvas_token: token,
-          is_active: true,
+          active: true, // O backend usa 'active' em vez de 'is_active' conforme supabase_handler
           updated_at: new Date().toISOString()
         }, { onConflict: 'user_id' });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase Error Details:", error);
+        throw error;
+      }
       
       setMessage({ type: 'success', text: 'Onyx Engine configurado com sucesso! Iniciando sincronização...' });
       if (onClose) setTimeout(onClose, 2000);
