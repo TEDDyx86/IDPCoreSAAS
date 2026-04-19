@@ -51,28 +51,19 @@ const App: React.FC = () => {
   useEffect(() => {
     if (user) {
       const checkConfig = async () => {
-        try {
-          console.log("App: Verificando configurações para", user.email);
+          // Consultamos apenas o que existe no seu schema atual (id e user_id)
           const { data, error } = await supabase
             .from('monitor_configs')
-            .select('id, student_name, courses_list')
+            .select('id')
             .maybeSingle();
           
           if (error) {
-             console.warn("App: Erro ou configuração não encontrada:", error);
+             console.warn("App: Erro ao verificar config (pode ser schema antigo):", error);
              setHasConfig(false);
              return;
           }
 
-          if (data) {
-            console.log("App: Configuração encontrada:", data.student_name);
-            setHasConfig(true);
-            if (data.student_name) setStudentName(data.student_name);
-            if (data.courses_list) setStudentCourses(data.courses_list);
-          } else {
-            console.log("App: Nenhuma configuração encontrada no banco.");
-            setHasConfig(false);
-          }
+          setHasConfig(!!data);
           
         } catch (err: any) {
           console.error("Erro crítico ao verificar configuração:", err);

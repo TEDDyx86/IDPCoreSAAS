@@ -52,15 +52,14 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
     setSaving(true);
     setMessage(null);
     try {
-      console.log("Supabase: Tentando upsert para", user.email);
+      console.log("Supabase: Salvando configuração no schema legado...");
       const { error } = await supabase
         .from('monitor_configs')
         .upsert({
           user_id: user.id,
-          email: user.email,
-          canvas_token: token,
-          active: true, // O backend usa 'active' em vez de 'is_active' conforme supabase_handler
-          updated_at: new Date().toISOString()
+          student_id: token, // Mapeamos o token para o campo student_id que já existe no seu banco
+          active: true,
+          created_at: new Date().toISOString()
         }, { onConflict: 'user_id' });
 
       if (error) {
