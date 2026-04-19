@@ -52,24 +52,19 @@ const App: React.FC = () => {
     if (user) {
       const checkConfig = async () => {
         try {
-          // Consultamos apenas o que existe no seu schema atual (id e user_id)
           const { data, error } = await supabase
             .from('monitor_configs')
-            .select('id')
+            .select('id, student_name, courses_list')
             .maybeSingle();
           
-          if (error) {
-             console.warn("App: Erro ao verificar config (pode ser schema antigo):", error);
-             setHasConfig(false);
-             return;
-          }
-
+          if (error) throw error;
           setHasConfig(!!data);
+          if (data?.student_name) setStudentName(data.student_name);
+          if (data?.courses_list) setStudentCourses(data.courses_list);
           
         } catch (err: any) {
-          console.error("Erro crítico ao verificar configuração:", err);
-          setError("Erro de conexão com o banco de dados.");
-          setHasConfig(false); 
+          console.error("Erro ao verificar configuração:", err);
+          setError("Falha ao comunicar com o servidor.");
         }
       };
       checkConfig();
@@ -110,12 +105,17 @@ const App: React.FC = () => {
     }
   }, [user, hasConfig]);
 
-  if (authLoading) {
+  if (authLoading || (user && hasConfig === null)) {
     return (
       <div className="login-container">
         <div className="animate-fade" style={{ textAlign: 'center' }}>
-          <img src={logo} alt="Logo" style={{ width: '80px', marginBottom: '1.5rem' }} className="pulse-animation" />
-          <p className="font-display" style={{ opacity: 0.6 }}>Onyx Engine v3.0...</p>
+          <img 
+            src={logo} 
+            alt="Logo" 
+            style={{ width: '80px', height: 'auto', marginBottom: '1.5rem', filter: 'drop-shadow(0 0 15px rgba(0,242,255,0.2))' }} 
+            className="pulse-animation" 
+          />
+          <p className="font-display" style={{ letterSpacing: '0.2em', fontSize: '0.8rem', opacity: 0.6 }}>Sincronizando Monitor...</p>
         </div>
       </div>
     );

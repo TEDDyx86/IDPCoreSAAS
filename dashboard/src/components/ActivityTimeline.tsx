@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, ExternalLink, BrainCircuit } from 'lucide-react';
+import { Clock, ExternalLink, BrainCircuit, Activity } from 'lucide-react';
 
 interface TimelineItem {
   id: string;

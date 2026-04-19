@@ -51,21 +51,18 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
 
     setSaving(true);
     setMessage(null);
+
     try {
-      console.log("Supabase: Salvando configuração no schema legado...");
       const { error } = await supabase
         .from('monitor_configs')
         .upsert({
           user_id: user.id,
-          student_id: token, // Mapeamos o token para o campo student_id que já existe no seu banco
-          active: true,
-          created_at: new Date().toISOString()
+          canvas_token: token,
+          is_active: true,
+          updated_at: new Date().toISOString()
         }, { onConflict: 'user_id' });
 
-      if (error) {
-        console.error("Supabase Error Details:", error);
-        throw error;
-      }
+      if (error) throw error;
       
       setMessage({ type: 'success', text: 'Onyx Engine configurado com sucesso! Iniciando sincronização...' });
       if (onClose) setTimeout(onClose, 2000);

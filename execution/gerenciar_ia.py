@@ -17,8 +17,8 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
     if not GEMINI_API_KEY:
         return "IA não configurada."
 
-    # Usamos o modelo Pro para maior capacidade de síntese pedagógica se disponível
-    model = genai.GenerativeModel('gemini-1.5-pro')
+    # Usamos o alias latest para garantir compatibilidade com a chave do usuário
+    model = genai.GenerativeModel('gemini-flash-latest')
     
     prompt = f"""
     PERSONA: Mentor Acadêmico de Elite (Estilo NotebookLM).
