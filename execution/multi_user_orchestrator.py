@@ -70,11 +70,23 @@ def run_orchestrator():
     print("\n=== CICLO DE ORQUESTRAÇÃO FINALIZADO ===")
 
 if __name__ == "__main__":
-    while True:
+    is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
+
+    if is_github_actions:
+        print("Ambiente: GITHUB ACTIONS detectado. Rodando ciclo único...")
         try:
             run_orchestrator()
-            print("\nAguardando 30 minutos para o próximo ciclo...")
-            time.sleep(1800) # Roda a cada 30 minutos
+            print("Ciclo único concluído com sucesso.")
         except Exception as e:
-            print(f"ERRO CRÍTICO NO ORQUESTRADOR: {e}")
-            time.sleep(60)
+            print(f"ERRO NO CICLO DO GITHUB ACTIONS: {e}")
+            exit(1)
+    else:
+        # Loop para execução local como serviço
+        while True:
+            try:
+                run_orchestrator()
+                print("\nAguardando 30 minutos para o próximo ciclo...")
+                time.sleep(1800)
+            except Exception as e:
+                print(f"ERRO CRÍTICO NO ORQUESTRADOR: {e}")
+                time.sleep(60)
