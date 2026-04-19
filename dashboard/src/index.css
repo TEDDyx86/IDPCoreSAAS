@@ -65,12 +65,46 @@ body {
   min-height: 100vh;
   margin: 0;
   background-color: hsl(var(--bg-onyx));
-  background-image: 
-    radial-gradient(circle at 0% 0%, hsla(var(--accent-cyan), 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 100% 100%, hsla(var(--accent-purple), 0.08) 0%, transparent 40%),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-attachment: fixed;
+  color: hsl(var(--text-main));
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Camada de Auroras Animadas */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -100px;
+  background: 
+    radial-gradient(circle at 20% 30%, hsla(var(--accent-cyan), 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, hsla(var(--accent-purple), 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 10%, hsla(var(--accent-cyan), 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 30% 90%, hsla(var(--accent-purple), 0.04) 0%, transparent 40%);
+  filter: blur(100px);
+  z-index: -2;
+  animation: bg-aurora 40s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+/* Malha Técnica de Pontos e Ruído */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(hsla(var(--text-ghost), 0.1) 1px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 50px 50px, auto;
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at center, black, transparent 90%);
+}
+
+@keyframes bg-aurora {
+  0% { transform: scale(1) translate(0, 0) rotate(0deg); }
+  50% { transform: scale(1.1) translate(5vw, 5vh) rotate(5deg); }
+  100% { transform: scale(1) translate(-2vw, 10vh) rotate(-5deg); }
 }
 
 /* --- Layout Elements --- */

@@ -116,7 +116,7 @@ const App: React.FC = () => {
       
       <header className="user-nav">
         <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginRight: 'auto' }}>
-          <img src={logo} alt="Logo" style={{ height: '32px', width: 'auto' }} />
+          <img src={logo} alt="Logo" style={{ height: '54px', width: 'auto', filter: 'drop-shadow(0 0 10px rgba(0,242,255,0.15))' }} />
           <div className="badge badge-cyan" style={{ gap: '0.5rem' }}>
              <Bell size={12} /> Live Scan Active
           </div>

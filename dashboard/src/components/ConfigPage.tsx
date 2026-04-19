@@ -56,16 +56,16 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
     <div className="login-container">
       <div className="login-card glass glass-card animate-fade" style={{ maxWidth: '500px', textAlign: 'left' }}>
         <button onClick={onClose} className="nav-btn" style={{ marginBottom: '2rem' }}>
-          <ChevronLeft size={16} /> Voltar ao Core
+          <ChevronLeft size={16} /> Voltar
         </button>
 
         <div className="login-header" style={{ textAlign: 'left' }}>
           <img 
             src={logo} 
             alt="Logo" 
-            style={{ width: '120px', height: 'auto', marginBottom: '1.5rem', filter: 'drop-shadow(0 0 10px rgba(0,242,255,0.15))' }} 
+            style={{ width: '160px', height: 'auto', marginBottom: '1.5rem', filter: 'drop-shadow(0 0 10px rgba(0,242,255,0.15))' }} 
           />
-          <h1 className="text-gradient">PROFILE_CONFIG</h1>
+          <h1 className="text-gradient">CANVAS</h1>
           <p className="text-dim font-display" style={{ fontSize: '0.75rem', letterSpacing: '0.2em' }}>Sincronização de Credenciais</p>
         </div>
 
@@ -93,9 +93,6 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
                 onChange={(e) => setSenhaIdp(e.target.value)}
                 required
               />
-              <p className="text-dim" style={{ fontSize: '0.65rem', marginTop: '0.5rem' }}>
-                 Suas credenciais são transmitidas via túnel SSL e isoladas por RLS.
-              </p>
             </div>
 
             {message && (
@@ -111,14 +108,10 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
           </form>
         )}
 
-        <div style={{ marginTop: '3rem', borderTop: '1px solid hsla(var(--glass-border))', paddingTop: '1.5rem', display: 'flex', gap: '1rem' }}>
-           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.5 }}>
-              <Shield size={14} />
-              <span style={{ fontSize: '0.6rem', fontWeight: 700 }} className="font-display">RLS_STRICT_MODE</span>
-           </div>
+        <div style={{ marginTop: '3rem', borderTop: '1px solid hsla(var(--glass-border))', paddingTop: '1.5rem' }}>
            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.5 }}>
               <Sparkles size={14} />
-              <span style={{ fontSize: '0.6rem', fontWeight: 700 }} className="font-display">ENCRYPT_DATA</span>
+              <span style={{ fontSize: '0.6rem', fontWeight: 700 }} className="font-display">DADOS CRIPTOGRAFADOS</span>
            </div>
         </div>
       </div>

@@ -16,13 +16,9 @@ const StatusHeader: React.FC<StatusHeaderProps> = ({
     <div className="status-command-center animate-fade">
       <div className="glass glass-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <p className="text-dim font-display" style={{ fontSize: '0.7rem', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>
-          SISTEMA_DE_MONITORAMENTO
+          STATUS DO SISTEMA
         </p>
-        <h1 className="text-gradient" style={{ fontSize: '3rem', margin: 0 }}>ACTIVE</h1>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', color: 'hsl(var(--success))' }}>
-          <ShieldCheck size={16} />
-          <span className="font-display" style={{ fontSize: '0.65rem', fontWeight: 800 }}>RLS DATA ISOLATION ENABLED</span>
-        </div>
+        <h1 className="text-gradient" style={{ fontSize: '3rem', margin: 0 }}>ATIVO</h1>
       </div>
 
       <div className="glass glass-card glass-hover" style={{ textAlign: 'center' }}>
@@ -41,10 +37,16 @@ const StatusHeader: React.FC<StatusHeaderProps> = ({
         <Calendar size={24} className="text-dim" style={{ marginBottom: '0.5rem' }} />
         <p className="text-dim font-display" style={{ fontSize: '0.6rem', letterSpacing: '0.1em' }}>ÚLTIMO_CHECK</p>
         <p style={{ fontSize: '0.8rem', fontWeight: 700, marginTop: '0.5rem', textAlign: 'center' }}>
-          {new Date(ultimaAtualizacao).toLocaleDateString()} <br/>
-          <span className="text-gradient" style={{ fontSize: '0.7rem' }}>
-            {new Date(ultimaAtualizacao).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-          </span>
+          {isNaN(new Date(ultimaAtualizacao).getTime()) ? (
+            <span className="text-dim">Aguardando Sinc.</span>
+          ) : (
+            <>
+              {new Date(ultimaAtualizacao).toLocaleDateString()} <br/>
+              <span className="text-gradient" style={{ fontSize: '0.7rem' }}>
+                {new Date(ultimaAtualizacao).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </span>
+            </>
+          )}
         </p>
       </div>
     </div>
