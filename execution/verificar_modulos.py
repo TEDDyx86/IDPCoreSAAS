@@ -12,25 +12,59 @@ from webdriver_manager.chrome import ChromeDriverManager
 PORTAL_URL = "https://ambientevirtual.idp.edu.br"
 
 def extrair_disciplinas(driver):
-    """Extrai IDs e nomes das disciplinas matriculadas no Canvas"""
+    """Extrai IDs e nomes das disciplinas matriculadas no Canvas com maior robustez"""
+    print("Capturando lista de disciplinas...")
     driver.get(f"{PORTAL_URL}/courses")
-    time.sleep(3)
     
-    disciplinas = []
     try:
-        # Pega a tabela de cursos
-        rows = driver.find_elements(By.CSS_SELECTOR, "table#my_courses_table tr.course-list-table-row")
+        # Aguarda a tabela ou qualquer link de curso carregar
+        wait = WebDriverWait(driver, 20)
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "a[href*='/courses/']")))
+        
+        disciplinas = []
+        
+        # Tenta pelo seletor de tabela oficial primeiro
+        rows = driver.find_elements(By.CSS_SELECTOR, "table#my_courses_table tr.course-list-table-row, table.course-list-table tr")
+        
         for row in rows:
-            link_el = row.find_element(By.CSS_SELECTOR, "td.course-list-table-column a")
-            href = link_el.get_attribute("href")
-            id_curso = href.split("/")[-1]
-            nome = link_el.text.strip()
-            if id_curso.isdigit():
-                disciplinas.append({"id": id_curso, "nome": nome})
+            try:
+                link_el = row.find_element(By.CSS_SELECTOR, "a[href*='/courses/']")
+                href = link_el.get_attribute("href")
+                id_curso = href.split("/")[-1]
+                nome = link_el.text.strip()
+                
+                if id_curso.isdigit() and nome:
+                    disciplinas.append({"id": id_curso, "nome": nome})
+            except:
+                continue
+
+        # Fallback: Se não achou na tabela, busca por todos os links na página que seguem o padrão
+        if not disciplinas:
+            print("Aviso: Tabela não encontrada. Tentando extração via links diretos...")
+            links = driver.find_elements(By.CSS_SELECTOR, "a[href*='/courses/']")
+            for l in links:
+                href = l.get_attribute("href")
+                nome = l.text.strip()
+                if href and nome:
+                    id_c = href.split("/")[-1]
+                    if id_c.isdigit() and len(nome) > 3:
+                        # Evita duplicatas se já houver
+                        if not any(d['id'] == id_c for d in disciplinas):
+                            disciplinas.append({"id": id_c, "nome": nome})
+
+        # Remove duplicatas por ID
+        vistos = set()
+        unique_discs = []
+        for d in disciplinas:
+            if d['id'] not in vistos:
+                vistos.add(d['id'])
+                unique_discs.append(d)
+        
+        return unique_discs
+
     except Exception as e:
-        print(f"Erro ao extrair disciplinas: {e}")
-    
-    return disciplinas
+        print(f"Erro crítico ao extrair disciplinas: {e}")
+        return []
 
 def verificar_materiais_usuario(user_id):
     """
@@ -45,6 +79,9 @@ def verificar_materiais_usuario(user_id):
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
     
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -52,6 +89,7 @@ def verificar_materiais_usuario(user_id):
     materiais_totais = []
 
     try:
+        print(f"Carregando sessão para usuário {user_id}...")
         driver.get(PORTAL_URL)
         with open(cookie_file, "rb") as f:
             cookies = pickle.load(f)
@@ -62,36 +100,45 @@ def verificar_materiais_usuario(user_id):
         
         # 1. Descobrir disciplinas dinamicamente
         disciplinas = extrair_disciplinas(driver)
-        print(f"Encontradas {len(disciplinas)} disciplinas para o usuário {user_id}")
+        print(f"Sucesso: {len(disciplinas)} disciplinas identificadas.")
 
         # 2. Varrer módulos de cada disciplina
         for disc in disciplinas:
-            print(f"  Vascunhando módulos de: {disc['nome']}")
+            print(f" > Analisando: {disc['nome']} (ID: {disc['id']})")
             driver.get(f"{PORTAL_URL}/courses/{disc['id']}/modules")
             
             try:
-                # Aguarda itens carregarem
-                WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "ig-row")))
+                # Aguarda itens carregarem (Canvas modules usam .ig-row para cada item)
+                wait_mod = WebDriverWait(driver, 15)
+                wait_mod.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".ig-row, .content")))
+                
                 items = driver.find_elements(By.CLASS_NAME, "ig-row")
                 
                 for item in items:
-                    title_el = item.find_element(By.CLASS_NAME, "ig-title")
-                    nome_item = title_el.text.strip()
-                    link_el = item.find_element(By.TAG_NAME, "a")
-                    url_item = link_el.get_attribute("href")
-                    item_id = url_item.split("/")[-1] if "/" in url_item else nome_item
+                    try:
+                        title_el = item.find_element(By.CLASS_NAME, "ig-title")
+                        nome_item = title_el.text.strip()
+                        link_el = item.find_element(By.TAG_NAME, "a")
+                        url_item = link_el.get_attribute("href")
+                        
+                        # Extrai ID do material da URL ou usa o nome
+                        item_id = url_item.split("/")[-1] if url_item and "/" in url_item else nome_item
 
-                    materiais_totais.append({
-                        "id": item_id,
-                        "titulo": nome_item,
-                        "link": url_item,
-                        "disciplina": disc['nome']
-                    })
-            except:
-                continue # Disciplina sem módulos ou erro
+                        if nome_item and url_item:
+                            materiais_totais.append({
+                                "id": item_id,
+                                "titulo": nome_item,
+                                "link": url_item,
+                                "disciplina": disc['nome']
+                            })
+                    except:
+                        continue
+            except Exception as e:
+                print(f"   Aviso: Sem módulos visíveis em {disc['nome']}.")
+                continue
                 
     except Exception as e:
-        print(f"Erro ao verificar materiais: {e}")
+        print(f"Erro fatal na verificação de materiais: {e}")
     finally:
         driver.quit()
 

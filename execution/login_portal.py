@@ -29,25 +29,32 @@ def login_idp(usuario, senha, user_id):
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
     
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
         driver.get(URL_LOGIN)
-        wait = WebDriverWait(driver, 15)
+        wait = WebDriverWait(driver, 20)
         
         user_field = wait.until(EC.presence_of_element_located((By.ID, "pseudonym_session_unique_id")))
         pass_field = driver.find_element(By.ID, "pseudonym_session_password")
         
+        # Garante que os campos estejam limpos
+        user_field.clear()
+        pass_field.clear()
+        
+        print(f"Preenchendo credenciais para {usuario}...")
         user_field.send_keys(usuario)
         pass_field.send_keys(senha)
 
         login_btn = driver.find_element(By.CSS_SELECTOR, "button.Button--login")
         login_btn.click()
 
-        # Aguarda dashboard
-        wait_dashboard = WebDriverWait(driver, 20)
+        # Aguarda dashboard ou erro
+        print("Aguardando carregamento do portal (Canvas)...")
+        wait_dashboard = WebDriverWait(driver, 25)
         wait_dashboard.until(EC.presence_of_element_located((By.ID, "global_nav_dashboard_link")))
         
         # Salva cookies específicos do usuário

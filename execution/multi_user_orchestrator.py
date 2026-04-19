@@ -6,87 +6,92 @@ from verificar_modulos import verificar_materiais_usuario
 from gerenciar_ia import resumir_item_simples
 
 def run_orchestrator():
-    print("=== INICIANDO ORQUESTRADOR MULTI-USUÁRIO IDP CORE ===")
-    handler = SupabaseHandler()
+    print("\n" + "="*50)
+    print(f"CICLO DE MONITORAMENTO: {time.strftime('%Y-%m-%d %H:%M:%S')}")
+    print("="*50)
     
-    # 1. Busca todos os alunos que ativaram o monitoramento
+    handler = SupabaseHandler()
     configs = handler.get_active_configs()
-    print(f"Encontrados {len(configs)} usuários ativos para processamento.")
+    
+    if not configs:
+        print("Nenhum usuário ativo para processamento.")
+        return
+
+    print(f"Total de usuários: {len(configs)}")
+    stats = {"sucesso": 0, "falha": 0, "novos_itens": 0}
 
     for cfg in configs:
         user_id = cfg['user_id']
         usuario = cfg['student_id']
-        senha = cfg['student_password'] # Recuperado do DB (protegido por RLS para o user, mas aberto para service_role)
+        senha = cfg['student_password']
         
-        print(f"\n>>> Processando Aluno: {usuario} (ID: {user_id})")
+        print(f"\n>>> Processando: {usuario}")
         
-        # 2. Realiza o login para atualizar cookies
-        login_success = login_idp(usuario, senha, user_id)
-        if not login_success:
-            print(f"PULANDO: Falha no login para {usuario}")
-            continue
+        try:
+            # 1. Login e Sessão
+            if not login_idp(usuario, senha, user_id):
+                print(f" [!] Falha de login para {usuario}.")
+                stats["falha"] += 1
+                continue
+                
+            # 2. Scrape do Canvas
+            materiais_atuais = verificar_materiais_usuario(user_id)
+            print(f" [+] {len(materiais_atuais)} itens detectados.")
+
+            # 3. Cruzamento e IA
+            # Buscamos os IDs já registrados
+            from supabase_handler import SUPABASE_URL, SUPABASE_SERVICE_KEY, requests
+            url_check = f"{SUPABASE_URL}/rest/v1/academic_updates?user_id=eq.{user_id}&select=id"
+            headers = {"apikey": SUPABASE_SERVICE_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_KEY}"}
+            res_check = requests.get(url_check, headers=headers)
+            ids_vistos = [str(r['id']) for r in res_check.json()] if res_check.status_code == 200 else []
+
+            novos_itens = [m for m in materiais_atuais if str(m['id']) not in ids_vistos]
             
-        # 3. Verifica materiais atuais no Canvas
-        materiais_atuais = verificar_materiais_usuario(user_id)
-        print(f"Sucesso: {len(materiais_atuais)} materiais mapeados no total.")
+            if novos_itens:
+                print(f" [*] {len(novos_itens)} NOVAS ATUALIZAÇÕES IDENTIFICADAS!")
+                for item in novos_itens:
+                    try:
+                        resumo = resumir_item_simples(item['titulo'], item['disciplina'])
+                        handler.save_update(
+                            user_id=user_id,
+                            disciplina=item['disciplina'],
+                            titulo=item['titulo'],
+                            tipo="MATERIAL",
+                            resumo=resumo,
+                            links={"url": item['link']}
+                        )
+                    except Exception as inner_e:
+                        print(f"   [!] Erro ao salvar item '{item.get('id')}': {inner_e}")
+                stats["novos_itens"] += len(novos_itens)
+            else:
+                print(" [-] Nenhuma novidade.")
 
-        # 4. Compara com o que já existe no Supabase para este usuário
-        # Buscamos os IDs já registrados para evitar duplicidade
-        from supabase_handler import SUPABASE_URL, SUPABASE_SERVICE_KEY, requests
-        url_check = f"{SUPABASE_URL}/rest/v1/academic_updates?user_id=eq.{user_id}&select=id"
-        headers = {
-            "apikey": SUPABASE_SERVICE_KEY,
-            "Authorization": f"Bearer {SUPABASE_SERVICE_KEY}"
-        }
-        res_check = requests.get(url_check, headers=headers)
-        ids_vistos = [str(r['id']) for r in res_check.json()] if res_check.status_code == 200 else []
+            handler.update_last_run(cfg['id'])
+            stats["sucesso"] += 1
+            
+        except Exception as e:
+            print(f" [X] ERRO ao processar {usuario}: {e}")
+            stats["falha"] += 1
 
-        novos_itens = [m for m in materiais_atuais if str(m['id']) not in ids_vistos]
-        
-        if novos_itens:
-            print(f"IDENTIFICADO: {len(novos_itens)} novas atualizações!")
-            for item in novos_itens:
-                print(f"  - [{item['disciplina']}] {item['titulo']}")
-                
-                # 5. Gera resumo inteligente via IA (baseado apenas no título por enquanto para maior velocidade)
-                resumo = resumir_item_simples(item['titulo'], item['disciplina'])
-                
-                # 6. Salva no Supabase
-                handler.save_update(
-                    user_id=user_id,
-                    disciplina=item['disciplina'],
-                    titulo=item['titulo'],
-                    tipo="MATERIAL",
-                    resumo=resumo,
-                    links={"url": item['link']}
-                )
-        else:
-            print("Nenhuma novidade encontrada.")
-
-        # 7. Atualiza timestamp da execução
-        handler.update_last_run(cfg['id'])
-        print(f"Concluído para {usuario}.")
-
-    print("\n=== CICLO DE ORQUESTRAÇÃO FINALIZADO ===")
+    print("\n" + "="*50)
+    print("RELATÓRIO DE EXECUÇÃO")
+    print(f"Sucesso: {stats['sucesso']} | Falhas: {stats['falha']}")
+    print(f"Novidades: {stats['novos_itens']}")
+    print("="*50 + "\n")
 
 if __name__ == "__main__":
     is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
 
     if is_github_actions:
-        print("Ambiente: GITHUB ACTIONS detectado. Rodando ciclo único...")
-        try:
-            run_orchestrator()
-            print("Ciclo único concluído com sucesso.")
-        except Exception as e:
-            print(f"ERRO NO CICLO DO GITHUB ACTIONS: {e}")
-            exit(1)
+        print("Modo: GitHub Actions (Single Run)")
+        run_orchestrator()
     else:
-        # Loop para execução local como serviço
+        print("Modo: Local (Loop 1h)")
         while True:
             try:
                 run_orchestrator()
-                print("\nAguardando 30 minutos para o próximo ciclo...")
-                time.sleep(1800)
+                time.sleep(3600)
             except Exception as e:
-                print(f"ERRO CRÍTICO NO ORQUESTRADOR: {e}")
+                print(f"ERRO CRÍTICO: {e}")
                 time.sleep(60)
