@@ -52,19 +52,32 @@ const App: React.FC = () => {
     if (user) {
       const checkConfig = async () => {
         try {
+          console.log("App: Verificando configurações para", user.email);
           const { data, error } = await supabase
             .from('monitor_configs')
             .select('id, student_name, courses_list')
             .maybeSingle();
           
-          if (error) throw error;
-          setHasConfig(!!data);
-          if (data?.student_name) setStudentName(data.student_name);
-          if (data?.courses_list) setStudentCourses(data.courses_list);
+          if (error) {
+             console.warn("App: Erro ou configuração não encontrada:", error);
+             setHasConfig(false);
+             return;
+          }
+
+          if (data) {
+            console.log("App: Configuração encontrada:", data.student_name);
+            setHasConfig(true);
+            if (data.student_name) setStudentName(data.student_name);
+            if (data.courses_list) setStudentCourses(data.courses_list);
+          } else {
+            console.log("App: Nenhuma configuração encontrada no banco.");
+            setHasConfig(false);
+          }
           
         } catch (err: any) {
-          console.error("Erro ao verificar configuração:", err);
-          setError("Falha ao comunicar com o servidor.");
+          console.error("Erro crítico ao verificar configuração:", err);
+          setError("Erro de conexão com o banco de dados.");
+          setHasConfig(false); // Libera o loading mesmo com erro
         }
       };
       checkConfig();
