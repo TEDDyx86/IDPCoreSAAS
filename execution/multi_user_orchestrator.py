@@ -15,7 +15,8 @@ from canvas_api_handler import verificar_materiais_via_api, CanvasAPIClient
 from gerenciar_ia import resumir_item_premium
 
 # CONFIGURAÇÕES DE COTAONYX
-MAX_ITEMS_PER_RUN = 5  # Limite de itens processados por usuário por execução (Cota Safe)
+MAX_ITEMS_PER_RUN = 100  # Expandido para permitir limpeza em massa
+DELAY_BETWEEN_ITEMS = 10 # Segundos entre cada aula para evitar Rate Limit
 
 def run_orchestrator():
     print("\n" + "="*50)
@@ -147,9 +148,9 @@ def run_orchestrator():
                         
                         itens_gerados.append(f"✅ {item['titulo']} ({item['disciplina']})")
                         
-                        # DESCANSAR 5s (Evitar 429 no Free Tier do Gemini)
-                        print("   [...] Aguardando 5s para controle de cota...")
-                        time.sleep(5)
+                        # Pausa de segurança (Evitar 429 no Free Tier do Gemini/Groq)
+                        print(f"   [...] Aguardando {DELAY_BETWEEN_ITEMS}s para controle de cota...")
+                        time.sleep(DELAY_BETWEEN_ITEMS)
                     except Exception as inner_e:
                         print(f"   [!] Erro ao processar item: {inner_e}")
 
