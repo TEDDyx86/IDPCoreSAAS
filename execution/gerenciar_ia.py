@@ -20,6 +20,38 @@ if GEMINI_API_KEY:
 # --- Configurações Groq ---
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+# --- TEMPLATE DE PROMPT ACADÊMICO (ONYX MENTOR) ---
+ONYX_PROMPT_TEMPLATE = """
+VOCÊ É O 'ONYX MENTOR', UM ASSISTENTE ACADÊMICO DE NÍVEL PHD.
+Sua missão é transformar o conteúdo bruto fornecido em uma experiência de aprendizado profunda e estruturada.
+
+TAREFA:
+1. Explore o tema '{titulo}' da disciplina '{disciplina}' com rigor acadêmico.
+2. Crie um GUIA DE ESTUDO COMPLETO em Markdown Estético (use tabelas para comparações, tópicos para conceitos e negrito para termos técnicos).
+3. O Guia deve conter:
+   - [VISÃO GERAL]: Um parágrafo contextualizando a importância do tema.
+   - [CONCEITOS CHAVE]: Explicações profundas dos pilares do conteúdo.
+   - [APLICAÇÃO PRÁTICA]: Como isso se aplica no mercado ou na vida real.
+   - [DICA DO MENTOR]: Um insight exclusivo sobre como dominar esse assunto.
+4. Elabore 5 QUESTÕES DE QUIZ de nível moderado a difícil para fixação.
+
+CONTEÚDO PARA ANÁLISE:
+{conteudo}
+
+FORMATO DE RETORNO (JSON PURO):
+{{
+  "summary": "Resumo completo em Markdown...",
+  "quiz": [
+    {{
+      "question": "Pergunta 1?",
+      "options": ["Opção A", "Opção B", "Opção C", "Opção D"],
+      "correct_index": 0
+    }},
+    ... (total 5)
+  ]
+}}
+"""
+
 def resumir_com_groq(titulo, disciplina, texto_extra=""):
     """Backup: Gera resumo usando Groq (Llama-3 70B)"""
     if not GROQ_API_KEY:
@@ -30,12 +62,11 @@ def resumir_com_groq(titulo, disciplina, texto_extra=""):
         client = Groq(api_key=GROQ_API_KEY)
         print(f" [GROQ] Iniciando processamento de backup (Llama-3 70B)...")
         
-        prompt = f"""
-        TAREFA: Gere um guia de estudo e um quiz estruturado para '{titulo}' ({disciplina}).
-        CONTEÚDO: {texto_extra[:15000]}
-        
-        RETORNO: JSON PURO com campos 'summary' (string rica em markdown) e 'quiz' (array de objetos com question e options).
-        """
+        prompt = ONYX_PROMPT_TEMPLATE.format(
+            titulo=titulo,
+            disciplina=disciplina,
+            conteudo=texto_extra[:20000] # Expandido para 20k tokens
+        )
 
         # Modelo atualizado para llama-3.3-70b-versatile (mais estável e potente)
         completion = client.chat.completions.create(
@@ -62,13 +93,11 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
         try:
             print(f" [IA] Tentando processar com Gemini (gemini-1.5-flash)...")
             
-            prompt = f"""
-            TAREFA: Como Mentor Acadêmico, gere um guia de estudo profundo e 5 questões de quiz para '{titulo}' ({disciplina}).
-            CONTEÚDO: {texto_extra[:20000]}
-            RETORNO: JSON PURO (summary, quiz).
-            O campo 'summary' deve conter o conteúdo do resumo formatado em Markdown estético.
-            O campo 'quiz' deve ser um array de 5 objetos contendo 'question', 'options' (array) e 'correct_index' (0-3).
-            """
+            prompt = ONYX_PROMPT_TEMPLATE.format(
+                titulo=titulo,
+                disciplina=disciplina,
+                conteudo=texto_extra[:30000] # Gemini aceita janelas maiores
+            )
             
             # Tentativa 1: gemini-1.5-flash (padrão estável)
             # Nota técnica: Se falhar com 404, a nova SDK pode exigir o prefixo completo em certas regiões
