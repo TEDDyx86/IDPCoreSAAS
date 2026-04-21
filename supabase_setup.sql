@@ -6,9 +6,9 @@ create extension if not exists "uuid-ossp";
 create table public.monitor_configs (
   id uuid primary key default uuid_generate_v4(),
   user_id uuid references auth.users(id) on delete cascade not null,
-  student_id text not null,
-  student_password_secret_id uuid, -- ID do segredo no Vault
-  github_url text,
+  canvas_token text,
+  student_name text,
+  courses_list jsonb,
   active boolean default true,
   last_run timestamp with time zone,
   created_at timestamp with time zone default now(),

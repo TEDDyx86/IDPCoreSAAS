@@ -58,8 +58,8 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
         .upsert({
           user_id: user.id,
           canvas_token: token,
-          is_active: true,
-          updated_at: new Date().toISOString()
+          active: true,
+          last_run: new Date().toISOString()
         }, { onConflict: 'user_id' });
 
       if (error) throw error;
