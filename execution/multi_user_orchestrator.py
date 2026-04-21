@@ -87,14 +87,25 @@ def run_orchestrator():
                 # Critérios de Processamento:
                 # 1. Não existe no banco (Item Novo)
                 # 2. Usuário solicitou regeneração manual
-                # 3. O processamento anterior resultou em erro genérico da IA
+                # 3. O processamento anterior resultou em erro genérico ou está incompleto
                 is_novo = m_id not in ids_vistos
-                is_regen_solicitada = "[REGENERAÇÃO SOLICITADA]" in resumo_atual.upper()
-                is_erro_ia = "ERRO NO PROCESSAMENTO DA IA" in resumo_atual.upper()
                 
-                if is_novo or is_regen_solicitada or is_erro_ia:
+                # Detecção aprimorada de erro:
+                # - Contém palavras-chave de erro
+                # - É excessivamente curto (menos de 150 caracteres de conteúdo real)
+                # - Está vazio
+                is_regen_solicitada = "[REGENERAÇÃO SOLICITADA]" in resumo_atual.upper()
+                is_falha_detectada = any(msg in resumo_atual.upper() for msg in [
+                    "ERRO NO PROCESSAMENTO DA IA", 
+                    "FALHA AO GERAR RESUMO", 
+                    "JSON INVÁLIDO",
+                    "NENHUMA IA CONFIGURADA"
+                ])
+                is_muito_curto = len(resumo_atual.strip()) < 150 and not is_novo
+                
+                if is_novo or is_regen_solicitada or is_falha_detectada or is_muito_curto:
                     itens_para_processar.append(m)
-                    status = "NOVO" if is_novo else ("REGENERAÇÃO" if is_regen_solicitada else "RE-TENTATIVA ERRO")
+                    status = "NOVO" if is_novo else ("REGENERAÇÃO" if is_regen_solicitada else "AUTO-CORREÇÃO")
                     print(f"   [+] Incluído: {m['titulo']} ({status})")
             
             if itens_para_processar:
