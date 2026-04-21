@@ -122,6 +122,10 @@ def run_orchestrator():
                             links={"url": item['link']},
                             quiz=quiz_final
                         )
+                        
+                        # DESCANSAR 5s (Evitar 429 no Free Tier do Gemini)
+                        print("   [...] Aguardando 5s para controle de cota...")
+                        time.sleep(5)
                     except Exception as inner_e:
                         print(f"   [!] Erro ao processar item: {inner_e}")
                 stats["novos_itens"] += len(itens_para_processar)

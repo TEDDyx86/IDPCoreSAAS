@@ -1,5 +1,6 @@
 import os
 import re
+import time
 import google.generativeai as genai
 from dotenv import load_dotenv
 
@@ -54,15 +55,34 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
     Gere 5 questões no quiz.
     """
     
-    try:
-        response = model.generate_content(prompt, safety_settings=safety_settings)
-        
-        # Diagnóstico de BLOQUEIO
-        if not response.candidates:
-             print(f" [!] Erro IA: Nenhum candidato retornado. Possível bloqueio. Feedback: {response.prompt_feedback}")
-             return '{"summary": "Erro: Resposta Bloqueada pela IA.", "quiz": []}'
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            response = model.generate_content(prompt, safety_settings=safety_settings)
+            
+            # Diagnóstico de BLOQUEIO
+            if not response.candidates:
+                print(f" [!] Erro IA: Nenhum candidato retornado. Possível bloqueio. Feedback: {response.prompt_feedback}")
+                return '{"summary": "Erro: Resposta Bloqueada pela IA.", "quiz": []}'
 
-        text = response.text
+            text = response.text
+            break # Sucesso, sai do loop de retry
+        except Exception as e:
+            err_msg = str(e)
+            if "429" in err_msg or "quota" in err_msg.lower():
+                wait_time = 15 * (attempt + 1)
+                print(f" [!] Cota excedida (429). Tentativa {attempt+1}/{max_retries}. Aguardando {wait_time}s...")
+                time.sleep(wait_time)
+            elif "500" in err_msg or "503" in err_msg:
+                print(f" [!] Erro de servidor (50x). Tentativa {attempt+1}/{max_retries}. Aguardando 5s...")
+                time.sleep(5)
+            else:
+                print(f" [!] Erro crítico no Resumo Premium: {e}")
+                return '{"summary": "Erro no processamento da IA.", "quiz": []}'
+            
+            if attempt == max_retries - 1:
+                print(" [!] Esgotadas as tentativas de re-processamento por cota.")
+                return '{"summary": "Erro de cota na IA (429).", "quiz": []}'
         
         # Limpeza agressiva de blocos de código
         if "```" in text:
