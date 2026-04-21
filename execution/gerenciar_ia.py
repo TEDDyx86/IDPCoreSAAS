@@ -37,8 +37,9 @@ def resumir_com_groq(titulo, disciplina, texto_extra=""):
         RETORNO: JSON PURO com campos 'summary' (string rica em markdown) e 'quiz' (array de objetos com question e options).
         """
 
+        # Modelo atualizado para llama-3.3-70b-versatile (mais estável e potente)
         completion = client.chat.completions.create(
-            model="llama3-70b-8192",
+            model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7,
             response_format={"type": "json_object"}
@@ -69,11 +70,22 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
             O campo 'quiz' deve ser um array de 5 objetos contendo 'question', 'options' (array) e 'correct_index' (0-3).
             """
             
-            # Na nova SDK, o método é client.models.generate_content
-            response = client_gemini.models.generate_content(
-                model="gemini-1.5-flash",
-                contents=prompt
-            )
+            # Tentativa 1: gemini-1.5-flash (padrão estável)
+            # Nota técnica: Se falhar com 404, a nova SDK pode exigir o prefixo completo em certas regiões
+            try:
+                response = client_gemini.models.generate_content(
+                    model="gemini-1.5-flash",
+                    contents=prompt
+                )
+            except Exception as e_inner:
+                if "404" in str(e_inner):
+                    print(" [!] 404 no Gemini (1.5-flash). Tentando fallback de nomenclatura 'models/gemini-1.5-flash'...")
+                    response = client_gemini.models.generate_content(
+                        model="models/gemini-1.5-flash",
+                        contents=prompt
+                    )
+                else:
+                    raise e_inner
             
             if response and response.text:
                 text = response.text
