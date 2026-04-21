@@ -19,7 +19,7 @@ const DisclaimerModal: React.FC = () => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" style={{ z-index: 30000 }}>
+    <div className="modal-overlay" style={{ zIndex: 30000 }}>
       <div 
         className="modal-content glass glass-card animate-reveal" 
         style={{ 
