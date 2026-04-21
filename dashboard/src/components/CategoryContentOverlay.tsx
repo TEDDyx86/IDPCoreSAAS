@@ -35,7 +35,7 @@ const CategoryContentOverlay: React.FC<CategoryContentOverlayProps> = ({
           display: 'flex',
           flexDirection: 'column',
           padding: 0,
-          background: 'rgba(10, 10, 15, 0.9)',
+          background: 'rgba(5, 5, 8, 0.7)',
           overflow: 'hidden'
         }} 
         onClick={e => e.stopPropagation()}

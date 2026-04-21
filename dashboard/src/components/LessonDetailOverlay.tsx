@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ExternalLink, BookOpen, Clock, Zap, Sparkles, Share2, RefreshCw, BrainCircuit, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ExternalLink, BookOpen, Clock, Zap, Sparkles, Share2, RefreshCw, BrainCircuit, ChevronRight, X } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 import QuizOverlay from './QuizOverlay';
 
@@ -107,7 +107,9 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
         position: 'fixed', 
         inset: 0, 
         zIndex: 2000, 
-        background: '#050505', 
+        background: 'rgba(5, 5, 5, 0.8)', 
+        backdropFilter: 'blur(30px)',
+        WebkitBackdropFilter: 'blur(30px)',
         display: 'flex', 
         flexDirection: 'column',
         color: 'white'
