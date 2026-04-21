@@ -57,6 +57,25 @@ FORMATO DE RETORNO (JSON PURO):
 }}
 """
 
+def limpar_json_ia(text):
+    """Remove blocos de código Markdown e extrai apenas o conteúdo JSON."""
+    if not text:
+        return None
+    
+    # Remove blocos de código markdown se existirem
+    if "```json" in text:
+        text = text.split("```json")[1].split("```")[0].strip()
+    elif "```" in text:
+        text = text.split("```")[1].split("```")[0].strip()
+    
+    # Tenta encontrar o primeiro { e o último } para garantir que pegamos apenas o objeto
+    start = text.find("{")
+    end = text.rfind("}")
+    
+    if start != -1 and end != -1:
+        return text[start:end+1]
+    return text.strip()
+
 def resumir_com_groq(titulo, disciplina, texto_extra=""):
     """Backup: Gera resumo usando Groq (Llama-3 70B)"""
     if not GROQ_API_KEY:
@@ -80,7 +99,7 @@ def resumir_com_groq(titulo, disciplina, texto_extra=""):
             temperature=0.7,
             response_format={"type": "json_object"}
         )
-        return completion.choices[0].message.content
+        return limpar_json_ia(completion.choices[0].message.content)
     except Exception as e:
         print(f" [!] Erro no Groq Backup: {e}")
         return None
@@ -116,7 +135,7 @@ def resumir_com_openrouter(titulo, disciplina, texto_extra=""):
 
         if response.status_code == 200:
             result = response.json()
-            return result['choices'][0]['message']['content']
+            return limpar_json_ia(result['choices'][0]['message']['content'])
         else:
             print(f" [!] Erro OpenRouter (Status {response.status_code}): {response.text}")
             return None
@@ -161,17 +180,12 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
                     raise e_inner
             
             if response and response.text:
-                text = response.text
-                # Limpeza de markdown de código se necessário
-                if "```json" in text:
-                    text = text.split("```json")[1].split("```")[0].strip()
-                elif "```" in text:
-                    text = text.split("```")[1].split("```")[0].strip()
+                text = limpar_json_ia(response.text)
                 
                 # Garantir que temos um JSON válido
-                if "{" in text and "}" in text:
+                if text and "{" in text and "}" in text:
                     print(f" [+] Sucesso via Gemini para: {titulo}")
-                    return text[text.find('{'):text.rfind('}')+1]
+                    return text
                 else:
                     raise ValueError("Resposta do Gemini não contém um JSON válido.")
                     
