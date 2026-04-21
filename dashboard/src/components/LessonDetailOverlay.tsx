@@ -5,7 +5,7 @@ import QuizOverlay from './QuizOverlay';
 
 interface LessonDetailOverlayProps {
   item: {
-    id?: number;
+    id: string | number;
     origin_id: string;
     titulo: string;
     disciplina: string;
@@ -28,7 +28,7 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
         .update({ 
           resumo: '[REGENERAÇÃO SOLICITADA] O robô reprocessará este item no próximo ciclo...' 
         })
-        .eq('origin_id', item.origin_id);
+        .eq('id', item.id);
 
       if (error) throw error;
       setSuccess(true);
@@ -106,7 +106,7 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
       style={{ 
         position: 'fixed', 
         inset: 0, 
-        zIndex: 10000, 
+        zIndex: 20000, 
         background: 'rgba(5, 5, 5, 0.8)', 
         backdropFilter: 'blur(var(--glass-blur))',
         WebkitBackdropFilter: 'blur(var(--glass-blur))',

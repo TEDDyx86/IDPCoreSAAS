@@ -66,7 +66,7 @@ class SupabaseHandler:
 
     def update_profile_info(self, config_id, student_name, courses_list=None):
         """Sincroniza o nome real do aluno e opcionalmente a lista de cursos"""
-        url = f"{self.base_url}/profiles?id=eq.{config_id}"
+        url = f"{self.base_url}/monitor_configs?id=eq.{config_id}"
         payload = {"student_name": student_name}
         if courses_list:
             payload["courses_list"] = courses_list
@@ -76,7 +76,7 @@ class SupabaseHandler:
     def update_last_run(self, config_id):
         """Atualiza o timestamp da última verificação bem-sucedida"""
         from datetime import datetime
-        url = f"{self.base_url}/profiles?id=eq.{config_id}"
+        url = f"{self.base_url}/monitor_configs?id=eq.{config_id}"
         payload = {"last_verification_date": datetime.now().isoformat()}
         response = requests.patch(url, headers=self.headers, json=payload)
         return response.status_code == 200

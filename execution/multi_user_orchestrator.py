@@ -1,5 +1,6 @@
 import time
 import os
+import json
 from supabase_handler import SupabaseHandler
 from canvas_api_handler import verificar_materiais_via_api, CanvasAPIClient
 from gerenciar_ia import resumir_item_premium
