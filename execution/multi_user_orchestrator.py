@@ -51,7 +51,7 @@ def run_orchestrator():
             # 3. Cruzamento e Deduplicação (Usando origin_id)
             from supabase_handler import SUPABASE_URL, SUPABASE_SERVICE_KEY, requests
             # Buscamos origin_ids e resumos para identificar novos itens E itens marcados para regeneração
-            url_check = f"{SUPABASE_URL}/rest/v1/academic_updates?user_id=eq.{user_id}&select=origin_id,resumo,regenerar"
+            url_check = f"{SUPABASE_URL}/rest/v1/academic_updates?user_id=eq.{user_id}&select=origin_id,resumo"
             headers = {"apikey": SUPABASE_SERVICE_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_KEY}"}
             res_check = requests.get(url_check, headers=headers)
             
@@ -60,10 +60,7 @@ def run_orchestrator():
                 existing_records = res_check.json()
             
             ids_vistos = [str(r['origin_id']) for r in existing_records if r.get('origin_id')]
-            ids_regenerar = [
-                str(r['origin_id']) for r in existing_records 
-                if (r.get('resumo') and "[REGENERAÇÃO SOLICITADA]" in r['resumo']) or r.get('regenerar') == True
-            ]
+            ids_regenerar = [str(r['origin_id']) for r in existing_records if r.get('resumo') and "[REGENERAÇÃO SOLICITADA]" in r['resumo']]
 
             # Filtramos o que é NOVO ou solicita REGENERAÇÃO
             itens_para_processar = [
