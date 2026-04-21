@@ -1,19 +1,21 @@
 import os
 import re
 import time
-import google.generativeai as genai
+from google import genai
 from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# --- Configurações Gemini ---
+# --- Configurações Gemini (Nova SDK google-genai) ---
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+client_gemini = None
 if GEMINI_API_KEY:
     try:
-        genai.configure(api_key=GEMINI_API_KEY)
+        # A nova biblioteca utiliza genai.Client
+        client_gemini = genai.Client(api_key=GEMINI_API_KEY)
     except Exception as e:
-        print(f" [!] Erro ao configurar Gemini: {e}")
+        print(f" [!] Erro ao configurar Gemini (google-genai): {e}")
 
 # --- Configurações Groq ---
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -32,7 +34,7 @@ def resumir_com_groq(titulo, disciplina, texto_extra=""):
         TAREFA: Gere um guia de estudo e um quiz estruturado para '{titulo}' ({disciplina}).
         CONTEÚDO: {texto_extra[:15000]}
         
-        RETORNO: JSON PURO (summary, quiz).
+        RETORNO: JSON PURO com campos 'summary' (string rica em markdown) e 'quiz' (array de objetos com question e options).
         """
 
         completion = client.chat.completions.create(
@@ -49,61 +51,60 @@ def resumir_com_groq(titulo, disciplina, texto_extra=""):
 def resumir_item_premium(titulo, disciplina, texto_extra=""):
     """
     Gera um guia de estudo completo e um QUIZ estruturado.
-    LÓGICA HÍBRIDA: Tenta Gemini -> Se QUALQUER erro -> Tenta Groq (Failover Universal).
+    LÓGICA HÍBRIDA: Tenta Gemini (google-genai) -> Se QUALQUER erro -> Tenta Groq.
     """
     if not GEMINI_API_KEY and not GROQ_API_KEY:
         return '{"summary": "Nenhuma IA configurada no ambiente (Secrets).", "quiz": []}'
 
-    # Configuração de Segurança Gemini
-    safety_settings = [
-        {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
-        {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
-        {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
-        {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
-    ]
-
-    # 1. TENTATIVA COM GEMINI
-    if GEMINI_API_KEY:
+    # 1. TENTATIVA COM GEMINI (New Client SDK)
+    if client_gemini:
         try:
-            print(f" [IA] Tentando processar com Gemini (models/gemini-1.5-flash)...")
-            model = genai.GenerativeModel('models/gemini-1.5-flash')
+            print(f" [IA] Tentando processar com Gemini (gemini-1.5-flash)...")
             
             prompt = f"""
-            TAREFA: Como Mentor Acadêmico, gere um guia de estudo e 5 questões de quiz para '{titulo}' ({disciplina}).
-            CONTEÚDO: {texto_extra[:25000]}
+            TAREFA: Como Mentor Acadêmico, gere um guia de estudo profundo e 5 questões de quiz para '{titulo}' ({disciplina}).
+            CONTEÚDO: {texto_extra[:20000]}
             RETORNO: JSON PURO (summary, quiz).
+            O campo 'summary' deve conter o conteúdo do resumo formatado em Markdown estético.
+            O campo 'quiz' deve ser um array de 5 objetos contendo 'question', 'options' (array) e 'correct_index' (0-3).
             """
             
-            response = model.generate_content(prompt, safety_settings=safety_settings)
+            # Na nova SDK, o método é client.models.generate_content
+            response = client_gemini.models.generate_content(
+                model="gemini-1.5-flash",
+                contents=prompt
+            )
             
-            if response and response.candidates:
+            if response and response.text:
                 text = response.text
+                # Limpeza de markdown de código se necessário
                 if "```json" in text:
                     text = text.split("```json")[1].split("```")[0].strip()
                 elif "```" in text:
                     text = text.split("```")[1].split("```")[0].strip()
                 
+                # Garantir que temos um JSON válido
                 if "{" in text and "}" in text:
-                    print(" [+] Sucesso via Gemini.")
+                    print(f" [+] Sucesso via Gemini para: {titulo}")
                     return text[text.find('{'):text.rfind('}')+1]
+                else:
+                    raise ValueError("Resposta do Gemini não contém um JSON válido.")
+                    
         except Exception as e:
-            print(f" [!] Falha no Gemini: {e}")
+            print(f" [!] Falha no Gemini (google-genai): {e}")
             print(" [-->] Ativando Failover Automático para Groq...")
 
-    # 2. FAILOVER AUTOMÁTICO PARA GROQ (Executa se Gemini falhar ou não estiver disponível)
+    # 2. FAILOVER AUTOMÁTICO PARA GROQ
     if GROQ_API_KEY:
         backup_res = resumir_com_groq(titulo, disciplina, texto_extra)
         if backup_res:
-            print(" [+] Sucesso via Groq (Resiliência Ativada).")
+            print(f" [+] Sucesso via Groq (Resiliência Ativada) para: {titulo}")
             return backup_res
 
     return '{"summary": "Erro crítico: Todas as engines de IA falharam ou não possuem chaves válidas.", "quiz": []}'
 
-def processar_com_gemini(texto, nome_arquivo):
-    """Mantido para compatibilidade legado"""
-    if not GEMINI_API_KEY: return {"classe": "ADMIN", "resumo_detalhado": "IA Offline."}
-    try:
-        model = genai.GenerativeModel('models/gemini-1.5-flash')
-        response = model.generate_content(f"Sintetize em JSON: {texto[:10000]}")
-        return {"classe": "MATERIAL", "resumo_detalhado": response.text}
-    except: return {"classe": "ADMIN", "resumo_detalhado": "Erro."}
+if __name__ == "__main__":
+    # Teste rápido se rodar diretamente
+    print("Testando motor de IA...")
+    test_res = resumir_item_premium("Teste de Conexão", "Sistemas", "Conteúdo de teste para validar a nova SDK.")
+    print(test_res[:200])

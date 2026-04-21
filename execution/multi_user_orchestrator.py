@@ -104,6 +104,7 @@ def run_orchestrator():
                 itens_da_rodada = itens_para_processar[:MAX_ITEMS_PER_RUN]
                 print(f" [*] {len(itens_para_processar)} pendentes. PROCESSANDO APENAS {len(itens_da_rodada)} NESTA RODADA (Cota Safe).")
                 
+                itens_gerados = []
                 for item in itens_da_rodada:
                     try:
                         print(f"   > Analisando: {item['titulo']}...")
@@ -133,12 +134,20 @@ def run_orchestrator():
                             quiz=quiz_final
                         )
                         
+                        itens_gerados.append(f"✅ {item['titulo']} ({item['disciplina']})")
+                        
                         # DESCANSAR 5s (Evitar 429 no Free Tier do Gemini)
                         print("   [...] Aguardando 5s para controle de cota...")
                         time.sleep(5)
                     except Exception as inner_e:
                         print(f"   [!] Erro ao processar item: {inner_e}")
-                stats["novos_itens"] += len(itens_para_processar)
+
+                if itens_gerados:
+                    print("\n   [RELATÓRIO DE PROCESSAMENTO]")
+                    for ig in itens_gerados:
+                        print(f"   {ig}")
+                
+                stats["novos_itens"] += len(itens_gerados)
             else:
                 print(" [-] Sincronizado. Nenhuma novidade encontrada.")
 
