@@ -490,7 +490,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  shrink-0;
+  flex-shrink: 0;
 }
 
 .quiz-content {
