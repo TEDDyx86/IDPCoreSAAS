@@ -59,6 +59,7 @@ const App: React.FC = () => {
           const { data, error } = await supabase
             .from('monitor_configs')
             .select('id, student_name, courses_list, last_run')
+            .eq('user_id', user.id)
             .maybeSingle();
           
           if (error) throw error;
@@ -85,6 +86,7 @@ const App: React.FC = () => {
           const { data, error } = await supabase
             .from('academic_updates')
             .select('*')
+            .eq('user_id', user.id)
             .order('data_detectado', { ascending: false });
           
           if (error) throw error;
@@ -99,7 +101,12 @@ const App: React.FC = () => {
 
       const subscription = supabase
         .channel('academic_updates_realtime')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'academic_updates' }, (payload) => {
+        .on('postgres_changes', { 
+            event: 'INSERT', 
+            schema: 'public', 
+            table: 'academic_updates',
+            filter: `user_id=eq.${user.id}` 
+          }, (payload) => {
           setUpdates(prev => [payload.new as AcademicUpdate, ...prev]);
         })
         .subscribe();

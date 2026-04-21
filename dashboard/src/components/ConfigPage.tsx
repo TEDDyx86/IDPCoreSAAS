@@ -30,6 +30,7 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
         const { data, error } = await supabase
           .from('monitor_configs')
           .select('canvas_token')
+          .eq('user_id', user.id)
           .maybeSingle();
 
         if (error) throw error;
