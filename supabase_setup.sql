@@ -14,6 +14,21 @@ create table if not exists public.monitor_configs (
   constraint unique_user_config unique(user_id)
 );
 
+-- Garantir que colunas antigas não bloqueiem o novo fluxo de Token
+do $$ 
+begin
+  alter table public.monitor_configs alter column student_password drop not null;
+exception
+  when undefined_column then null;
+end $$;
+
+do $$ 
+begin
+  alter table public.monitor_configs alter column student_name drop not null;
+exception
+  when undefined_column then null;
+end $$;
+
 -- 3. Tabela de Atualizações Acadêmicas (Histórico)
 create table if not exists public.academic_updates (
   id uuid primary key default uuid_generate_v4(),

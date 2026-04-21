@@ -18,6 +18,7 @@ interface ConfigPageProps {
 const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
   const { user } = useAuth();
   const [token, setToken] = useState('');
+  const [studentName, setStudentName] = useState('');
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
@@ -29,13 +30,14 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
       try {
         const { data, error } = await supabase
           .from('monitor_configs')
-          .select('canvas_token')
+          .select('canvas_token, student_name')
           .eq('user_id', user.id)
           .maybeSingle();
 
         if (error) throw error;
         if (data) {
           setToken(data.canvas_token || '');
+          setStudentName(data.student_name || '');
         }
       } catch (err: any) {
         console.error("Erro ao carregar setup:", err);
@@ -59,6 +61,7 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
         .upsert({
           user_id: user.id,
           canvas_token: token,
+          student_name: studentName,
           active: true,
           last_run: new Date().toISOString()
         }, { onConflict: 'user_id' });
@@ -102,6 +105,28 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
         </div>
 
         <form onSubmit={handleSave} className="login-form">
+          <div className="input-group" style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <label className="font-display" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', opacity: 0.5, fontWeight: 700 }}>
+              ESTUDANTE (NOME EXIBIDO NO DASHBOARD)
+            </label>
+            <input
+              type="text"
+              placeholder="Ex: João Silva"
+              value={studentName}
+              onChange={(e) => setStudentName(e.target.value)}
+              style={{ 
+                width: '100%',
+                padding: '0 1.25rem',
+                height: '60px',
+                borderRadius: '16px',
+                background: 'rgba(255,255,255,0.02)',
+                border: '1px solid rgba(255,255,255,0.05)',
+                color: 'white',
+                fontSize: '0.95rem'
+              }}
+            />
+          </div>
+
           <div className="input-group" style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <label className="font-display" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', opacity: 0.5, fontWeight: 700 }}>
               CANVAS API ACCESS TOKEN
