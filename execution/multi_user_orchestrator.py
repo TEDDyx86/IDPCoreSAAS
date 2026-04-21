@@ -15,7 +15,7 @@ from canvas_api_handler import verificar_materiais_via_api, CanvasAPIClient
 from gerenciar_ia import resumir_item_premium
 
 # CONFIGURAÇÕES DE COTAONYX
-MAX_ITEMS_PER_RUN = 3 # Limite rigoroso para evitar erro 429 (Cota Excedida)
+MAX_ITEMS_PER_RUN = 5  # Limite de itens processados por usuário por execução (Cota Safe)
 
 def run_orchestrator():
     print("\n" + "="*50)
