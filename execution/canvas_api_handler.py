@@ -55,12 +55,26 @@ class CanvasAPIClient:
                         # Map to our standard format
                         # Types to ignore or handle: 'SubHeader', 'ExternalUrl', 'File', 'Page', 'Assignment'
                         if item.get('type') not in ['SubHeader']:
+                            content_body = ""
+                            
+                            # Se for uma Página ou Tarefa, tentamos pegar o corpo do texto via API
+                            if item.get('type') in ['Page', 'Assignment'] and item.get('url'):
+                                try:
+                                    print(f"    [IA-Context] Extraindo texto de {item['title']}...")
+                                    c_res = requests.get(item['url'], headers=self.headers)
+                                    if c_res.status_code == 200:
+                                        c_data = c_res.json()
+                                        content_body = c_data.get('body', '') or c_data.get('description', '')
+                                except:
+                                    pass
+
                             materiais.append({
                                 "id": f"api_{item['id']}", # Prefix to distinguish from scraping
                                 "titulo": item.get('title', 'Sem Título'),
                                 "link": item.get('html_url') or item.get('url'),
                                 "disciplina": course_name,
-                                "tipo_api": item.get('type')
+                                "tipo_api": item.get('type'),
+                                "body_content": content_body
                             })
                 return materiais
             else:

@@ -14,6 +14,9 @@ from supabase_handler import SupabaseHandler
 from canvas_api_handler import verificar_materiais_via_api, CanvasAPIClient
 from gerenciar_ia import resumir_item_premium
 
+# CONFIGURAÇÕES DE COTAONYX
+MAX_ITEMS_PER_RUN = 3 # Limite rigoroso para evitar erro 429 (Cota Excedida)
+
 def run_orchestrator():
     print("\n" + "="*50)
     print(f"ONYX ENGINE v3.0 - MONITORAMENTO: {time.strftime('%Y-%m-%d %H:%M:%S')}")
@@ -95,12 +98,19 @@ def run_orchestrator():
                     print(f"   [+] Incluído: {m['titulo']} ({status})")
             
             if itens_para_processar:
-                print(f" [*] {len(itens_para_processar)} ITENS PARA PROCESSAMENTO (IA)!")
-                for item in itens_para_processar:
+                # Priorizar itens de REGENERAÇÃO (solicitados pelo usuário)
+                itens_para_processar.sort(key=lambda x: "[REGENERAÇÃO SOLICITADA]" in resumo_por_id.get(str(x['id']), "").upper(), reverse=True)
+                
+                itens_da_rodada = itens_para_processar[:MAX_ITEMS_PER_RUN]
+                print(f" [*] {len(itens_para_processar)} pendentes. PROCESSANDO APENAS {len(itens_da_rodada)} NESTA RODADA (Cota Safe).")
+                
+                for item in itens_da_rodada:
                     try:
                         print(f"   > Analisando: {item['titulo']}...")
                         
-                        raw_res = resumir_item_premium(item['titulo'], item['disciplina'])
+                        # Tentar capturar conteúdo extra se disponível
+                        contexto_ia = item.get('body_content', "")
+                        raw_res = resumir_item_premium(item['titulo'], item['disciplina'], texto_extra=contexto_ia)
                         
                         try:
                             ai_data = json.loads(raw_res, strict=False)

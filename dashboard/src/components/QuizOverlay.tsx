@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, XCircle, ChevronRight, Trophy, RotateCcw } from 'lucide-react';
+import { X, CheckCircle2, XCircle, ChevronRight, Trophy, RotateCcw, BrainCircuit, HelpCircle } from 'lucide-react';
 
 interface QuizItem {
   question: string;
@@ -50,163 +50,189 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
     setCurrentStep(0);
     setSelectedOption(null);
     setIsAnswered(false);
-    setScore(score); // Mantém o score anterior ou reseta? Vamos resetar para nova tentativa
     setScore(0);
     setIsFinished(false);
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-      {/* Backdrop */}
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 sm:overflow-y-auto">
+      {/* Backdrop with Deep Glass Blur */}
       <div 
-        className="absolute inset-0 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300"
+        className="absolute inset-0 bg-black/40 backdrop-blur-[20px] animate-in fade-in duration-700"
         onClick={onClose}
       />
       
-      {/* Container */}
-      <div className="relative w-full max-w-2xl bg-[#0a0a0b] border border-white/10 rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+      {/* Premium Container */}
+      <div className="relative w-full max-w-3xl bg-[#050505] border border-white/5 rounded-[40px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
         
-        {/* Header */}
-        <div className="p-6 border-b border-white/5 flex items-center justify-between">
-          <div>
-            <h2 className="text-xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-              Desafio de Fixação
-            </h2>
-            <p className="text-sm text-white/40 mt-1">{title}</p>
-          </div>
-          <button 
-            onClick={onClose}
-            className="p-2 hover:bg-white/5 rounded-full transition-colors"
-          >
-            <X size={20} className="text-white/60" />
-          </button>
+        {/* Navigation Indicator Line */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 overflow-hidden">
+          <div 
+            className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-1000 ease-out" 
+            style={{ width: `${((currentStep + (isFinished ? 1 : 0)) / quiz.length) * 100}%` }}
+          />
         </div>
 
-        {/* Content */}
-        {!isFinished ? (
-          <div className="p-8">
-            {/* Progress */}
-            <div className="flex items-center gap-4 mb-8">
-              <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-blue-500 transition-all duration-500" 
-                  style={{ width: `${((currentStep + 1) / quiz.length) * 100}%` }}
-                />
-              </div>
-              <span className="text-xs font-mono text-white/40">
-                {currentStep + 1} / {quiz.length}
-              </span>
+        {/* Global Close Button */}
+        <button 
+          onClick={onClose}
+          className="absolute top-6 right-6 p-2.5 hover:bg-white/5 rounded-full transition-all group z-20"
+        >
+          <X size={20} className="text-white/30 group-hover:text-white group-hover:scale-110 transition-all" />
+        </button>
+
+        {/* Header Section */}
+        <div className="pt-12 px-10 pb-6 border-b border-white/5">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="text-blue-500/80 bg-blue-500/10 p-2 rounded-xl">
+              <BrainCircuit size={18} />
             </div>
+            <span className="text-[0.65rem] font-bold tracking-[0.2em] text-blue-500/80 uppercase">Desafio Onyx</span>
+          </div>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent font-display">
+            {isFinished ? "Missão Concluída" : `Questão ${currentStep + 1}`}
+          </h2>
+          <p className="text-sm text-white/40 mt-1 font-medium truncate max-w-[80%]">{title}</p>
+        </div>
 
-            {/* Question */}
-            <h3 className="text-xl font-medium text-white/90 mb-8 leading-relaxed">
-              {currentQuestion.question}
-            </h3>
+        {/* Dynamic Content Area */}
+        <div className="min-h-[400px]">
+          {!isFinished ? (
+            <div className="p-10">
+              {/* Question Text */}
+              <div className="mb-10">
+                <h3 className="text-xl sm:text-2xl font-medium text-white/90 leading-tight">
+                  {currentQuestion.question}
+                </h3>
+              </div>
 
-            {/* Options */}
-            <div className="space-y-3">
-              {currentQuestion.options.map((option, idx) => {
-                let statusClass = "border-white/10 hover:border-white/20 bg-white/5";
-                
-                if (isAnswered) {
-                  if (idx === currentQuestion.correct_index) {
-                    statusClass = "border-green-500/50 bg-green-500/10 text-green-400";
-                  } else if (idx === selectedOption) {
-                    statusClass = "border-red-500/50 bg-red-500/10 text-red-400";
-                  } else {
-                    statusClass = "border-white/5 bg-white/2 opacity-40";
+              {/* Options Grid (Optimized for Visibility) */}
+              <div className="grid gap-4">
+                {currentQuestion.options.map((option, idx) => {
+                  const isSelected = selectedOption === idx;
+                  const isCorrectAnswer = isAnswered && idx === currentQuestion.correct_index;
+                  const isWrongSelection = isAnswered && isSelected && !isCorrectAnswer;
+                  
+                  let cardStyle = "border-white/5 bg-white/[0.02]";
+                  let indicatorStyle = "border-white/10 text-white/20";
+
+                  if (isSelected && !isAnswered) {
+                    cardStyle = "border-blue-500/40 bg-blue-500/5 ring-1 ring-blue-500/20";
+                    indicatorStyle = "bg-blue-500 border-transparent text-white";
+                  } else if (isCorrectAnswer) {
+                    cardStyle = "border-green-500/40 bg-green-500/10";
+                    indicatorStyle = "bg-green-500 border-transparent text-white";
+                  } else if (isWrongSelection) {
+                    cardStyle = "border-red-500/40 bg-red-500/10";
+                    indicatorStyle = "bg-red-500 border-transparent text-white";
+                  } else if (isAnswered) {
+                    cardStyle = "border-white/5 bg-white/[0.01] opacity-30";
                   }
-                } else if (selectedOption === idx) {
-                  statusClass = "border-blue-500/50 bg-blue-500/10 text-blue-400 ring-1 ring-blue-500/20";
-                }
 
-                return (
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => handleOptionSelect(idx)}
+                      disabled={isAnswered}
+                      className={`group w-full p-6 pb-7 rounded-[24px] border text-left transition-all duration-300 flex items-start gap-5 relative overflow-hidden ${cardStyle} ${!isAnswered ? 'hover:bg-white/[0.05] hover:border-white/20' : ''}`}
+                    >
+                      <span className={`w-8 h-8 rounded-xl border flex items-center justify-center text-xs font-bold shrink-0 transition-all ${indicatorStyle}`}>
+                        {String.fromCharCode(65 + idx)}
+                      </span>
+                      
+                      <span className={`flex-1 text-[1.05rem] leading-relaxed pt-1 transition-colors ${isSelected || isCorrectAnswer ? 'text-white' : 'text-white/60'}`}>
+                        {option}
+                      </span>
+                      
+                      {isCorrectAnswer && (
+                        <div className="absolute right-6 top-1/2 -translate-y-1/2 text-green-500 animate-in zoom-in duration-500">
+                          <CheckCircle2 size={24} />
+                        </div>
+                      )}
+                      {isWrongSelection && (
+                        <div className="absolute right-6 top-1/2 -translate-y-1/2 text-red-500 animate-in zoom-in duration-500">
+                          <XCircle size={24} />
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Action Footer */}
+              <div className="mt-12 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-white/20 text-xs font-bold tracking-widest uppercase">
+                   <HelpCircle size={14} /> Selecione uma opção
+                </div>
+
+                {!isAnswered ? (
                   <button
-                    key={idx}
-                    onClick={() => handleOptionSelect(idx)}
-                    disabled={isAnswered}
-                    className={`w-full p-4 rounded-2xl border text-left transition-all duration-200 flex items-start gap-4 ${statusClass}`}
+                    onClick={handleConfirm}
+                    disabled={selectedOption === null}
+                    className="px-10 py-4 bg-white text-black font-bold rounded-2xl hover:bg-white/90 disabled:opacity-30 disabled:grayscale transition-all active:scale-95 shadow-[0_20px_40px_rgba(255,255,255,0.1)] text-sm"
                   >
-                    <span className={`w-6 h-6 rounded-lg border flex items-center justify-center text-xs font-bold shrink-0 ${
-                       selectedOption === idx ? 'bg-blue-500 border-transparent text-white' : 'border-white/10 text-white/40'
-                    }`}>
-                      {String.fromCharCode(65 + idx)}
-                    </span>
-                    <span className="flex-1">{option}</span>
-                    
-                    {isAnswered && idx === currentQuestion.correct_index && (
-                      <CheckCircle2 size={20} className="text-green-500 ml-auto" />
-                    )}
-                    {isAnswered && idx === selectedOption && idx !== currentQuestion.correct_index && (
-                      <XCircle size={20} className="text-red-500 ml-auto" />
-                    )}
+                    CONFIRMAR
                   </button>
-                );
-              })}
-            </div>
-
-            {/* Actions */}
-            <div className="mt-10 flex justify-end">
-              {!isAnswered ? (
-                <button
-                  onClick={handleConfirm}
-                  disabled={selectedOption === null}
-                  className="px-8 py-3 bg-white text-black font-semibold rounded-xl hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95"
-                >
-                  Confirmar Resposta
-                </button>
-              ) : (
-                <button
-                  onClick={handleNext}
-                  className="flex items-center gap-2 px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-500 transition-all active:scale-95"
-                >
-                  {currentStep < quiz.length - 1 ? 'Próxima Questão' : 'Ver Resultado'}
-                  <ChevronRight size={20} />
-                </button>
-              )}
-            </div>
-          </div>
-        ) : (
-          /* Finished State */
-          <div className="p-12 text-center animate-in zoom-in-95 duration-500">
-            <div className="w-24 h-24 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-500">
-              <Trophy size={48} />
-            </div>
-            
-            <h3 className="text-3xl font-bold text-white mb-2">Desempenho Final</h3>
-            <p className="text-white/40 mb-8 max-w-sm mx-auto">
-              Você completou o desafio de fixação para "{title}". Continue assim!
-            </p>
-
-            <div className="bg-white/5 rounded-3xl p-8 mb-10 max-w-xs mx-auto border border-white/5">
-              <div className="text-5xl font-bold text-white mb-1">
-                {score} <span className="text-xl text-white/30 font-normal">/ {quiz.length}</span>
-              </div>
-              <div className="text-sm font-medium text-blue-400 uppercase tracking-widest">
-                {score === quiz.length ? 'Perfeito!' : score >= quiz.length / 2 ? 'Bom Trabalho' : 'Continue Estudando'}
+                ) : (
+                  <button
+                    onClick={handleNext}
+                    className="group flex items-center gap-2 px-10 py-4 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-500 transition-all active:scale-95 shadow-[0_20px_40px_rgba(59,130,246,0.2)] text-sm"
+                  >
+                    {currentStep < quiz.length - 1 ? 'PRÓXIMA QUESTÃO' : 'RESULTADO FINAL'}
+                    <ChevronRight size={18} className="translate-x-0 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                )}
               </div>
             </div>
+          ) : (
+            /* Finished State - Masterly Design */
+            <div className="p-12 text-center animate-in zoom-in-95 duration-1000">
+              <div className="relative w-32 h-32 mx-auto mb-8">
+                <div className="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full" />
+                <div className="relative w-full h-full bg-gradient-to-b from-blue-500/20 to-blue-500/5 rounded-full flex items-center justify-center text-blue-500 border border-blue-500/20">
+                  <Trophy size={56} />
+                </div>
+              </div>
+              
+              <h3 className="text-3xl sm:text-4xl font-bold text-white mb-3 font-display">Excelente Desempenho</h3>
+              <p className="text-white/40 mb-10 max-w-sm mx-auto text-sm leading-relaxed">
+                Você validou com sucesso seu conhecimento sobre o material. Os pontos foram adicionados ao seu perfil académico.
+              </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <button
-                onClick={resetQuiz}
-                className="flex items-center justify-center gap-2 px-8 py-3 border border-white/10 text-white font-semibold rounded-xl hover:bg-white/5 transition-all"
-              >
-                <RotateCcw size={18} />
-                Tentar Novamente
-              </button>
-              <button
-                onClick={onClose}
-                className="px-8 py-3 bg-white text-black font-semibold rounded-xl hover:bg-white/90 transition-all"
-              >
-                Concluir
-              </button>
+              <div className="bg-white/[0.02] rounded-[32px] p-10 mb-12 max-w-sm mx-auto border border-white/5 relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="relative">
+                  <div className="text-6xl font-bold text-white mb-2 tracking-tighter">
+                    {score} <span className="text-2xl text-white/20 font-light ml-1">/ {quiz.length}</span>
+                  </div>
+                  <div className="text-[0.65rem] font-bold text-blue-400 uppercase tracking-[0.3em] pl-1">
+                    {score === quiz.length ? 'Nível Magistral' : score >= quiz.length / 2 ? 'Conhecimento Sólido' : 'Precisa de Revisão'}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={resetQuiz}
+                  className="flex items-center justify-center gap-2 px-10 py-4 border border-white/10 text-white font-bold rounded-2xl hover:bg-white/5 transition-all text-sm"
+                >
+                  <RotateCcw size={16} />
+                  NOVA TENTATIVA
+                </button>
+                <button
+                  onClick={onClose}
+                  className="px-12 py-4 bg-white text-black font-bold rounded-2xl hover:scale-105 transition-all text-sm shadow-[0_20px_40px_rgba(255,255,255,0.1)]"
+                >
+                  CONCLUIR DESAFIO
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
 export default QuizOverlay;
+
