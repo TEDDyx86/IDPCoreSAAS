@@ -106,10 +106,10 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
       style={{ 
         position: 'fixed', 
         inset: 0, 
-        zIndex: 2000, 
+        zIndex: 10000, 
         background: 'rgba(5, 5, 5, 0.8)', 
-        backdropFilter: 'blur(30px)',
-        WebkitBackdropFilter: 'blur(30px)',
+        backdropFilter: 'blur(var(--glass-blur))',
+        WebkitBackdropFilter: 'blur(var(--glass-blur))',
         display: 'flex', 
         flexDirection: 'column',
         color: 'white'

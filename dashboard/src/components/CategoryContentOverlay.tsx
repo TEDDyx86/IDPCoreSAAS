@@ -25,7 +25,15 @@ const CategoryContentOverlay: React.FC<CategoryContentOverlayProps> = ({
   onOpenResumo 
 }) => {
   return (
-    <div className="modal-overlay" style={{ zIndex: 1000 }} onClick={onClose}>
+    <div 
+      className="modal-overlay" 
+      style={{ 
+        zIndex: 10000,
+        backdropFilter: 'blur(var(--glass-blur))', 
+        WebkitBackdropFilter: 'blur(var(--glass-blur))' 
+      }} 
+      onClick={onClose}
+    >
       <div 
         className="modal-content animate-slide-up" 
         style={{ 
