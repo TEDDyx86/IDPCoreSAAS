@@ -6,6 +6,7 @@ beautifulsoup4
 
 # Inteligência Artificial e Processamento
 google-generativeai
+groq
 pymupdf
 python-docx
 

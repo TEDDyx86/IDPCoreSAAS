@@ -2,27 +2,62 @@ import os
 import re
 import time
 import google.generativeai as genai
+from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
 
+# --- Configurações Gemini ---
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
 
+# --- Configurações Groq ---
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+def resumir_com_groq(titulo, disciplina, texto_extra=""):
+    """Backup: Gera resumo usando Groq (Llama-3 70B)"""
+    if not GROQ_API_KEY:
+        print(" [!] ERRO: GROQ_API_KEY não encontrada para backup.")
+        return None
+
+    try:
+        client = Groq(api_key=GROQ_API_KEY)
+        print(f" [GROQ] Iniciando processamento de backup (Llama-3)...")
+        
+        prompt = f"""
+        TAREFA: Gere um guia de estudo e um quiz estruturado para '{titulo}' ({disciplina}).
+        CONTEÚDO: {texto_extra[:15000]}
+        
+        RETORNO: JSON PURO.
+        {{
+            "summary": "Resumo magistral em Markdown...",
+            "quiz": [
+                {{"question": "...", "options": ["A", "B", "C", "D"], "correct_index": 0}}
+            ]
+        }}
+        """
+
+        completion = client.chat.completions.create(
+            model="llama3-70b-8192",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7,
+            response_format={"type": "json_object"}
+        )
+        return completion.choices[0].message.content
+    except Exception as e:
+        print(f" [!] Erro no Groq Backup: {e}")
+        return None
+
 def resumir_item_premium(titulo, disciplina, texto_extra=""):
     """
     Gera um guia de estudo completo e um QUIZ estruturado.
-    Retorna uma string JSON contendo 'summary' e 'quiz'.
+    LÓGICA HÍBRIDA: Tenta Gemini -> Se Cota (429) -> Tenta Groq.
     """
-    if not GEMINI_API_KEY:
-        print(" [!] ERRO: GEMINI_API_KEY não encontrada no ambiente!")
-        return '{"summary": "IA não configurada.", "quiz": []}'
-    else:
-        # Print de diagnóstico seguro (mostra 2 primeiros e 2 últimos caracteres)
-        print(f" [OK] IA configurada. Key: {GEMINI_API_KEY[:2]}...{GEMINI_API_KEY[-2:]}")
+    if not GEMINI_API_KEY and not GROQ_API_KEY:
+        return '{"summary": "Nenhuma IA configurada.", "quiz": []}'
 
-    # Configuração de Segurança: Desativa bloqueios para evitar falsos positivos acadêmicos
+    # Configuração de Segurança Gemini
     safety_settings = [
         {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
         {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
@@ -30,110 +65,52 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
         {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
     ]
 
-    model = genai.GenerativeModel('gemini-flash-latest')
-    
+    model = genai.GenerativeModel('gemini-1.5-flash')
     prompt = f"""
-    PERSONA: Mentor Acadêmico de Elite (Estilo NotebookLM).
-    CONTEXTO: O aluno recebeu um novo material chamado '{titulo}' na disciplina de '{disciplina}'.
-    CONTEÚDO ADICIONAL: {texto_extra[:20000]}
-
-    TAREFA: Gere um guia de estudo e um questionário de fixação.
+    TAREFA: Como Mentor Acadêmico, gere um guia de estudo e 5 questões de quiz para '{titulo}' ({disciplina}).
+    CONTEÚDO: {texto_extra[:25000]}
     
-    RETORNO ESPERADO: Responda APENAS em formato JSON puro.
-    
-    ESTRUTURA DO JSON (MUITO IMPORTANTE):
-    {{
-        "summary": "O guia de estudo completo em Markdown (💎 RESUMO MAGISTRAL, 📚 GLOSSÁRIO, 🔗 CONEXÕES ONYX). Use parágrafos claros, negrito (**) e listas. IMPORTANTE: Use apenas '\\n' para quebras de linha dentro do texto.",
-        "quiz": [
-            {{
-                "question": "Pergunta 1...",
-                "options": ["Opção A", "Opção B", "Opção C", "Opção D"],
-                "correct_index": 0
-            }}
-        ]
-    }}
-    Gere 5 questões no quiz.
+    RETORNO: JSON PURO (summary, quiz).
     """
     
-    max_retries = 3
-    text = ""
-    
-    for attempt in range(max_retries):
-        try:
-            response = model.generate_content(prompt, safety_settings=safety_settings)
-            
-            # Diagnóstico de BLOQUEIO
-            if not response.candidates:
-                print(f" [!] Erro IA: Nenhum candidato retornado. Feedback: {response.prompt_feedback}")
-                return '{"summary": "Erro: Resposta Bloqueada pela IA.", "quiz": []}'
-
-            text = response.text
-            break # Sucesso, sai do loop de retry
-        except Exception as e:
-            err_msg = str(e)
-            if "429" in err_msg or "quota" in err_msg.lower():
-                wait_time = 15 * (attempt + 1)
-                print(f" [!] Cota excedida (429). Tentativa {attempt+1}/{max_retries}. Aguardando {wait_time}s...")
-                time.sleep(wait_time)
-            elif "500" in err_msg or "503" in err_msg:
-                print(f" [!] Erro de servidor (50x). Aguardando 5s...")
-                time.sleep(5)
-            else:
-                print(f" [!] Erro crítico na IA: {e}")
-                return '{"summary": "Erro no processamento da IA.", "quiz": []}'
-            
-            if attempt == max_retries - 1:
-                print(" [!] Esgotadas as tentativas de re-processamento por cota.")
-                return '{"summary": "Erro de cota na IA (429).", "quiz": []}'
-
-    # Processamento do texto (fora do loop de retry)
-    if not text:
-        return '{"summary": "IA retornou vazio.", "quiz": []}'
-
-    # Limpeza agressiva de blocos de código
-    if "```" in text:
-        blocks = re.findall(r'```(?:json)?\s*(.*?)\s*```', text, re.DOTALL)
-        if blocks:
-            text = blocks[0]
-    
-    # Busca o primeiro '{' e o último '}' para garantir JSON puro
-    start = text.find('{')
-    end = text.rfind('}')
-    if start != -1 and end != -1:
-        return text[start:end+1].strip()
+    # 1. TENTATIVA COM GEMINI
+    try:
+        print(f" [IA] Tentando processar com Gemini...")
+        response = model.generate_content(prompt, safety_settings=safety_settings)
         
-    return text.strip()
+        if response.candidates:
+            text = response.text
+            # Limpeza rápida
+            if "```json" in text:
+                text = text.split("```json")[1].split("```")[0].strip()
+            elif "```" in text:
+                text = text.split("```")[1].split("```")[0].strip()
+            
+            # Validação mínima de JSON
+            if "{" in text and "}" in text:
+                print(" [+] Sucesso via Gemini.")
+                return text[text.find('{'):text.rfind('}')+1]
+    except Exception as e:
+        err_msg = str(e)
+        if "429" in err_msg or "quota" in err_msg.lower():
+            print(" [!] Gemini: Cota excedida (429). Acionando sistema de backup (Groq)...")
+        else:
+            print(f" [!] Erro Gemini: {e}")
+
+    # 2. FAILOVER AUTOMÁTICO PARA GROQ
+    if GROQ_API_KEY:
+        backup_res = resumir_com_groq(titulo, disciplina, texto_extra)
+        if backup_res:
+            print(" [+] Sucesso via Groq (Backup).")
+            return backup_res
+
+    return '{"summary": "Erro de processamento em todas as engines de IA.", "quiz": []}'
 
 def processar_com_gemini(texto, nome_arquivo):
-    """
-    Processa o conteúdo textual através da IA para gerar um resumo magistral.
-    MANTIDO PARA COMPATIBILIDADE COM PROCESSAMENTO DE ARQUIVOS.
-    """
-    if not GEMINI_API_KEY:
-        return {"classe": "ADMIN", "resumo_detalhado": "IA não configurada."}
-
+    """Mantido para compatibilidade legado"""
+    if not GEMINI_API_KEY: return {"classe": "ADMIN", "resumo_detalhado": "IA Offline."}
     model = genai.GenerativeModel('gemini-1.5-flash')
-    
-    prompt = f"""
-    PERSONA: Professor Mentor de Alto Nível.
-    TAREFA: Transformar o material abaixo em uma explicação densa, magistral e direta ao ponto.
-    FOCO: Identificar o que é mais importante para um aluno de graduação em tecnologia.
-    
-    RETORNO: Responda APENAS em JSON:
-    {{
-        "classe": "SLIDE | ATIVIDADE | ADMIN | MATERIAL",
-        "resumo_detalhado": "O conteúdo magistral completo, estruturado e rico em detalhes (mínimo 500 palavras)."
-    }}
-
-    DADOS DO MATERIAL ({nome_arquivo}):
-    {texto[:30000]} 
-    """
-    
     try:
-        response = model.generate_content(prompt)
-        import json
-        json_text = response.text.replace("```json", "").replace("```", "").strip()
-        return json.loads(json_text)
-    except Exception as e:
-        print(f"Erro na IA para {nome_arquivo}: {e}")
-        return {"classe": "ADMIN", "resumo_detalhado": f"Erro no processamento: {str(e)}"}
+        response = model.generate_content(f"Sintetize em JSON: {texto[:10000]}")
+        return {"classe": "MATERIAL", "resumo_detalhado": response.text}
+    except: return {"classe": "ADMIN", "resumo_detalhado": "Erro."}
