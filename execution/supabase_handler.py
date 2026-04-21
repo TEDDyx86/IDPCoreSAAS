@@ -77,7 +77,7 @@ class SupabaseHandler:
         """Atualiza o timestamp da última verificação bem-sucedida"""
         from datetime import datetime
         url = f"{self.base_url}/monitor_configs?id=eq.{config_id}"
-        payload = {"last_verification_date": datetime.now().isoformat()}
+        payload = {"last_run": datetime.now().isoformat()}
         response = requests.patch(url, headers=self.headers, json=payload)
         return response.status_code == 200
 

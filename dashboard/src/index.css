@@ -399,12 +399,13 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
-  background: rgba(0, 0, 0, 0.6);
+  z-index: 15000;
+  background: rgba(0, 0, 0, 0.4); /* Reduced opacity to let blur shine */
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   padding: 2rem;
-  animation: fade-in 0.5s ease-out;
+  animation: fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: backdrop-filter;
 }
 
 .modal-content {

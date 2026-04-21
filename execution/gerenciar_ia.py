@@ -49,11 +49,19 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
     
     try:
         response = model.generate_content(prompt)
-        # Limpeza básica em caso da IA ignorar a regra de "JSON puro"
-        json_match = re.search(r'\{(?:[^{}]|(?R))*\}', response.text, re.DOTALL)
-        if json_match:
-            return json_match.group(0)
-        return response.text.replace("```json", "").replace("```", "").strip()
+        text = response.text
+        
+        # Limpeza: Remove blocos de código markdown se existirem
+        text = re.sub(r'```json\s*', '', text)
+        text = re.sub(r'```\s*', '', text).strip()
+        
+        # Busca o primeiro '{' e o último '}' para garantir JSON puro
+        start = text.find('{')
+        end = text.rfind('}')
+        if start != -1 and end != -1:
+            return text[start:end+1]
+            
+        return text
     except Exception as e:
         print(f"Erro no Resumo Premium: {e}")
         return '{"summary": "Erro no processamento da IA.", "quiz": []}'

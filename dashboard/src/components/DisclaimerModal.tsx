@@ -19,14 +19,16 @@ const DisclaimerModal: React.FC = () => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay" style={{ z-index: 30000 }}>
       <div 
         className="modal-content glass glass-card animate-reveal" 
         style={{ 
           maxWidth: '500px', 
           border: '1px solid hsla(var(--primary), 0.3)',
           boxShadow: '0 0 60px rgba(0, 242, 255, 0.15)',
-          padding: '2.5rem'
+          padding: '2.5rem',
+          backdropFilter: 'blur(80px)', // Ultra-frost fallback inside card
+          WebkitBackdropFilter: 'blur(80px)'
         }}
       >
         <div className="modal-header" style={{ 
