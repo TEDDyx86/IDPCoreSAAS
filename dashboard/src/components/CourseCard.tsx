@@ -1,32 +1,60 @@
 import React from 'react';
-import { BookOpen, ChevronRight } from 'lucide-react';
+import { BookOpen, ArrowRight } from 'lucide-react';
 
 interface CourseCardProps {
   nome: string;
   id: string;
+  onClick?: () => void;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ nome, id }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ nome, onClick }) => {
   return (
-    <div className="glass glass-card glass-hover" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1.5rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <div className="badge badge-cyan" style={{ padding: '8px' }}>
-          <BookOpen size={14} />
+    <div 
+      className="glass glass-card glass-hover" 
+      onClick={onClick}
+      style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: '2.5rem', 
+        padding: '2.5rem',
+        height: '100%',
+        justifyContent: 'space-between',
+        cursor: 'pointer'
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="badge badge-cyan" style={{ padding: '10px' }}>
+          <BookOpen size={16} />
         </div>
-        <span className="text-dim font-display" style={{ fontSize: '0.6rem', fontWeight: 800 }}>MODULE_ID: {id.slice(0, 6)}</span>
+        <div style={{ display: 'flex', gap: '4px' }}>
+          {[1,2,3].map(i => <div key={i} style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'white', opacity: 0.15 }} />)}
+        </div>
       </div>
       
-      <div style={{ flex: 1 }}>
-        <h3 className="font-display" style={{ fontSize: '1rem', letterSpacing: '0.02em', textTransform: 'none', margin: 0, color: 'white' }}>
+      <div>
+        <h3 className="font-display" style={{ 
+          fontSize: '1.25rem', 
+          lineHeight: '1.4',
+          fontWeight: 600,
+          color: 'white',
+          marginBottom: '0.6rem'
+        }}>
           {nome}
         </h3>
+        <p className="text-dim" style={{ fontSize: '0.8rem', opacity: 0.5, fontWeight: 400 }}>Módulo de Estudos Ativo</p>
       </div>
 
-      <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.6 }}>
-        <div style={{ width: '100%', height: '2px', background: 'hsla(var(--glass-border))', borderRadius: '1px' }}>
-          <div style={{ width: '40%', height: '100%', background: 'hsl(var(--accent-cyan))', boxShadow: '0 0 10px hsl(var(--accent-cyan))' }}></div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+        <div style={{ flex: 1, height: '4px', background: 'rgba(255,255,255,0.06)', borderRadius: '10px', overflow: 'hidden' }}>
+          <div style={{ 
+            width: '65%', 
+            height: '100%', 
+            background: 'white', 
+            boxShadow: '0 0 15px white',
+            borderRadius: '10px'
+          }}></div>
         </div>
-        <ChevronRight size={14} className="text-dim" />
+        <ArrowRight size={20} className="text-dim" style={{ opacity: 0.3 }} />
       </div>
     </div>
   );

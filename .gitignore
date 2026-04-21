@@ -8,8 +8,20 @@ __pycache__/
 *.log
 
 # Pasta de Resumos (Sincronizada com Dashboard)
-# resumos/ 
+resumos/ 
 
-# IDEs
+# Web App Artifacts
+node_modules/
+dist/
+build/
+.next/
+
+# IDEs e Sistema
 .vscode/
 .idea/
+.DS_Store
+Thumbs.db
+
+# Diagnostic/AI Files
+artifacts/
+scratch/

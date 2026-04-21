@@ -19,53 +19,82 @@ const DisclaimerModal: React.FC = () => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" style={{ zIndex: 9999 }}>
+    <div className="modal-overlay">
       <div 
-        className="modal-content glass glass-card animate-fade" 
+        className="modal-content glass glass-card animate-reveal" 
         style={{ 
           maxWidth: '500px', 
           border: '1px solid hsla(var(--primary), 0.3)',
-          boxShadow: '0 0 40px rgba(0, 242, 255, 0.1)'
+          boxShadow: '0 0 60px rgba(0, 242, 255, 0.15)',
+          padding: '2.5rem'
         }}
       >
-        <div className="modal-header" style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+        <div className="modal-header" style={{ 
+          marginBottom: '2rem', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          textAlign: 'center'
+        }}>
           <div style={{ 
             background: 'hsla(var(--primary), 0.1)', 
-            width: '60px', 
-            height: '60px', 
+            width: '70px', 
+            height: '70px', 
             borderRadius: '50%', 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'center', 
-            margin: '0 auto 1.5rem auto'
+            marginBottom: '1.5rem',
+            border: '1px solid hsla(var(--primary), 0.2)'
           }}>
-            <AlertTriangle className="text-gradient" size={32} />
+            <ShieldCheck className="text-gradient" size={38} />
           </div>
-          <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }} className="text-gradient">AVISO: FASE BETA</h2>
-          <p className="text-dim font-display" style={{ fontSize: '0.7rem', letterSpacing: '0.2em' }}>ONYX ENGINE SAFETY PROTOCOL</p>
+          <h2 style={{ 
+            fontSize: '1.75rem', 
+            margin: '0', 
+            fontWeight: 700, 
+            textAlign: 'center', 
+            width: '100%',
+            display: 'block'
+          }} className="text-gradient">
+            IDP CORE SECURITY
+          </h2>
         </div>
 
         <div style={{ 
-          background: 'rgba(255, 255, 255, 0.02)', 
-          padding: '1.5rem', 
-          borderRadius: '12px', 
-          fontSize: '0.9rem', 
-          lineHeight: '1.6',
-          color: 'rgba(255,255,255,0.8)',
-          borderLeft: '4px solid hsla(var(--primary), 0.5)'
+          background: 'rgba(255, 255, 255, 0.03)', 
+          padding: '2rem', 
+          borderRadius: '16px', 
+          fontSize: '0.95rem', 
+          lineHeight: '1.7',
+          color: 'rgba(255,255,255,0.85)',
+          borderLeft: '4px solid hsla(var(--primary), 0.6)',
+          marginBottom: '2rem'
         }}>
-          Este sistema é uma ferramenta **experimental** automatizada por Inteligência Artificial. 
-          Embora utilizemos a API oficial do Canvas, podem ocorrer falhas de sincronização ou interpretação de dados.
+          Este sistema é uma ferramenta **experimental (BETA)** monitorada por Inteligência Artificial. 
           <br /><br />
-          <strong style={{ color: 'white' }}>Importante:</strong> Nunca confie 100% nas notificações. Sempre verifique prazos e materiais críticos diretamente no seu **Ambiente Virtual oficial**.
+          Para garantir a integridade dos seus dados acadêmicos, lembre-se:
+          <ul style={{ paddingLeft: '1.2rem', marginTop: '0.8rem', opacity: 0.9 }}>
+            <li>Confirme sempre os prazos no Canvas oficial.</li>
+            <li>Notificações automáticas podem variar.</li>
+            <li>O IDP Core é um assistente de produtividade.</li>
+          </ul>
         </div>
 
         <button 
           onClick={handleClose} 
           className="premium-btn" 
-          style={{ width: '100%', marginTop: '2rem', justifyContent: 'center' }}
+          style={{ 
+            width: '100%', 
+            justifyContent: 'center',
+            padding: '1.25rem',
+            fontSize: '1rem',
+            background: 'linear-gradient(45deg, hsla(var(--primary), 0.8), hsla(var(--primary), 0.4))'
+          }}
         >
-          <ShieldCheck size={18} /> Entendido e Ciente
+          <ShieldCheck size={20} /> EU COMPREENDO OS TERMOS
         </button>
       </div>
     </div>

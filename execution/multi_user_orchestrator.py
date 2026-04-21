@@ -49,38 +49,54 @@ def run_orchestrator():
 
             # 3. Cruzamento e Deduplicação (Usando origin_id)
             from supabase_handler import SUPABASE_URL, SUPABASE_SERVICE_KEY, requests
-            # Buscamos apenas os origin_ids já vistos para este usuário
-            url_check = f"{SUPABASE_URL}/rest/v1/academic_updates?user_id=eq.{user_id}&select=origin_id"
+            # Buscamos origin_ids e resumos para identificar novos itens E itens marcados para regeneração
+            url_check = f"{SUPABASE_URL}/rest/v1/academic_updates?user_id=eq.{user_id}&select=origin_id,resumo"
             headers = {"apikey": SUPABASE_SERVICE_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_KEY}"}
             res_check = requests.get(url_check, headers=headers)
             
-            ids_vistos = []
+            existing_records = []
             if res_check.status_code == 200:
-                ids_vistos = [str(r['origin_id']) for r in res_check.json() if r.get('origin_id')]
-
-            # Filtramos o que é REALMENTE novo
-            novos_itens = [m for m in materiais_atuais if str(m['id']) not in ids_vistos]
+                existing_records = res_check.json()
             
-            if novos_itens:
-                print(f" [*] {len(novos_itens)} NOVAS ATUALIZAÇÕES DETECTADAS!")
-                for item in novos_itens:
+            ids_vistos = [str(r['origin_id']) for r in existing_records if r.get('origin_id')]
+            ids_regenerar = [str(r['origin_id']) for r in existing_records if r.get('resumo') and "[REGENERAÇÃO SOLICITADA]" in r['resumo']]
+
+            # Filtramos o que é NOVO ou solicita REGENERAÇÃO
+            itens_para_processar = [
+                m for m in materiais_atuais 
+                if str(m['id']) not in ids_vistos or str(m['id']) in ids_regenerar
+            ]
+            
+            if itens_para_processar:
+                print(f" [*] {len(itens_para_processar)} ITENS PARA PROCESSAMENTO (IA)!")
+                for item in itens_para_processar:
                     try:
                         print(f"   > Analisando: {item['titulo']}...")
-                        from gerenciar_ia import resumir_item_premium
-                        resumo = resumir_item_premium(item['titulo'], item['disciplina'])
                         
+                        raw_res = resumir_item_premium(item['titulo'], item['disciplina'])
+                        
+                        try:
+                            ai_data = json.loads(raw_res)
+                            resumo_final = ai_data.get("summary", "Falha ao gerar resumo.")
+                            quiz_final = ai_data.get("quiz", [])
+                        except:
+                            # Fallback caso não venha JSON válido
+                            resumo_final = raw_res
+                            quiz_final = []
+
                         handler.save_update(
                             user_id=user_id,
                             disciplina=item['disciplina'],
                             titulo=item['titulo'],
                             tipo="MATERIAL",
-                            resumo=resumo,
+                            resumo=resumo_final,
                             origin_id=item['id'],
-                            links={"url": item['link']}
+                            links={"url": item['link']},
+                            quiz=quiz_final
                         )
                     except Exception as inner_e:
                         print(f"   [!] Erro ao processar item: {inner_e}")
-                stats["novos_itens"] += len(novos_itens)
+                stats["novos_itens"] += len(itens_para_processar)
             else:
                 print(" [-] Sincronizado. Nenhuma novidade encontrada.")
 
@@ -92,7 +108,7 @@ def run_orchestrator():
             stats["falha"] += 1
 
     print("\n" + "="*50)
-    print("RELATÓRIO ONYX v3.0")
+    print("RELATÓRIO IDP CORE v3.0")
     print(f"Sucesso: {stats['sucesso']} | Falhas: {stats['falha']}")
     print(f"Novidades: {stats['novos_itens']}")
     print("="*50 + "\n")
@@ -101,7 +117,7 @@ if __name__ == "__main__":
     is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
 
     if is_github_actions:
-        print("Modo: GitHub Actions (Onyx Engine v3.0)")
+        print("Modo: GitHub Actions (IDP Core v3.0)")
         run_orchestrator()
     else:
         print("Modo: Local Onyx (Loop 1h)")

@@ -24,9 +24,17 @@ class SupabaseHandler:
         response = requests.get(url, headers=self.headers)
         return response.json() if response.status_code == 200 else []
 
-    def save_update(self, user_id, disciplina, titulo, tipo, resumo, origin_id, links=None):
-        """Salva uma nova atualização acadêmica com origin_id para deduplicação"""
-        url = f"{self.base_url}/academic_updates"
+    def save_update(self, user_id, disciplina, titulo, tipo, resumo, origin_id, links=None, quiz=None):
+        """Salva ou atualiza uma atualização acadêmica (Upsert lógico)"""
+        # Primeiro verificamos se já existe
+        check_url = f"{self.base_url}/academic_updates?user_id=eq.{user_id}&origin_id=eq.{origin_id}"
+        check_res = requests.get(check_url, headers=self.headers)
+        
+        # Garante que links seja um dicionário e adiciona o quiz se fornecido
+        links_data = links or {}
+        if quiz:
+            links_data["quiz"] = quiz
+        
         payload = {
             "user_id": user_id,
             "disciplina": disciplina,
@@ -34,27 +42,44 @@ class SupabaseHandler:
             "tipo": tipo,
             "resumo": resumo,
             "origin_id": str(origin_id),
-            "links": links or {}
+            "links": links_data
         }
-        # Nota: O banco agora tem um índice único em (user_id, origin_id)
-        # Requisitaremos o retorno do objeto inserido
-        response = requests.post(url, headers=self.headers, json=payload)
-        return response.json() if response.status_code == 201 else None
+
+        if check_res.status_code == 200 and len(check_res.json()) > 0:
+            # Update existente
+            row_id = check_res.json()[0]['id']
+            url = f"{self.base_url}/academic_updates?id=eq.{row_id}"
+            response = requests.patch(url, headers=self.headers, json=payload)
+        else:
+            # Novo registro
+            url = f"{self.base_url}/academic_updates"
+            response = requests.post(url, headers=self.headers, json=payload)
+            
+        return response.json() if response.status_code in [200, 201] else None
+
+    def mark_for_regeneration(self, user_id, origin_id):
+        """Sinaliza que um resumo específico precisa ser refeito pelo robô"""
+        url = f"{self.base_url}/academic_updates?user_id=eq.{user_id}&origin_id=eq.{origin_id}"
+        payload = {"resumo": "[REGENERAÇÃO SOLICITADA] O robô reprocessará este item no próximo ciclo..."}
+        response = requests.patch(url, headers=self.headers, json=payload)
+        return response.status_code == 200
 
     def update_profile_info(self, config_id, student_name, courses_list=None):
         """Sincroniza o nome real do aluno e opcionalmente a lista de cursos"""
-        url = f"{self.base_url}/monitor_configs?id=eq.{config_id}"
+        url = f"{self.base_url}/profiles?id=eq.{config_id}"
         payload = {"student_name": student_name}
-        if courses_list is not None:
+        if courses_list:
             payload["courses_list"] = courses_list
-        requests.patch(url, headers=self.headers, json=payload)
+        response = requests.patch(url, headers=self.headers, json=payload)
+        return response.status_code == 200
 
     def update_last_run(self, config_id):
-        """Atualiza o timestamp da última execução do bot para aquele usuário"""
+        """Atualiza o timestamp da última verificação bem-sucedida"""
         from datetime import datetime
-        url = f"{self.base_url}/monitor_configs?id=eq.{config_id}"
-        payload = {"last_run": datetime.now().isoformat()}
-        requests.patch(url, headers=self.headers, json=payload)
+        url = f"{self.base_url}/profiles?id=eq.{config_id}"
+        payload = {"last_verification_date": datetime.now().isoformat()}
+        response = requests.patch(url, headers=self.headers, json=payload)
+        return response.status_code == 200
 
 if __name__ == "__main__":
     # Teste rápido

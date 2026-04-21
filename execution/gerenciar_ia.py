@@ -11,54 +11,52 @@ if GEMINI_API_KEY:
 
 def resumir_item_premium(titulo, disciplina, texto_extra=""):
     """
-    Gera um guia de estudo completo no estilo NotebookLM.
-    Foca em Pedagogia, Retenção e Conexão de Conhecimento.
+    Gera um guia de estudo completo e um QUIZ estruturado.
+    Retorna uma string JSON contendo 'summary' e 'quiz'.
     """
     if not GEMINI_API_KEY:
-        return "IA não configurada."
+        return '{"summary": "IA não configurada.", "quiz": []}'
 
-    # Usamos o alias latest para garantir compatibilidade com a chave do usuário
-    model = genai.GenerativeModel('gemini-flash-latest')
+    model = genai.GenerativeModel('gemini-1.5-flash')
     
     prompt = f"""
     PERSONA: Mentor Acadêmico de Elite (Estilo NotebookLM).
     CONTEXTO: O aluno recebeu um novo material chamado '{titulo}' na disciplina de '{disciplina}'.
     CONTEÚDO ADICIONAL: {texto_extra[:20000]}
 
-    TAREFA: Gere um GUIA DE ESTUDO MAGISTRAL seguindo EXATAMENTE esta estrutura Markdown:
+    TAREFA: Gere um guia de estudo e um questionário de fixação.
+    
+    RETORNO ESPERADO: Responda APENAS em formato JSON puro, sem blocos de código markdown ou explicações fora do JSON.
+    
+    ESTRUTURA DO JSON:
+    {{
+        "summary": "O guia de estudo completo em Markdown (💎 RESUMO MAGISTRAL, 📚 GLOSSÁRIO, 🔗 CONEXÕES ONYX. Use parágrafos claros e formatação rica)",
+        "quiz": [
+            {{
+                "question": "Pergunta 1...",
+                "options": ["Opção A", "Opção B", "Opção C", "Opção D"],
+                "correct_index": 0
+            }},
+            ... (Gere 5 questões)
+        ]
+    }}
 
-    # 💎 RESUMO MAGISTRAL
-    (Um texto denso, fluido e profundo sobre o tema. Não use bullet points aqui. Escreva como um capítulo de livro de alto nível.)
-
-    # 📚 GLOSSÁRIO DO ESPECIALISTA
-    - **Termo 1**: Definição técnica e simplificada.
-    - **Termo 2**: Definição técnica e simplificada.
-
-    # 🧠 DESAFIO DE FIXAÇÃO (QUIZ)
-    1. [Pergunta instigante sobre o tema?]
-    2. [Pergunta de aplicação prática?]
-
-    # 🔗 CONEXÕES ONYX
-    (Explique como este assunto se conecta com a carreira de tecnologia e o que o aluno deve estudar a seguir para se aprofundar.)
-
-    REGRAS:
-    - Use um tom inspirador e técnico.
-    - Mínimo de 600 palavras no total.
-    - Idioma: Português do Brasil.
+    REGRAS DE OURO:
+    - O resumo deve ser denso, elegante e profundo.
+    - O quiz deve testar compreensão e não apenas decoreba.
+    - Certifique-se de que o JSON é válido.
     """
     
     try:
         response = model.generate_content(prompt)
-        return response.text
+        # Limpeza básica em caso da IA ignorar a regra de "JSON puro"
+        json_match = re.search(r'\{(?:[^{}]|(?R))*\}', response.text, re.DOTALL)
+        if json_match:
+            return json_match.group(0)
+        return response.text.replace("```json", "").replace("```", "").strip()
     except Exception as e:
         print(f"Erro no Resumo Premium: {e}")
-        # Fallback para o Flash se o Pro falhar ou não estiver disponível
-        try:
-            model_flash = genai.GenerativeModel('gemini-1.5-flash')
-            response = model_flash.generate_content(prompt)
-            return response.text
-        except:
-            return "O motor de IA está processando muitos dados. Tente novamente em breve."
+        return '{"summary": "Erro no processamento da IA.", "quiz": []}'
 
 def processar_com_gemini(texto, nome_arquivo):
     """

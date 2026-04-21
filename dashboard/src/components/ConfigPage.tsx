@@ -79,61 +79,86 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
   if (loading) {
     return (
       <div className="login-container">
-        <div className="pulse-animation">Carregando Onyx...</div>
+        <div className="pulse-animation">Carregando IDP Core...</div>
       </div>
     );
   }
 
   return (
     <div className="login-container">
-      <div className="login-card glass animate-slide-up" style={{ maxWidth: '480px' }}>
+      <div className="glass login-card animate-reveal">
         <div className="login-header">
-          <div className="badge badge-cyan" style={{ marginBottom: '1rem' }}>
-            <Zap size={12} /> ONYX ENGINE v3.0
+          <div className="badge badge-cyan" style={{ marginBottom: '1.5rem', alignSelf: 'center' }}>
+            <Zap size={12} /> IDP CORE v3.0
           </div>
-          <h1>Configuração</h1>
-          <p className="text-dim">Ative o monitoramento exclusivo via API oficial</p>
+          <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Configuração</h1>
+          <p className="text-dim" style={{ fontSize: '0.9rem' }}>Ative o monitoramento via API oficial Canvas</p>
         </div>
 
         <form onSubmit={handleSave} className="login-form">
-          <div className="input-group">
-            <label className="font-display" style={{ fontSize: '0.7rem', letterSpacing: '0.1em', opacity: 0.7 }}>
+          <div className="input-group" style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <label className="font-display" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', opacity: 0.5, fontWeight: 700 }}>
               CANVAS API ACCESS TOKEN
             </label>
             <div style={{ position: 'relative' }}>
-              <Key className="input-icon" size={18} />
+              <Key style={{ 
+                position: 'absolute', 
+                left: '1.25rem', 
+                top: '50%', 
+                transform: 'translateY(-50%)', 
+                opacity: 0.3 
+              }} size={18} />
               <input
                 type="password"
                 placeholder="Insira seu Token do Canvas aqui..."
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
                 required
-                className="premium-input"
+                style={{ 
+                  width: '100%',
+                  paddingLeft: '3.5rem',
+                  height: '60px',
+                  borderRadius: '16px',
+                  background: 'rgba(255,255,255,0.02)',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                  color: 'white',
+                  fontSize: '0.95rem'
+                }}
               />
             </div>
-            <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <p className="text-dim" style={{ fontSize: '0.75rem', marginTop: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.6 }}>
               <Info size={14} className="text-cyan" />
-              Obtenha em: Perfil {'>'} Configurações {'>'} Novo Token de Acesso
+              Obtenha em: Perfil {'>'} Configurações {'>'} Novo Token
             </p>
           </div>
 
           <div style={{ 
-            background: 'rgba(0, 242, 255, 0.03)', 
-            border: '1px solid hsla(var(--primary), 0.1)',
-            padding: '1rem',
-            borderRadius: '8px',
-            marginBottom: '1.5rem'
+            background: 'rgba(255, 255, 255, 0.02)', 
+            border: '1px solid rgba(255,255,255,0.04)',
+            padding: '1.25rem',
+            borderRadius: '16px',
+            marginBottom: '1rem',
+            textAlign: 'left'
           }}>
-            <h4 style={{ fontSize: '0.8rem', color: 'white', marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <ShieldCheck size={14} className="text-cyan" /> Segurança Onyx
+            <h4 style={{ fontSize: '0.8rem', color: 'white', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
+              <ShieldCheck size={14} className="text-cyan" /> Segurança IDP Core
             </h4>
-            <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)', lineHeight: '1.4' }}>
-              Seu e-mail e senha não são mais necessários. O Token API oferece acesso mais rápido, seguro e sincronização instantânea de nome e conteúdos.
+            <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', lineHeight: '1.5' }}>
+              Suas credenciais são protegidas por criptografia de ponta. O Token API garante sincronização estável sem necessidade de senha.
             </p>
           </div>
 
           {message && (
-            <div className={`status-alert ${message.type}`} style={{ marginBottom: '1.5rem' }}>
+            <div className={`animate-reveal`} style={{ 
+              padding: '1rem',
+              borderRadius: '12px',
+              fontSize: '0.8rem',
+              fontWeight: 500,
+              background: message.type === 'success' ? 'rgba(0, 255, 150, 0.05)' : 'rgba(255, 68, 68, 0.05)',
+              border: `1px solid ${message.type === 'success' ? 'rgba(0, 255, 150, 0.1)' : 'rgba(255, 68, 68, 0.1)'}`,
+              color: message.type === 'success' ? '#00ff96' : '#ff4444',
+              marginBottom: '1rem'
+            }}>
               {message.text}
             </div>
           )}
@@ -144,31 +169,38 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
                 type="button" 
                 onClick={onClose} 
                 className="nav-btn" 
-                style={{ flex: 1, justifyContent: 'center' }}
+                style={{ flex: 1, height: '60px', borderRadius: '16px', justifyContent: 'center' }}
               >
-                <ArrowLeft size={18} /> Voltar
+                <ArrowLeft size={18} />
               </button>
             )}
             <button 
               type="submit" 
               disabled={saving} 
               className="premium-btn" 
-              style={{ flex: 2, justifyContent: 'center' }}
+              style={{ flex: 3, height: '60px', borderRadius: '16px', justifyContent: 'center', fontWeight: 700 }}
             >
-              {saving ? 'Sincronizando...' : <><Save size={18} /> Ativar Onyx v3</>}
+              {saving ? 'CONFIGURANDO...' : <><Save size={18} /> ATIVAR IDP CORE</>}
             </button>
           </div>
         </form>
 
-        <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+        <div style={{ marginTop: '2.5rem' }}>
           <a 
             href="https://canvas.instructure.com/doc/api/file.oauth.html#manual-token-generation" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-link"
-            style={{ fontSize: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}
+            style={{ 
+              fontSize: '0.75rem', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              gap: '0.5rem',
+              color: 'rgba(255,255,255,0.3)',
+              textDecoration: 'none'
+            }}
           >
-            Como gerar meu token? <ExternalLink size={12} />
+            Guia de Geração <ExternalLink size={12} />
           </a>
         </div>
       </div>

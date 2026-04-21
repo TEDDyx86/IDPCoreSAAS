@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, ExternalLink, BrainCircuit, Activity } from 'lucide-react';
+import { Clock, BrainCircuit, Activity, ArrowUpRight } from 'lucide-react';
 
 interface TimelineItem {
   id: string;
@@ -19,46 +19,77 @@ const ActivityTimeline: React.FC<ActivityTimelineProps> = ({ items, onOpenResumo
   if (items.length === 0) return null;
 
   return (
-    <div className="activity-feed" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+    <div className="activity-feed" style={{ display: 'flex', flexDirection: 'column' }}>
       {items.map((item, index) => (
         <div 
           key={item.id} 
-          className="timeline-item animate-fade" 
+          className="timeline-item animate-reveal" 
           style={{ animationDelay: `${0.1 * index}s` }}
         >
-          <span className="timeline-date">
-             <Clock size={12} style={{ marginRight: '4px' }} />
-             {new Date(item.data_detectado).toLocaleDateString()} — {new Date(item.data_detectado).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-          </span>
+          <div className="timeline-dot" />
+          
+          <div className="timeline-date">
+             <Clock size={12} opacity={0.5} />
+             {new Date(item.data_detectado).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })} • {new Date(item.data_detectado).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          </div>
           
           <div 
             className="glass glass-card glass-hover" 
-            style={{ padding: '1.5rem', borderLeftWidth: '0', cursor: 'pointer' }}
+            style={{ padding: '2rem', cursor: 'pointer' }}
             onClick={() => onOpenResumo(item)}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-              <div>
-                <span className="badge badge-purple" style={{ marginBottom: '0.5rem' }}>{item.disciplina}</span>
-                <h3 className="font-display" style={{ fontSize: '1.25rem', textTransform: 'none', margin: '0.5rem 0 0', lineHeight: '1.2' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                  <span className="badge badge-purple">{item.disciplina}</span>
+                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)' }} />
+                  <span className="text-dim" style={{ fontSize: '0.7rem', fontWeight: 500, opacity: 0.6 }}>Atualização de Aula</span>
+                </div>
+                <h3 className="font-display" style={{ 
+                  fontSize: '1.4rem', 
+                  fontWeight: 600, 
+                  margin: 0, 
+                  lineHeight: '1.3',
+                  color: 'white'
+                }}>
                   {item.titulo}
                 </h3>
               </div>
-              <Activity className="text-dim" size={16} />
+              <div style={{ 
+                width: '40px', 
+                height: '40px', 
+                borderRadius: '12px', 
+                background: 'rgba(255,255,255,0.03)', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <Activity className="text-dim" size={18} />
+              </div>
             </div>
 
-            <p className="text-dim" style={{ fontSize: '0.9rem', marginBottom: '1.5rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', opacity: 0.6 }}>
-              {item.resumo || "Onyx está processando os dados desta aula..."}
+            <p className="text-dim" style={{ 
+              fontSize: '0.95rem', 
+              lineHeight: '1.6',
+              marginBottom: '2rem', 
+              display: '-webkit-box', 
+              WebkitLineClamp: 2, 
+              WebkitBoxOrient: 'vertical', 
+              overflow: 'hidden', 
+              opacity: 0.7 
+            }}>
+              {item.resumo || "A inteligência artificial Onyx está processando os dados desta aula para gerar seu resumo premium..."}
             </p>
 
-            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-              <button 
-                className="premium-btn" 
-                style={{ padding: '0.6rem 1.2rem', fontSize: '0.75rem', borderRadius: 'var(--radius-sm)' }}
-              >
-                <BrainCircuit size={14} /> ANALISAR INSIGHTS
+            <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+              <button className="premium-btn">
+                <BrainCircuit size={16} /> ANALISAR INSIGHTS
               </button>
               
-              <span className="text-dim font-display" style={{ fontSize: '0.6rem', letterSpacing: '0.1em' }}>ABRIR AULA</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', opacity: 0.4 }} className="nav-btn-text">
+                <span className="font-display" style={{ fontSize: '0.75rem', fontWeight: 600 }}>ABRIR AULA</span>
+                <ArrowUpRight size={14} />
+              </div>
             </div>
           </div>
         </div>

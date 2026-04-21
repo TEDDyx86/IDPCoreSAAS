@@ -1,98 +1,65 @@
-# 🌌 IDP Core: Autonomous Academic Intelligence
+<p align="center">
+  <img src="docs/assets/logo.png" width="400" alt="IDP Core Logo">
+</p>
 
-> **Elite Monitoring for Higher Education**  
-> Um sistema autônomo de monitoramento acadêmico de 3 camadas projetado para converter materiais de aula em inteligência acionável utilizando IA Generativa.
-
----
-
-## 🏗️ Arquitetura do Sistema (Three-Layer Model)
-
-O IDP Core não é apenas um script de scraping; é um agente orquestrador construído sobre o **Protocolo IDP Core**.
-
-### Layer 1: Diretivas (Intenção)
-- Localizadas em `directives/`.
-- Procedimentos Operacionais Padrão (SOPs) em Markdown.
-- Define o "O Que" deve ser feito de forma determinística.
-
-### Layer 2: Orquestração (Cérebro)
-- O **Agente IA** (`orchestrator.py`).
-- Toma decisões em tempo real, gerencia o fluxo de trabalho e aplica o protocolo de **Auto-anneal** (auto-cura de scripts) quando falhas de layout são detectadas.
-
-### Layer 3: Execução (Operação)
-- Localizada em `execution/`.
-- Scripts Python robustos para Login, Monitoramento de Canvas/GitHub, Processamento e Notificação.
+<p align="center">
+  <img src="https://img.shields.io/badge/Onyx-Engine_v3.0-blue?style=for-the-badge&logo=google-gemini&logoColor=white" alt="Onyx Engine">
+  <img src="https://img.shields.io/badge/Frontend-React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19">
+  <img src="https://img.shields.io/badge/Backend-Python_Agentic-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Database-Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase">
+</p>
 
 ---
 
-## 🛠️ Stack Tecnológica
+# 🌌 IDP Core: Inteligência Acadêmica de Elite
 
-| Componente | Tecnologia | Função |
-| :--- | :--- | :--- |
-| **Núcleo** | Python 3.10+ | Lógica de negócio e orquestração. |
-| **Inteligência** | Gemini 1.5 Flash | Resumos magistrais e inteligência de "Professor Mentor". |
-| **Web Ops** | Playwright / Selenium | Autenticação e extração de dados dinâmicos. |
-| **Database** | Supabase (PostgreSQL) | Persistência de metadados e histórico acadêmico. |
-| **Segurança** | Supabase Vault | Armazenamento seguro de credenciais e segredos. |
-| **Alertas** | Discord Webhooks | Notificação instantânea com rich embeds. |
+O **IDP Core** é um sistema autônomo de monitoramento e aceleração de aprendizado. Projetado para estudantes que buscam excelência, o sistema transforma o caos de materiais acadêmicos em um fluxo de inteligência destilada, utilizando a **Arquitetura Onyx** alimentada por IA Generativa.
+
+### [Visualizar Dashboard](file:///c:/Users/Administrator/Documents/GitHub/antigravity/docs/assets/dashboard.png) • [Sistema de Login](file:///c:/Users/Administrator/Documents/GitHub/antigravity/docs/assets/login.png)
 
 ---
 
-## 📊 Fluxo de Trabalho (Workflow)
+## ✨ A Experiência Onyx
 
-```mermaid
-graph TD
-    A[Orchestrator] -->|Read SOP| B(Directives)
-    A -->|Monitor| C[Canvas Modules]
-    A -->|Monitor| D[GitHub Repos]
-    C -->|New Item| E[Download & Store]
-    D -->|New Commit| E
-    E -->|Context Transfer| F[Gemini AI Engine]
-    F -->|Analyze| G[Master Summary .docx/.txt]
-    G -->|Persistence| H[Supabase / Local]
-    H -->|Alert| I[Discord Notification]
-    I -->|Health Check| J{Success?}
-    J -- No --> K[Auto-anneal Protocol]
-    K -->|Heal| A
-```
+Diferente de portais acadêmicos tradicionais, o IDP Core oferece uma interface focada em retenção e clareza.
+
+- **🎨 Design System Onyx**: Estética premium inspirada no minimalismo editorial, com suporte a modo escuro profundo, glassmorphism e animações fluidas.
+- **📚 Resumos Magistrais**: Motor de IA que processa materiais de aula (PDF, Imagens, Texto) e os transforma em guias de estudo no estilo NotebookLM.
+- **🧠 Desafios de Fixação**: Questionários interativos gerados automaticamente para testar sua compreensão imediatamente após a leitura.
 
 ---
 
-## 🚀 Guia de Início Rápido
+## 🛠️ Funcionalidades Chave
 
-### Instalação Automatizada (Recomendado)
-Apenas para ambientes Windows:
-1.  Clone este repositório.
-2.  Renomeie `.env.example` para `.env` e insira suas chaves (Gemini API, Supabase).
-3.  Execute o arquivo `run.bat`. O sistema configurará o ambiente virtual e baixará as dependências automaticamente.
+### 1. Monitoramento Autônomo
+O sistema vigia repositórios e plataformas de ensino 24/7, detectando novos conteúdos, cronogramas e atualizações críticas sem intervenção manual.
 
-### Configuração Supabase
-Execute o script `supabase_setup.sql` no seu console do Supabase para inicializar as tabelas de métricas e configurações.
+### 2. Orquestração Multiusuário
+Pronto para escalar, o IDP Core utiliza um orquestrador Python que gerencia as diretrizes e preferências de múltiplos alunos, garantindo que cada um receba insights personalizados em seu dashboard.
 
----
-
-## 🛡️ Protocolo de Auto-cura (Auto-anneal)
-
-Diferente de automações convencionais, o IDP Core é resiliente. Se a plataforma acadêmica mudar seu layout:
-1.  O script de execução detecta o erro de seletor.
-2.  O **Orquestrador IA** analisa o erro e o HTML atual.
-3.  O agente propõe ou aplica a correção no script de execução.
-4.  As **Diretivas** são atualizadas com o histórico da correção.
+### 3. Recuperação de Inteligência
+Falhas no sistema acadêmico original? O IDP Core possui um protocolo de **Auto-cura** (Auto-anneal) que adapta os robôs de extração a mudanças de layout em tempo real.
 
 ---
 
-## 📂 Estrutura de Diretórios
+## 🏗️ Tech Stack
 
-- `directives/`: Manuais e estratégias de scraping.
-- `execution/`: O motor de processamento acadêmico.
-- `resumos/`: Output final em PDF/DOCX (ignorado pelo Git).
-- `.tmp/`: Cache volátil, cookies de sessão e logs de auditoria.
-- `stitch/`: (Opcional) Design tokens e assets de interface.
+- **Frontend**: React 19, Tailwind CSS, Lucide Icons.
+- **Backend**: Python 3.11+, Playwright (Headless Web Ops).
+- **Inteligência**: Google Gemini 1.5 Flash.
+- **Infraestrutura**: Supabase (PostgreSQL + Realtime), GitHub Actions.
+
+---
+
+## 🚀 Como Iniciar
+
+### Para Alunos
+1.  **Acesso**: Entre com suas credenciais na página de login premium.
+2.  **Módulos**: Explore suas disciplinas através do carrossel interativo.
+3.  **Desafios**: Ao ler um resumo, finalize com o **Desafio de Fixação** para consolidar o conhecimento.
 
 ---
 
-## 📖 Documentação Adicional
-
-Para detalhes profundos sobre scripts, infraestrutura Supabase e guias de desenvolvimento, consulte nossa **[Wiki Técnica Mestre](file:///c:/Users/Administrator/Documents/GitHub/antigravity/TECHNICAL_WIKI.md)**.
-
----
-*Desenvolvido para Excelência Acadêmica - Powered by Advanced Agentic Coding.*
+<p align="center">
+  <i>Desenvolvido para transformar dados em sabedoria. Powered by <b>Onyx Intelligence</b>.</i>
+</p>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { LogIn, UserPlus, Mail, Lock, Sparkles } from 'lucide-react';
+import { LogIn, UserPlus, Mail, Lock, Sparkles, ShieldCheck } from 'lucide-react';
 import logo from '../assets/logo.png';
 
 const LoginPage: React.FC = () => {
@@ -39,77 +39,148 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="login-container">
-      <div className="login-card glass animate-fade">
+      <div className="glass login-card animate-reveal">
         <div className="login-header">
-          <div className="pulse-animation" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'center' }}>
             <img 
               src={logo} 
-              alt="Logo" 
+              alt="IDP Core Logo" 
               style={{ 
                 width: '180px', 
                 height: 'auto',
-                filter: 'drop-shadow(0 0 20px rgba(0,242,255,0.2))' 
+                filter: 'drop-shadow(0 0 40px rgba(255,255,255,0.08))'
               }} 
             />
           </div>
-          <p className="text-dim font-display" style={{ fontSize: '0.8rem', letterSpacing: '0.3em' }}>
-            Seu Monitor Acadêmico
+          <h1 className="font-display" style={{ fontSize: '1.8rem', fontWeight: 700, marginBottom: '0.4rem', color: 'white' }}>
+            IDP CORE
+          </h1>
+          <p className="font-display" style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.2em', fontWeight: 600 }}>
+            ACADEMIC INTELLIGENCE GATEWAY
           </p>
         </div>
 
         <form onSubmit={handleAuth} className="login-form">
-          <div className="input-group-stack">
-            <label><Mail size={14} /> ID Acadêmico</label>
-            <input
-              type="email"
-              placeholder="estudante@idp.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+          <div style={{ textAlign: 'left' }}>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              background: 'rgba(255,255,255,0.02)',
+              borderRadius: '18px',
+              border: '1px solid rgba(255,255,255,0.04)',
+              padding: '0 1.5rem',
+              height: '64px',
+              transition: 'all 0.4s ease'
+            }} className="glass-hover">
+              <Mail size={18} style={{ color: 'rgba(255,255,255,0.25)', marginRight: '1rem' }} />
+              <input
+                type="email"
+                placeholder="ID Acadêmico"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                style={{ 
+                  background: 'none',
+                  border: 'none',
+                  color: 'white',
+                  fontSize: '1rem',
+                  fontFamily: 'Inter',
+                  outline: 'none',
+                  width: '100%'
+                }}
+              />
+            </div>
           </div>
 
-          <div className="input-group-stack">
-            <label><Lock size={14} /> Chave de Acesso</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+          <div style={{ textAlign: 'left' }}>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              background: 'rgba(255,255,255,0.02)',
+              borderRadius: '18px',
+              border: '1px solid rgba(255,255,255,0.04)',
+              padding: '0 1.5rem',
+              height: '64px',
+              transition: 'all 0.4s ease'
+            }} className="glass-hover">
+              <Lock size={18} style={{ color: 'rgba(255,255,255,0.25)', marginRight: '1rem' }} />
+              <input
+                type="password"
+                placeholder="Chave de Acesso"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{ 
+                  background: 'none',
+                  border: 'none',
+                  color: 'white',
+                  fontSize: '1rem',
+                  fontFamily: 'Inter',
+                  outline: 'none',
+                  width: '100%'
+                }}
+              />
+            </div>
           </div>
 
           {error && (
-            <div className="status-alert error animate-fade" style={{ background: 'rgba(255,0,0,0.05)', borderRadius: 'var(--radius-xs)', marginBottom: '1.5rem', padding: '0.75rem' }}>
-              <p style={{ fontSize: '0.8rem' }}>{error}</p>
+            <div className="animate-reveal" style={{ 
+              padding: '1rem',
+              background: 'rgba(255,68,68,0.08)',
+              border: '1px solid rgba(255,68,68,0.15)',
+              borderRadius: '14px',
+              color: '#ff6666',
+              fontSize: '0.8rem',
+              fontWeight: 500
+            }}>
+              {error}
             </div>
           )}
 
-          <button type="submit" className="premium-btn" style={{ width: '100%', marginTop: '1rem' }} disabled={loading}>
-            {loading ? 'Sincronizando...' : isRegistering ? 'Criar Acesso' : 'Autenticar'}
+          <button type="submit" className="premium-btn" style={{ 
+            width: '100%', 
+            height: '64px',
+            fontSize: '1rem',
+            fontWeight: 700,
+            marginTop: '1rem'
+          }} disabled={loading}>
+            {loading ? 'SINCRONIZANDO...' : isRegistering ? 'CRIAR ACESSO' : 'ENTRAR'}
             {!loading && (isRegistering ? <UserPlus size={18} /> : <LogIn size={18} />)}
           </button>
         </form>
 
-        <div className="login-footer" style={{ marginTop: '2.5rem' }}>
-          <p className="text-dim" style={{ fontSize: '0.75rem', marginBottom: '1rem' }}>
-            {isRegistering ? 'Já possui uma credencial?' : 'Novo por aqui?'}
-          </p>
+        <div style={{ marginTop: '2.5rem' }}>
           <button 
-            className="nav-btn" 
-            style={{ width: '100%', justifyContent: 'center' }}
+            type="button"
+            className="nav-btn-text" 
+            style={{ 
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '0.8rem', 
+              fontWeight: 500, 
+              opacity: 0.4,
+              textDecoration: 'none',
+              color: 'white'
+            }}
             onClick={() => setIsRegistering(!isRegistering)}
           >
-            {isRegistering ? 'Fazer Login' : 'Solicitar Acesso'}
+            {isRegistering ? 'Já possui uma credencial?' : 'Solicitar Acesso Certificado'}
           </button>
-          
-          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', opacity: 0.5 }}>
-             <Sparkles size={12} className="text-gradient" />
-             <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em' }} className="font-display">
-               SECURED BY ENCRYPT_RLS
-             </span>
-          </div>
+        </div>
+
+        <div style={{ 
+          marginTop: '4.5rem', 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          gap: '0.75rem', 
+          opacity: 0.15 
+        }}>
+           <ShieldCheck size={14} />
+           <span className="font-display" style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.3em' }}>
+             IDP CORE SECURITY
+           </span>
         </div>
       </div>
     </div>
