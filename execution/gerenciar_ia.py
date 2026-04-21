@@ -15,7 +15,19 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
     Retorna uma string JSON contendo 'summary' e 'quiz'.
     """
     if not GEMINI_API_KEY:
+        print(" [!] ERRO: GEMINI_API_KEY não encontrada no ambiente!")
         return '{"summary": "IA não configurada.", "quiz": []}'
+    else:
+        # Print de diagnóstico seguro (mostra 2 primeiros e 2 últimos caracteres)
+        print(f" [OK] IA configurada. Key: {GEMINI_API_KEY[:2]}...{GEMINI_API_KEY[-2:]}")
+
+    # Configuração de Segurança: Desativa bloqueios para evitar falsos positivos acadêmicos
+    safety_settings = [
+        {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+        {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+        {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+        {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
+    ]
 
     model = genai.GenerativeModel('gemini-1.5-flash')
     
@@ -43,7 +55,13 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
     """
     
     try:
-        response = model.generate_content(prompt)
+        response = model.generate_content(prompt, safety_settings=safety_settings)
+        
+        # Diagnóstico de BLOQUEIO
+        if not response.candidates:
+             print(f" [!] Erro IA: Nenhum candidato retornado. Possível bloqueio. Feedback: {response.prompt_feedback}")
+             return '{"summary": "Erro: Resposta Bloqueada pela IA.", "quiz": []}'
+
         text = response.text
         
         # Limpeza agressiva de blocos de código
@@ -60,8 +78,12 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
             
         return text.strip()
     except Exception as e:
-        print(f"Erro no Resumo Premium: {e}")
-        return '{"summary": "Erro no processamento da IA.", "quiz": []}'
+        print(f" [!] Erro crítico no Resumo Premium: {e}")
+        # Tenta detalhar o erro se for do Gemini
+        try:
+            if hasattr(e, 'details'): print(f" [!] Detalhes: {e.details()}")
+        except: pass
+        return '{"summary": "Erro no processamento da IA (Ver Logs).", "quiz": []}'
 
 def processar_com_gemini(texto, nome_arquivo):
     """
