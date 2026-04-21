@@ -69,8 +69,13 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
       else window.location.reload();
       
     } catch (err: any) {
-      console.error("Erro ao salvar:", err);
-      setMessage({ type: 'error', text: 'Falha ao salvar configurações. Verifique sua conexão.' });
+      console.error("Erro detalhado ao salvar:", err);
+      // Exibir o erro real vindo do Supabase para facilitar o debug
+      const errorMsg = err.message || 'Falha ao salvar configurações.';
+      setMessage({ 
+        type: 'error', 
+        text: `${errorMsg}. Verifique se rodou o script SQL no Supabase.` 
+      });
     } finally {
       setSaving(false);
     }
