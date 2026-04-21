@@ -56,13 +56,15 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
     """
     
     max_retries = 3
+    text = ""
+    
     for attempt in range(max_retries):
         try:
             response = model.generate_content(prompt, safety_settings=safety_settings)
             
             # Diagnóstico de BLOQUEIO
             if not response.candidates:
-                print(f" [!] Erro IA: Nenhum candidato retornado. Possível bloqueio. Feedback: {response.prompt_feedback}")
+                print(f" [!] Erro IA: Nenhum candidato retornado. Feedback: {response.prompt_feedback}")
                 return '{"summary": "Erro: Resposta Bloqueada pela IA.", "quiz": []}'
 
             text = response.text
@@ -74,36 +76,33 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
                 print(f" [!] Cota excedida (429). Tentativa {attempt+1}/{max_retries}. Aguardando {wait_time}s...")
                 time.sleep(wait_time)
             elif "500" in err_msg or "503" in err_msg:
-                print(f" [!] Erro de servidor (50x). Tentativa {attempt+1}/{max_retries}. Aguardando 5s...")
+                print(f" [!] Erro de servidor (50x). Aguardando 5s...")
                 time.sleep(5)
             else:
-                print(f" [!] Erro crítico no Resumo Premium: {e}")
+                print(f" [!] Erro crítico na IA: {e}")
                 return '{"summary": "Erro no processamento da IA.", "quiz": []}'
             
             if attempt == max_retries - 1:
                 print(" [!] Esgotadas as tentativas de re-processamento por cota.")
                 return '{"summary": "Erro de cota na IA (429).", "quiz": []}'
+
+    # Processamento do texto (fora do loop de retry)
+    if not text:
+        return '{"summary": "IA retornou vazio.", "quiz": []}'
+
+    # Limpeza agressiva de blocos de código
+    if "```" in text:
+        blocks = re.findall(r'```(?:json)?\s*(.*?)\s*```', text, re.DOTALL)
+        if blocks:
+            text = blocks[0]
+    
+    # Busca o primeiro '{' e o último '}' para garantir JSON puro
+    start = text.find('{')
+    end = text.rfind('}')
+    if start != -1 and end != -1:
+        return text[start:end+1].strip()
         
-        # Limpeza agressiva de blocos de código
-        if "```" in text:
-            blocks = re.findall(r'```(?:json)?\s*(.*?)\s*```', text, re.DOTALL)
-            if blocks:
-                text = blocks[0]
-        
-        # Busca o primeiro '{' e o último '}' para garantir JSON puro
-        start = text.find('{')
-        end = text.rfind('}')
-        if start != -1 and end != -1:
-            return text[start:end+1].strip()
-            
-        return text.strip()
-    except Exception as e:
-        print(f" [!] Erro crítico no Resumo Premium: {e}")
-        # Tenta detalhar o erro se for do Gemini
-        try:
-            if hasattr(e, 'details'): print(f" [!] Detalhes: {e.details()}")
-        except: pass
-        return '{"summary": "Erro no processamento da IA (Ver Logs).", "quiz": []}'
+    return text.strip()
 
 def processar_com_gemini(texto, nome_arquivo):
     """
