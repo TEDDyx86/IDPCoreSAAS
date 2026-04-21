@@ -26,7 +26,8 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
       const { error } = await supabase
         .from('academic_updates')
         .update({ 
-          resumo: '[REGENERAÇÃO SOLICITADA] O robô reprocessará este item no próximo ciclo...' 
+          resumo: '[REGENERAÇÃO SOLICITADA]',
+          regenerar: true 
         })
         .eq('id', item.id);
 
