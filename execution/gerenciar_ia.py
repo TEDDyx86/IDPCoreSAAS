@@ -26,42 +26,39 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
 
     TAREFA: Gere um guia de estudo e um questionário de fixação.
     
-    RETORNO ESPERADO: Responda APENAS em formato JSON puro, sem blocos de código markdown ou explicações fora do JSON.
+    RETORNO ESPERADO: Responda APENAS em formato JSON puro.
     
-    ESTRUTURA DO JSON:
+    ESTRUTURA DO JSON (MUITO IMPORTANTE):
     {{
-        "summary": "O guia de estudo completo em Markdown (💎 RESUMO MAGISTRAL, 📚 GLOSSÁRIO, 🔗 CONEXÕES ONYX. Use parágrafos claros e formatação rica)",
+        "summary": "O guia de estudo completo em Markdown (💎 RESUMO MAGISTRAL, 📚 GLOSSÁRIO, 🔗 CONEXÕES ONYX). Use parágrafos claros, negrito (**) e listas. IMPORTANTE: Use apenas '\\n' para quebras de linha dentro do texto.",
         "quiz": [
             {{
                 "question": "Pergunta 1...",
                 "options": ["Opção A", "Opção B", "Opção C", "Opção D"],
                 "correct_index": 0
-            }},
-            ... (Gere 5 questões)
+            }}
         ]
     }}
-
-    REGRAS DE OURO:
-    - O resumo deve ser denso, elegante e profundo.
-    - O quiz deve testar compreensão e não apenas decoreba.
-    - Certifique-se de que o JSON é válido.
+    Gere 5 questões no quiz.
     """
     
     try:
         response = model.generate_content(prompt)
         text = response.text
         
-        # Limpeza: Remove blocos de código markdown se existirem
-        text = re.sub(r'```json\s*', '', text)
-        text = re.sub(r'```\s*', '', text).strip()
+        # Limpeza agressiva de blocos de código
+        if "```" in text:
+            blocks = re.findall(r'```(?:json)?\s*(.*?)\s*```', text, re.DOTALL)
+            if blocks:
+                text = blocks[0]
         
         # Busca o primeiro '{' e o último '}' para garantir JSON puro
         start = text.find('{')
         end = text.rfind('}')
         if start != -1 and end != -1:
-            return text[start:end+1]
+            return text[start:end+1].strip()
             
-        return text
+        return text.strip()
     except Exception as e:
         print(f"Erro no Resumo Premium: {e}")
         return '{"summary": "Erro no processamento da IA.", "quiz": []}'

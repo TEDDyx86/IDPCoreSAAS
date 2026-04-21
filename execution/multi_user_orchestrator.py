@@ -77,12 +77,13 @@ def run_orchestrator():
                         raw_res = resumir_item_premium(item['titulo'], item['disciplina'])
                         
                         try:
-                            ai_data = json.loads(raw_res)
+                            ai_data = json.loads(raw_res, strict=False)
                             resumo_final = ai_data.get("summary", "Falha ao gerar resumo.")
                             quiz_final = ai_data.get("quiz", [])
-                        except:
+                        except Exception as e:
                             # Fallback caso não venha JSON válido
-                            resumo_final = raw_res
+                            print(f"   [!] Erro JSON (ia): {e}")
+                            resumo_final = "Erro no processamento da IA. (JSON Inválido)"
                             quiz_final = []
 
                         handler.save_update(
