@@ -1,6 +1,15 @@
 import time
 import os
 import json
+import sys
+
+# Forçar UTF-8 para evitar erros de encoding no Windows (charmap)
+if sys.stdout.encoding.lower() != "utf-8":
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except:
+        pass
+
 from supabase_handler import SupabaseHandler
 from canvas_api_handler import verificar_materiais_via_api, CanvasAPIClient
 from gerenciar_ia import resumir_item_premium
@@ -51,7 +60,8 @@ def run_orchestrator():
             # 3. Cruzamento e Deduplicação (Usando origin_id)
             from supabase_handler import SUPABASE_URL, SUPABASE_SERVICE_KEY, requests
             # Buscamos origin_ids e resumos para identificar novos itens E itens marcados para regeneração
-            url_check = f"{SUPABASE_URL}/rest/v1/academic_updates?user_id=eq.{user_id}&select=origin_id,resumo"
+            # Aumentamos o limite para 2000 para garantir que pegamos todo o histórico do aluno
+            url_check = f"{SUPABASE_URL}/rest/v1/academic_updates?user_id=eq.{user_id}&select=origin_id,resumo&limit=2000"
             headers = {"apikey": SUPABASE_SERVICE_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_KEY}"}
             res_check = requests.get(url_check, headers=headers)
             
@@ -59,14 +69,30 @@ def run_orchestrator():
             if res_check.status_code == 200:
                 existing_records = res_check.json()
             
-            ids_vistos = [str(r['origin_id']) for r in existing_records if r.get('origin_id')]
-            ids_regenerar = [str(r['origin_id']) for r in existing_records if r.get('resumo') and "[REGENERAÇÃO SOLICITADA]" in r['resumo']]
+            # Mapeamos resumos por ID para decisões rápidas
+            resumo_por_id = {str(r['origin_id']): r.get('resumo', '') for r in existing_records if r.get('origin_id')}
+            
+            ids_vistos = list(resumo_por_id.keys())
+            
+            itens_para_processar = []
+            print(f" [DB] {len(ids_vistos)} registros encontrados no histórico.")
 
-            # Filtramos o que é NOVO ou solicita REGENERAÇÃO
-            itens_para_processar = [
-                m for m in materiais_atuais 
-                if str(m['id']) not in ids_vistos or str(m['id']) in ids_regenerar
-            ]
+            for m in materiais_atuais:
+                m_id = str(m['id'])
+                resumo_atual = resumo_por_id.get(m_id, "")
+                
+                # Critérios de Processamento:
+                # 1. Não existe no banco (Item Novo)
+                # 2. Usuário solicitou regeneração manual
+                # 3. O processamento anterior resultou em erro genérico da IA
+                is_novo = m_id not in ids_vistos
+                is_regen_solicitada = "[REGENERAÇÃO SOLICITADA]" in resumo_atual.upper()
+                is_erro_ia = "ERRO NO PROCESSAMENTO DA IA" in resumo_atual.upper()
+                
+                if is_novo or is_regen_solicitada or is_erro_ia:
+                    itens_para_processar.append(m)
+                    status = "NOVO" if is_novo else ("REGENERAÇÃO" if is_regen_solicitada else "RE-TENTATIVA ERRO")
+                    print(f"   [+] Incluído: {m['titulo']} ({status})")
             
             if itens_para_processar:
                 print(f" [*] {len(itens_para_processar)} ITENS PARA PROCESSAMENTO (IA)!")

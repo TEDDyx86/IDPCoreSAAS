@@ -29,7 +29,7 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
         {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
     ]
 
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-flash-latest')
     
     prompt = f"""
     PERSONA: Mentor Acadêmico de Elite (Estilo NotebookLM).
