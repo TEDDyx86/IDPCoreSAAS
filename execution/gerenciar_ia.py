@@ -3,6 +3,8 @@ import re
 import time
 from google import genai
 from groq import Groq
+import requests
+import json
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -19,6 +21,9 @@ if GEMINI_API_KEY:
 
 # --- Configurações Groq ---
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+# --- Configurações OpenRouter ---
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 # --- TEMPLATE DE PROMPT ACADÊMICO (ONYX MENTOR) ---
 ONYX_PROMPT_TEMPLATE = """
@@ -80,6 +85,45 @@ def resumir_com_groq(titulo, disciplina, texto_extra=""):
         print(f" [!] Erro no Groq Backup: {e}")
         return None
 
+def resumir_com_openrouter(titulo, disciplina, texto_extra=""):
+    """Terceira linha de defesa: OpenRouter (Llama-3 70B via Multi-Provider)"""
+    if not OPENROUTER_API_KEY:
+        print(" [!] Ignorando OpenRouter: API Key não configurada.")
+        return None
+
+    try:
+        print(f" [OPENROUTER] Ativando reserva final (Llama-3 70B)...")
+        
+        prompt = ONYX_PROMPT_TEMPLATE.format(
+            titulo=titulo,
+            disciplina=disciplina,
+            conteudo=texto_extra[:20000]
+        )
+
+        response = requests.post(
+            url="https://openrouter.ai/api/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                "HTTP-Referer": "https://github.com/TEDDyx86/IDPCoreSAAS", # Necessário para OpenRouter
+                "X-Title": "Onyx Academic Mentor",
+            },
+            data=json.dumps({
+                "model": "meta-llama/llama-3-70b-instruct", # Escolha robusta
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.7
+            })
+        )
+
+        if response.status_code == 200:
+            result = response.json()
+            return result['choices'][0]['message']['content']
+        else:
+            print(f" [!] Erro OpenRouter (Status {response.status_code}): {response.text}")
+            return None
+    except Exception as e:
+        print(f" [!] Falha crítica no OpenRouter: {e}")
+        return None
+
 def resumir_item_premium(titulo, disciplina, texto_extra=""):
     """
     Gera um guia de estudo completo e um QUIZ estruturado.
@@ -135,12 +179,19 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
             print(f" [!] Falha no Gemini (google-genai): {e}")
             print(" [-->] Ativando Failover Automático para Groq...")
 
-    # 2. FAILOVER AUTOMÁTICO PARA GROQ
+    # 2. FAILOVER PARA GROQ
     if GROQ_API_KEY:
         backup_res = resumir_com_groq(titulo, disciplina, texto_extra)
         if backup_res:
-            print(f" [+] Sucesso via Groq (Resiliência Ativada) para: {titulo}")
+            print(f" [+] Sucesso via Groq (Resiliência Nível 2) para: {titulo}")
             return backup_res
+
+    # 3. FAILOVER FINAL PARA OPENROUTER
+    if OPENROUTER_API_KEY:
+        final_res = resumir_com_openrouter(titulo, disciplina, texto_extra)
+        if final_res:
+            print(f" [+] Sucesso via OpenRouter (Resiliência Nível 3) para: {titulo}")
+            return final_res
 
     return '{"summary": "Erro crítico: Todas as engines de IA falharam ou não possuem chaves válidas.", "quiz": []}'
 
