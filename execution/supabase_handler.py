@@ -1,8 +1,8 @@
 import os
 import requests
+from datetime import datetime
 from dotenv import load_dotenv
 
-# Carrega variáveis
 load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -75,11 +75,47 @@ class SupabaseHandler:
 
     def update_last_run(self, config_id):
         """Atualiza o timestamp da última verificação bem-sucedida"""
-        from datetime import datetime
         url = f"{self.base_url}/monitor_configs?id=eq.{config_id}"
         payload = {"last_run": datetime.now().isoformat()}
         response = requests.patch(url, headers=self.headers, json=payload)
         return response.status_code == 200
+
+    # ------------------------------------------------------------------
+    # Cache compartilhado de resumos (evita chamadas duplicadas de IA)
+    # ------------------------------------------------------------------
+
+    def get_cached_summary(self, content_hash: str) -> dict | None:
+        """Retorna resumo+quiz do cache se existir. Atualiza contadores."""
+        url = f"{self.base_url}/ai_summaries_cache?content_hash=eq.{content_hash}&select=resumo,quiz,model_used&limit=1"
+        res = requests.get(url, headers=self.headers)
+        if res.status_code == 200 and res.json():
+            row = res.json()[0]
+            # Incrementa uso sem bloquear o fluxo principal
+            self._bump_cache_hit(content_hash)
+            return {"resumo": row["resumo"], "quiz": row.get("quiz", []), "model_used": row.get("model_used")}
+        return None
+
+    def save_cached_summary(self, content_hash: str, titulo: str, disciplina: str,
+                            resumo: str, quiz: list, model_used: str = "unknown"):
+        """Persiste um novo resumo no cache."""
+        url = f"{self.base_url}/ai_summaries_cache"
+        payload = {
+            "content_hash": content_hash,
+            "titulo": titulo,
+            "disciplina": disciplina,
+            "resumo": resumo,
+            "quiz": quiz,
+            "model_used": model_used,
+        }
+        requests.post(url, headers=self.headers, json=payload)
+
+    def _bump_cache_hit(self, content_hash: str):
+        """Incrementa use_count e atualiza last_used_at (best-effort)."""
+        try:
+            url = f"{self.base_url}/rpc/increment_cache_hit"
+            requests.post(url, headers=self.headers, json={"p_hash": content_hash})
+        except Exception:
+            pass
 
 if __name__ == "__main__":
     # Teste rápido

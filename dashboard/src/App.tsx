@@ -252,7 +252,7 @@ const App: React.FC = () => {
 
         <aside className="animate-reveal" style={{ animationDelay: '0.4s' }}>
           <div style={{ position: 'sticky', top: '2rem' }}>
-            <TerminalPanel />
+            <TerminalPanel updates={updates} />
           </div>
         </aside>
       </div>

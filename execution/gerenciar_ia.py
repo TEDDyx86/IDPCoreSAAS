@@ -1,6 +1,6 @@
 import os
-import re
 import time
+import hashlib
 from google import genai
 from groq import Groq
 import requests
@@ -145,72 +145,63 @@ def resumir_com_openrouter(titulo, disciplina, texto_extra=""):
 
 def resumir_item_premium(titulo, disciplina, texto_extra=""):
     """
-    Gera um guia de estudo completo e um QUIZ estruturado.
-    LÓGICA HÍBRIDA: Tenta Gemini (google-genai) -> Se QUALQUER erro -> Tenta Groq.
+    Gera guia de estudo + quiz. Retorna tupla (json_str, model_used).
+    Hierarquia: Gemini -> Groq -> OpenRouter.
     """
     if not GEMINI_API_KEY and not GROQ_API_KEY:
-        return '{"summary": "Nenhuma IA configurada no ambiente (Secrets).", "quiz": []}'
+        return '{"summary": "Nenhuma IA configurada no ambiente (Secrets).", "quiz": []}', "none"
 
-    # 1. TENTATIVA COM GEMINI (New Client SDK)
+    # 1. GEMINI
     if client_gemini:
         try:
             print(f" [IA] Tentando processar com Gemini (gemini-1.5-flash)...")
-            
             prompt = ONYX_PROMPT_TEMPLATE.format(
                 titulo=titulo,
                 disciplina=disciplina,
-                conteudo=texto_extra[:30000] # Gemini aceita janelas maiores
+                conteudo=texto_extra[:30000]
             )
-            
-            # Tentativa 1: gemini-1.5-flash (padrão estável)
-            # Nota técnica: Se falhar com 404, a nova SDK pode exigir o prefixo completo em certas regiões
             try:
-                response = client_gemini.models.generate_content(
-                    model="gemini-1.5-flash",
-                    contents=prompt
-                )
+                response = client_gemini.models.generate_content(model="gemini-1.5-flash", contents=prompt)
             except Exception as e_inner:
                 if "404" in str(e_inner):
-                    print(" [!] 404 no Gemini (1.5-flash). Tentando fallback de nomenclatura 'models/gemini-1.5-flash'...")
-                    response = client_gemini.models.generate_content(
-                        model="models/gemini-1.5-flash",
-                        contents=prompt
-                    )
+                    response = client_gemini.models.generate_content(model="models/gemini-1.5-flash", contents=prompt)
                 else:
                     raise e_inner
-            
+
             if response and response.text:
                 text = limpar_json_ia(response.text)
-                
-                # Garantir que temos um JSON válido
                 if text and "{" in text and "}" in text:
                     print(f" [+] Sucesso via Gemini para: {titulo}")
-                    return text
-                else:
-                    raise ValueError("Resposta do Gemini não contém um JSON válido.")
-                    
-        except Exception as e:
-            print(f" [!] Falha no Gemini (google-genai): {e}")
-            print(" [-->] Ativando Failover Automático para Groq...")
+                    return text, "gemini-1.5-flash"
+                raise ValueError("Resposta do Gemini sem JSON válido.")
 
-    # 2. FAILOVER PARA GROQ
+        except Exception as e:
+            print(f" [!] Falha no Gemini: {e} — ativando Groq...")
+
+    # 2. GROQ
     if GROQ_API_KEY:
         backup_res = resumir_com_groq(titulo, disciplina, texto_extra)
         if backup_res:
-            print(f" [+] Sucesso via Groq (Resiliência Nível 2) para: {titulo}")
-            return backup_res
+            print(f" [+] Sucesso via Groq para: {titulo}")
+            return backup_res, "groq-llama-3.3-70b"
 
-    # 3. FAILOVER FINAL PARA OPENROUTER
+    # 3. OPENROUTER
     if OPENROUTER_API_KEY:
         final_res = resumir_com_openrouter(titulo, disciplina, texto_extra)
         if final_res:
-            print(f" [+] Sucesso via OpenRouter (Resiliência Nível 3) para: {titulo}")
-            return final_res
+            print(f" [+] Sucesso via OpenRouter para: {titulo}")
+            return final_res, "openrouter-llama-3-70b"
 
-    return '{"summary": "Erro crítico: Todas as engines de IA falharam ou não possuem chaves válidas.", "quiz": []}'
+    return '{"summary": "Erro crítico: Todas as engines de IA falharam.", "quiz": []}', "failed"
+
+def gerar_content_hash(titulo: str, disciplina: str, body_content: str) -> str:
+    """Hash SHA-256 determinístico do conteúdo. Mesma matéria = mesmo hash."""
+    key = f"{disciplina}::{titulo}::{body_content[:500]}"
+    return hashlib.sha256(key.encode("utf-8")).hexdigest()
+
 
 if __name__ == "__main__":
-    # Teste rápido se rodar diretamente
     print("Testando motor de IA...")
-    test_res = resumir_item_premium("Teste de Conexão", "Sistemas", "Conteúdo de teste para validar a nova SDK.")
+    test_res, model_usado = resumir_item_premium("Teste de Conexão", "Sistemas", "Conteúdo de teste para validar a nova SDK.")
+    print(f"Modelo usado: {model_usado}")
     print(test_res[:200])

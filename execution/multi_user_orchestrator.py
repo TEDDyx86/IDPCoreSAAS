@@ -12,7 +12,7 @@ if sys.stdout.encoding.lower() != "utf-8":
 
 from supabase_handler import SupabaseHandler
 from canvas_api_handler import verificar_materiais_via_api, CanvasAPIClient
-from gerenciar_ia import resumir_item_premium
+from gerenciar_ia import resumir_item_premium, gerar_content_hash
 
 # CONFIGURAÇÕES DE COTAONYX
 MAX_ITEMS_PER_RUN = 100  # Expandido para permitir limpeza em massa
@@ -120,20 +120,43 @@ def run_orchestrator():
                 for item in itens_da_rodada:
                     try:
                         print(f"   > Analisando: {item['titulo']}...")
-                        
-                        # Tentar capturar conteúdo extra se disponível
                         contexto_ia = item.get('body_content', "")
-                        raw_res = resumir_item_premium(item['titulo'], item['disciplina'], texto_extra=contexto_ia)
-                        
-                        try:
-                            ai_data = json.loads(raw_res, strict=False)
-                            resumo_final = ai_data.get("summary", "Falha ao gerar resumo.")
-                            quiz_final = ai_data.get("quiz", [])
-                        except Exception as e:
-                            # Fallback caso não venha JSON válido
-                            print(f"   [!] Erro JSON (ia): {e}")
-                            resumo_final = "Erro no processamento da IA. (JSON Inválido)"
-                            quiz_final = []
+                        content_hash = gerar_content_hash(item['titulo'], item['disciplina'], contexto_ia)
+
+                        # --- CACHE LOOKUP ---
+                        cached = handler.get_cached_summary(content_hash)
+                        if cached:
+                            print(f"   [CACHE HIT] Espelhando resumo existente para: {item['titulo']}")
+                            resumo_final = cached["resumo"]
+                            quiz_final   = cached["quiz"]
+                        else:
+                            # --- GERA VIA IA (só se não existe cache) ---
+                            raw_res, model_used = resumir_item_premium(
+                                item['titulo'], item['disciplina'], texto_extra=contexto_ia
+                            )
+                            try:
+                                ai_data = json.loads(raw_res, strict=False)
+                                resumo_final = ai_data.get("summary", "Falha ao gerar resumo.")
+                                quiz_final   = ai_data.get("quiz", [])
+                            except Exception as e:
+                                print(f"   [!] Erro JSON (ia): {e}")
+                                resumo_final = "Erro no processamento da IA. (JSON Inválido)"
+                                quiz_final   = []
+
+                            # Salva no cache para todos os próximos usuários
+                            handler.save_cached_summary(
+                                content_hash=content_hash,
+                                titulo=item['titulo'],
+                                disciplina=item['disciplina'],
+                                resumo=resumo_final,
+                                quiz=quiz_final,
+                                model_used=model_used,
+                            )
+                            print(f"   [CACHE MISS] Resumo gerado via {model_used} e armazenado em cache.")
+
+                            # Pausa só quando realmente chamou a IA
+                            print(f"   [...] Aguardando {DELAY_BETWEEN_ITEMS}s (rate limit)...")
+                            time.sleep(DELAY_BETWEEN_ITEMS)
 
                         handler.save_update(
                             user_id=user_id,
@@ -143,14 +166,10 @@ def run_orchestrator():
                             resumo=resumo_final,
                             origin_id=item['id'],
                             links={"url": item['link']},
-                            quiz=quiz_final
+                            quiz=quiz_final,
                         )
-                        
                         itens_gerados.append(f"✅ {item['titulo']} ({item['disciplina']})")
-                        
-                        # Pausa de segurança (Evitar 429 no Free Tier do Gemini/Groq)
-                        print(f"   [...] Aguardando {DELAY_BETWEEN_ITEMS}s para controle de cota...")
-                        time.sleep(DELAY_BETWEEN_ITEMS)
+
                     except Exception as inner_e:
                         print(f"   [!] Erro ao processar item: {inner_e}")
 

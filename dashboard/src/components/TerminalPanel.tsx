@@ -1,33 +1,72 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal as TerminalIcon, Cpu, Globe } from 'lucide-react';
+import { Calendar as CalendarIcon, Cpu, Globe, BookOpen } from 'lucide-react';
 
-const TerminalPanel: React.FC = () => {
-  const [logs, setLogs] = useState<string[]>([]);
+interface AcademicUpdate {
+  id: string;
+  disciplina: string;
+  titulo: string;
+  data_detectado: string;
+  resumo: string;
+  links?: any;
+}
+
+interface TerminalPanelProps {
+  updates?: AcademicUpdate[];
+}
+
+const TerminalPanel: React.FC<TerminalPanelProps> = ({ updates = [] }) => {
+  const [feedItems, setFeedItems] = useState<{type: string, text: string, color: string, timestamp: string}[]>([]);
 
   useEffect(() => {
-    const initialLogs = [
-      '[SYSTEM] ONYX v3.0 BOOT SUCCESS',
-      '[SEC] ENCRYPTED HANDSHAKE ESTABLISHED',
-      '[LINK] CANVAS API SYNC: ONLINE',
-      '[AI] PEDAGOGICAL ENGINE: READY',
-    ];
-    setLogs(initialLogs);
+    if (!updates || updates.length === 0) {
+      setFeedItems([
+        { type: 'SYS', text: 'AGUARDANDO DADOS ACADÊMICOS...', color: 'hsla(0,0%,100%,0.4)', timestamp: new Date().toLocaleTimeString('pt-BR', { hour12: false, hour: '2-digit', minute: '2-digit' }) }
+      ]);
+      return;
+    }
 
-    const interval = setInterval(() => {
-      const timestamp = new Date().toLocaleTimeString('pt-BR');
-      const events = [
-        `[SCAN] SYNCING CANVAS DATA...`,
-        `[AUTH] REFRESHING TOKEN AT ${timestamp}`,
-        `[SYNC] ZERO LATENCY CONNECTION`,
-        `[SYS] MEMORY OPTIMIZATION ACTIVE`,
-        `[AI] GEMINI PROCESSING COMPLETED`
-      ];
-      const randomEvent = events[Math.floor(Math.random() * events.length)];
-      setLogs(prev => [...prev.slice(-14), randomEvent]);
-    }, 6000);
+    const items: {type: string, text: string, color: string, timestamp: string, origDate: Date}[] = [];
 
-    return () => clearInterval(interval);
-  }, []);
+    updates.forEach(u => {
+      const isCalendar = u.titulo.toLowerCase().includes('calendário') || u.titulo.toLowerCase().includes('calendario');
+      const isActivity = u.titulo.toLowerCase().includes('atividade') || u.titulo.toLowerCase().includes('trabalho') || u.titulo.toLowerCase().includes('prova') || u.titulo.toLowerCase().includes('postagem');
+      const isPlan = u.titulo.toLowerCase().includes('plano de ensino');
+      
+      let type = 'DOC';
+      let color = 'hsla(0,0%,100%,0.7)';
+      
+      if (isCalendar) {
+        type = 'CAL';
+        color = '#ffbd2e'; // Yellow
+      } else if (isActivity) {
+        type = 'TASK';
+        color = '#ff5f56'; // Red
+      } else if (isPlan) {
+        type = 'PLAN';
+        color = '#27c93f'; // Green
+      } else {
+        type = 'INFO';
+        color = '#56ccff'; // Blueish
+      }
+
+      // Extract brief discipline name
+      const shortDisc = u.disciplina.split('-')[0].trim();
+      const discLabel = shortDisc.length > 20 ? shortDisc.substring(0, 20) + '...' : shortDisc;
+
+      items.push({
+        type,
+        text: `[${discLabel}] ${u.titulo}`,
+        color,
+        timestamp: new Date(u.data_detectado).toLocaleTimeString('pt-BR', { hour12: false, hour: '2-digit', minute: '2-digit' }),
+        origDate: new Date(u.data_detectado)
+      });
+    });
+
+    // Sort by date descending
+    items.sort((a, b) => b.origDate.getTime() - a.origDate.getTime());
+    
+    setFeedItems(items);
+  }, [updates]);
 
   return (
     <div className="glass glass-card" style={{ 
@@ -51,9 +90,9 @@ const TerminalPanel: React.FC = () => {
              <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffbd2e', opacity: 0.8 }}></div>
              <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27c93f', opacity: 0.8 }}></div>
           </div>
-          <span className="font-display" style={{ fontSize: '0.65rem', fontWeight: 600, color: 'hsla(0,0%,100%,0.4)', letterSpacing: '0.1em' }}>TELEMETRY_FEED</span>
+          <span className="font-display" style={{ fontSize: '0.65rem', fontWeight: 600, color: 'hsla(0,0%,100%,0.4)', letterSpacing: '0.1em' }}>CALENDÁRIO_ACADÊMICO</span>
         </div>
-        <TerminalIcon size={14} style={{ opacity: 0.3 }} />
+        <CalendarIcon size={14} style={{ opacity: 0.3 }} />
       </div>
 
       <div style={{ 
@@ -67,16 +106,18 @@ const TerminalPanel: React.FC = () => {
         gap: '0.6rem',
         padding: '0.5rem'
       }}>
-        {logs.map((log, i) => (
-          <div key={i} style={{ display: 'flex', gap: '0.75rem', opacity: (i + 1) / logs.length }}>
-            <span style={{ color: 'hsla(0,0%,100%,0.2)', minWidth: '55px' }}>{new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' })}</span>
-            <span style={{ 
-              color: log.includes('ERR') ? '#ff5555' : log.includes('SUCCESS') ? '#27c93f' : 'inherit',
-              fontWeight: log.includes('[') ? 500 : 400
-            }}>{log}</span>
+        {feedItems.slice(0, 30).map((log, i) => (
+          <div key={i} style={{ display: 'flex', gap: '0.75rem', opacity: Math.max(0.3, 1 - (i * 0.03)) }}>
+            <span style={{ color: 'hsla(0,0%,100%,0.2)', minWidth: '40px' }}>{log.timestamp}</span>
+            <span style={{ color: log.color, minWidth: '45px', fontWeight: 600 }}>[{log.type}]</span>
+            <span style={{ color: 'hsla(0,0%,100%,0.8)', flex: 1, wordBreak: 'break-word', lineHeight: 1.4 }}>
+              {log.text}
+            </span>
           </div>
         ))}
-        <div className="pulse-animation" style={{ width: '6px', height: '12px', background: 'white', marginTop: '4px', opacity: 0.3 }}></div>
+        {feedItems.length > 0 && (
+          <div className="pulse-animation" style={{ width: '6px', height: '12px', background: 'white', marginTop: '4px', opacity: 0.3 }}></div>
+        )}
       </div>
 
       <div style={{ 
@@ -88,10 +129,10 @@ const TerminalPanel: React.FC = () => {
         alignItems: 'center' 
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.6rem', fontWeight: 600 }} className="font-display">
-          <Cpu size={12} style={{ opacity: 0.4 }} /> ONYX ENGINE v3.0
+          <BookOpen size={12} style={{ opacity: 0.4 }} /> ACADEMIC ENGINE
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.6rem', fontWeight: 600, color: 'rgba(255,255,255,0.4)' }} className="font-display">
-          <Globe size={12} style={{ opacity: 1 }} /> REGIONAL_NODE_LATAM
+          <Globe size={12} style={{ opacity: 1 }} /> LIVE FEED
         </div>
       </div>
     </div>
