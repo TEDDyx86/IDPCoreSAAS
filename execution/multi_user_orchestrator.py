@@ -157,19 +157,72 @@ def run_orchestrator():
                 for item in itens_da_rodada:
                     try:
                         categoria = item.get("categoria", "AULA")
-                        print(f"   > [{categoria}] {item['titulo']}")
-
+                        
                         # --- PLANO DE ENSINO: fluxo inteligente de extração de cronograma ---
                         if categoria == "PLANO_ENSINO":
-                            print(f"   [PLANNER] Interceptado Plano de Ensino: {item['titulo']}")
+                            print(f"   [PLANNER] Interceptado Plano/Calendário: {item['titulo']}")
                             
                             # 1. Obter arquivo binário
-                            ext = "pdf"
-                            caminho_temp = f".tmp/downloads/plano_{item['id']}.{ext}"
+                            pdf_bytes = None
                             texto_extraido = ""
                             
-                            # Usamos o token do Canvas para obter a URL do arquivo na API
-                            if item.get('tipo_api') == 'File' and item.get('link'):
+                            # Caso seja Page, tentamos encontrar anexo de arquivo dentro de body_content
+                            if item.get('tipo_api') == 'Page' and item.get('body_content'):
+                                try:
+                                    from bs4 import BeautifulSoup
+                                    import re
+                                    soup = BeautifulSoup(item['body_content'], 'html.parser')
+                                    link_el = soup.find('a', attrs={'data-api-endpoint': True})
+                                    file_api_url = None
+                                    if link_el:
+                                        file_api_url = link_el['data-api-endpoint']
+                                    else:
+                                        link_el = soup.find('a', href=re.compile(r'/files/\d+'))
+                                        if link_el:
+                                            href = link_el['href']
+                                            match = re.search(r'/files/(\d+)', href)
+                                            if match:
+                                                file_id = match.group(1)
+                                                if item.get('link'):
+                                                    course_match = re.search(r'/courses/(\d+)', item['link'])
+                                                    if course_match:
+                                                        cid = course_match.group(1)
+                                                        file_api_url = f"https://ambientevirtual.idp.edu.br/api/v1/courses/{cid}/files/{file_id}"
+                                    
+                                    if file_api_url:
+                                        print(f"   [PLANNER] Encontrada API do arquivo anexo: {file_api_url}")
+                                        import requests as req_bin
+                                        headers_canvas = {"Authorization": f"Bearer {token}"}
+                                        res_file_info = req_bin.get(file_api_url, headers=headers_canvas, timeout=15)
+                                        if res_file_info.status_code == 200:
+                                            file_data = res_file_info.json()
+                                            url_download = file_data.get('url')
+                                            if url_download:
+                                                filename = file_data.get('display_name', 'calendario.pdf')
+                                                ext = filename.split('.')[-1].lower() if '.' in filename else 'pdf'
+                                                caminho_temp = f".tmp/downloads/plano_{item['id']}.{ext}"
+                                                
+                                                os.makedirs(".tmp/downloads", exist_ok=True)
+                                                print(f"   [PLANNER] Baixando arquivo anexo ({filename})...")
+                                                res_bin = req_bin.get(url_download, stream=True, timeout=30)
+                                                if res_bin.status_code == 200:
+                                                    with open(caminho_temp, "wb") as f_temp:
+                                                        for chunk in res_bin.iter_content(chunk_size=8192):
+                                                            f_temp.write(chunk)
+                                                    
+                                                    if ext == 'pdf':
+                                                        with open(caminho_temp, "rb") as f_bytes:
+                                                            pdf_bytes = f_bytes.read()
+                                                    else:
+                                                        texto_extraido = extrair_texto_de_arquivo_local(caminho_temp)
+                                                        
+                                                    if os.path.exists(caminho_temp):
+                                                        os.remove(caminho_temp)
+                                except Exception as e_page_file:
+                                    print(f"   [!] Falha ao baixar anexo da página de calendário: {e_page_file}")
+
+                            # Caso seja um File direto
+                            elif item.get('tipo_api') == 'File' and item.get('link'):
                                 try:
                                     import requests as req_bin
                                     print(f"   [PLANNER] Buscando metadados do arquivo na API do Canvas...")
@@ -179,7 +232,6 @@ def run_orchestrator():
                                         file_data = res_file_info.json()
                                         url_download = file_data.get('url')
                                         if url_download:
-                                            # Trata extensão real
                                             filename = file_data.get('display_name', 'plano.pdf')
                                             ext = filename.split('.')[-1].lower() if '.' in filename else 'pdf'
                                             caminho_temp = f".tmp/downloads/plano_{item['id']}.{ext}"
@@ -192,23 +244,25 @@ def run_orchestrator():
                                                     for chunk in res_bin.iter_content(chunk_size=8192):
                                                         f_temp.write(chunk)
                                                         
-                                                # Extrai o texto localmente
-                                                texto_extraido = extrair_texto_de_arquivo_local(caminho_temp)
+                                                if ext == 'pdf':
+                                                    with open(caminho_temp, "rb") as f_bytes:
+                                                        pdf_bytes = f_bytes.read()
+                                                else:
+                                                    texto_extraido = extrair_texto_de_arquivo_local(caminho_temp)
                                                 
-                                                # Remove o arquivo temporário após carregar o texto na memória
                                                 if os.path.exists(caminho_temp):
                                                     os.remove(caminho_temp)
                                 except Exception as e_bin:
                                     print(f"   [!] Falha ao baixar ou extrair binário do plano: {e_bin}")
                                     
-                            # Se não foi extraído texto de arquivo, tenta usar o corpo do texto de página
-                            if not texto_extraido:
+                            # Se não temos arquivo/bytes, usamos o corpo do texto de página
+                            if not texto_extraido and not pdf_bytes:
                                 texto_extraido = item.get('body_content', "")
                                 
-                            if texto_extraido:
+                            if texto_extraido or pdf_bytes:
                                 from gerenciar_ia import extrair_cronograma_de_plano
                                 # Extrai datas usando IA
-                                cronograma_json = extrair_cronograma_de_plano(item['titulo'], item['disciplina'], texto_extraido)
+                                cronograma_json = extrair_cronograma_de_plano(item['titulo'], item['disciplina'], texto_extraido, pdf_bytes=pdf_bytes)
                                 eventos = cronograma_json.get("events", [])
                                 
                                 if eventos:
@@ -216,10 +270,10 @@ def run_orchestrator():
                                     handler.save_calendar_events(user_id, item['disciplina'], eventos)
                                     resumo_status = f"📅 Calendário acadêmico extraído com sucesso! {len(eventos)} eventos de provas/atividades foram integrados ao calendário."
                                 else:
-                                    resumo_status = "⚠️ Plano de Ensino analisado, mas nenhuma data de prova ou atividade importante foi encontrada."
+                                    resumo_status = "⚠️ Calendário acadêmico analisado, mas nenhuma data de prova ou atividade importante foi encontrada."
                             else:
-                                resumo_status = "❌ Falha ao extrair texto do arquivo de Plano de Ensino."
-
+                                resumo_status = "❌ Falha ao extrair texto do arquivo de Calendário Acadêmico."
+ 
                             # Salva a atualização acadêmica como histórico
                             handler.save_update(
                                 user_id=user_id,

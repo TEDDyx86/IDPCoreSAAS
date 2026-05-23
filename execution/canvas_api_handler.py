@@ -36,9 +36,9 @@ def classificar_item(titulo: str, canvas_type: str) -> str:
     """
     titulo_lower = titulo.lower()
 
-    # Intercepta plano de ensino antes da filtragem administrativa genérica
-    plano_kws = ["plano de ensino", "ementa da disciplina", "ementa do curso", "programa da disciplina", "plano de aula"]
-    for kw in plano_kws:
+    # Intercepta exclusivamente "Calendário Acadêmico" para extração de datas
+    cal_kws = ["calendário acadêmico", "calendario academico", "calendário academico", "calendario acadêmico"]
+    for kw in cal_kws:
         if kw in titulo_lower:
             return "PLANO_ENSINO"
 

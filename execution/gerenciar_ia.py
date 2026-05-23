@@ -221,26 +221,35 @@ FORMATO DE RETORNO (JSON PURO):
 }}
 """
 
-def extrair_cronograma_de_plano(titulo, disciplina, texto_plano):
-    """Utiliza a API do Gemini (ou Groq em caso de falha) para analisar o plano de ensino e retornar JSON de eventos."""
+def extrair_cronograma_de_plano(titulo, disciplina, texto_plano, pdf_bytes=None):
+    """Utiliza a API do Gemini (ou Groq em caso de falha) para analisar o plano/calendário e retornar JSON de eventos."""
     print(f" [IA-Planner] Iniciando extração de calendário para: {disciplina}...")
     if not GEMINI_API_KEY and not GROQ_API_KEY:
         print(" [!] Nenhuma IA configurada para extração de calendário.")
         return {"events": []}
 
-    prompt = ONYX_CALENDAR_PROMPT.format(disciplina=disciplina, texto_plano=texto_plano[:40000])
+    texto_para_prompt = texto_plano if not pdf_bytes else "[Arquivo PDF fornecido em anexo]"
+    prompt = ONYX_CALENDAR_PROMPT.format(disciplina=disciplina, texto_plano=texto_para_prompt[:40000])
 
-    # 1. Tenta com Gemini
+    # 1. Tenta com Gemini usando gemini-2.5-flash que suporta análise de PDFs
     if client_gemini:
         try:
-            print(f" [IA-Planner] Chamando Gemini (gemini-1.5-flash)...")
-            try:
-                response = client_gemini.models.generate_content(model="gemini-1.5-flash", contents=prompt)
-            except Exception as e_inner:
-                if "404" in str(e_inner):
-                    response = client_gemini.models.generate_content(model="models/gemini-1.5-flash", contents=prompt)
-                else:
-                    raise e_inner
+            print(f" [IA-Planner] Chamando Gemini (gemini-2.5-flash)...")
+            from google.genai import types
+            
+            contents = []
+            if pdf_bytes:
+                pdf_part = types.Part.from_bytes(
+                    data=pdf_bytes,
+                    mime_type="application/pdf"
+                )
+                contents.append(pdf_part)
+            contents.append(prompt)
+
+            response = client_gemini.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=contents
+            )
 
             if response and response.text:
                 cleaned = limpar_json_ia(response.text)
@@ -254,8 +263,8 @@ def extrair_cronograma_de_plano(titulo, disciplina, texto_plano):
         except Exception as e:
             print(f" [!] Falha ao extrair com Gemini: {e}")
 
-    # 2. Tenta com Groq
-    if GROQ_API_KEY:
+    # 2. Tenta com Groq (apenas se não houver pdf_bytes, pois Groq não lê PDF diretamente)
+    if GROQ_API_KEY and not pdf_bytes:
         try:
             from groq import Groq
             client = Groq(api_key=GROQ_API_KEY)
