@@ -14,6 +14,7 @@ interface AcademicUpdate {
 }
 
 
+import AcademicCalendar, { CalendarEvent } from './components/AcademicCalendar';
 import StatusHeader from './components/StatusHeader';
 import CourseCard from './components/CourseCard';
 import ActivityTimeline from './components/ActivityTimeline';
@@ -37,6 +38,12 @@ const App: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [lastRun, setLastRun] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  
+  // Calendar and Navigation Tabs States
+  const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
+  const [loadingCalendar, setLoadingCalendar] = useState<boolean>(true);
+  const [activeTab, setActiveTab] = useState<'feed' | 'calendar'>('feed');
+
 
   // Carousel State
   const [scrollPos, setScrollPos] = useState(0);
@@ -77,7 +84,7 @@ const App: React.FC = () => {
     }
   }, [user]);
 
-  // Fetch updates from Supabase
+  // Fetch updates and calendar events from Supabase
   useEffect(() => {
     if (user && hasConfig) {
       const fetchUpdates = async () => {
@@ -97,9 +104,29 @@ const App: React.FC = () => {
           setLoadingData(false);
         }
       };
-      fetchUpdates();
 
-      const subscription = supabase
+      const fetchCalendar = async () => {
+        try {
+          setLoadingCalendar(true);
+          const { data, error } = await supabase
+            .from('academic_calendar')
+            .select('*')
+            .eq('user_id', user.id);
+          
+          if (error) throw error;
+          if (data) setCalendarEvents(data);
+        } catch (err: any) {
+          console.error("Erro ao buscar calendário:", err);
+        } finally {
+          setLoadingCalendar(false);
+        }
+      };
+
+      fetchUpdates();
+      fetchCalendar();
+
+      // Realtime subscription for academic updates
+      const updatesSubscription = supabase
         .channel('academic_updates_realtime')
         .on('postgres_changes', { 
             event: 'INSERT', 
@@ -111,8 +138,23 @@ const App: React.FC = () => {
         })
         .subscribe();
 
+      // Realtime subscription for academic calendar
+      const calendarSubscription = supabase
+        .channel('academic_calendar_realtime')
+        .on('postgres_changes', { 
+            event: '*', 
+            schema: 'public', 
+            table: 'academic_calendar',
+            filter: `user_id=eq.${user.id}` 
+          }, () => {
+          // Refetch calendar events to maintain ordering and data integrity
+          fetchCalendar();
+        })
+        .subscribe();
+
       return () => {
-        subscription.unsubscribe();
+        updatesSubscription.unsubscribe();
+        calendarSubscription.unsubscribe();
       };
     }
   }, [user, hasConfig]);
@@ -233,18 +275,60 @@ const App: React.FC = () => {
           </section>
 
           <section className="animate-reveal" style={{ animationDelay: '0.3s' }}>
-            <h2 style={{ marginBottom: '2.5rem' }}>
-              Feed Acadêmico
-            </h2>
-            {loadingData ? (
-              <div className="font-display text-dim" style={{ textAlign: 'center', padding: '6rem' }}>
-                <div className="pulse-animation" style={{ marginBottom: '1rem', fontSize: '1.5rem' }}>☇</div>
-                Interceptando fluxos de dados...
-              </div>
+            <div style={{ display: 'flex', gap: '2.5rem', borderBottom: '1px solid rgba(255,255,255,0.03)', marginBottom: '3rem', paddingBottom: '0.5rem' }}>
+              <button 
+                onClick={() => setActiveTab('feed')}
+                style={{ 
+                  background: 'none', 
+                  border: 'none', 
+                  color: activeTab === 'feed' ? '#00f2ff' : 'rgba(255,255,255,0.4)',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.5rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  padding: '0.5rem 1rem',
+                  borderBottom: activeTab === 'feed' ? '2px solid #00f2ff' : 'none',
+                  transition: 'all 0.2s ease',
+                  marginRight: '1rem'
+                }}
+              >
+                Feed Acadêmico
+              </button>
+              <button 
+                onClick={() => setActiveTab('calendar')}
+                style={{ 
+                  background: 'none', 
+                  border: 'none', 
+                  color: activeTab === 'calendar' ? '#00f2ff' : 'rgba(255,255,255,0.4)',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.5rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  padding: '0.5rem 1rem',
+                  borderBottom: activeTab === 'calendar' ? '2px solid #00f2ff' : 'none',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                Calendário Provas
+              </button>
+            </div>
+
+            {activeTab === 'feed' ? (
+              loadingData ? (
+                <div className="font-display text-dim" style={{ textAlign: 'center', padding: '6rem' }}>
+                  <div className="pulse-animation" style={{ marginBottom: '1rem', fontSize: '1.5rem' }}>☇</div>
+                  Interceptando fluxos de dados...
+                </div>
+              ) : (
+                <ActivityTimeline 
+                  items={updates} 
+                  onOpenResumo={handleOpenResumo}
+                />
+              )
             ) : (
-              <ActivityTimeline 
-                items={updates} 
-                onOpenResumo={handleOpenResumo}
+              <AcademicCalendar 
+                events={calendarEvents}
+                loading={loadingCalendar}
               />
             )}
           </section>

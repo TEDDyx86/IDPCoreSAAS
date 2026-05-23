@@ -32,7 +32,8 @@ def exportar():
             "total_materiais": len(modulos)
         },
         "disciplinas": config.get("disciplinas", []),
-        "historico": []
+        "historico": [],
+        "calendario": []
     }
 
     # Formatamos o histórico de materiais para o formato do Dashboard
@@ -81,6 +82,21 @@ def exportar():
     # Inverte a ordem para mostrar os mais novos primeiro
     # (Nota: O ideal seria sortear por timestamp real, mas o append seguido de reverse funciona para logs recentes)
     dashboard_db["historico"].reverse()
+
+    # 3. Adicionamos eventos de calendário do Supabase se existirem
+    try:
+        from supabase_handler import SUPABASE_URL, SUPABASE_SERVICE_KEY, requests
+        print(" [Export] Buscando eventos de calendário do Supabase...")
+        url_cal = f"{SUPABASE_URL}/rest/v1/academic_calendar?select=*"
+        headers = {"apikey": SUPABASE_SERVICE_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_KEY}"}
+        res_cal = requests.get(url_cal, headers=headers)
+        if res_cal.status_code == 200:
+            dashboard_db["calendario"] = res_cal.json()
+            print(f"  -> Sucesso! {len(dashboard_db['calendario'])} eventos de calendário consolidados.")
+        else:
+            print(f"  -> [!] Erro API Calendário (Status {res_cal.status_code}): {res_cal.text}")
+    except Exception as e_cal:
+        print(f"!!! Erro ao exportar calendário para o dashboard: {e_cal}")
 
     # Salva no diretório do Dashboard
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)

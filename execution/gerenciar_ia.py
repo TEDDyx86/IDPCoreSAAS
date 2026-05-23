@@ -194,6 +194,88 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
 
     return '{"summary": "Erro crítico: Todas as engines de IA falharam.", "quiz": []}', "failed"
 
+ONYX_CALENDAR_PROMPT = """
+VOCÊ É O 'ONYX CALENDAR PLANNER', UM ASSISTENTE DE NÍVEL PHD ESPECIALIZADO EM CRONOGRAMAS ACADÊMICOS.
+Sua missão é ler o texto do Plano de Ensino da disciplina '{disciplina}' e extrair TODAS as datas importantes de provas, trabalhos, avaliações, seminários e entregas de atividades.
+
+DIRETRIZES:
+1. Extraia apenas datas de entregas reais que valem nota, presenças obrigatórias ou avaliações.
+2. Formate as datas estritamente no formato 'YYYY-MM-DD'. Considere que o ano letivo atual é 2026.
+3. Se a data estiver descrita por semana (ex: 'Semana 4' ou 'Aula 10') e não houver data explícita, tente estimar ou ignore se for impossível mapear. Se houver apenas mês e dia (ex: '15 de Junho'), mapeie como '2026-06-15'.
+4. Classifique o tipo da atividade estritamente como um destes: 'PROVA', 'TRABALHO', 'ATIVIDADE', 'APRESENTACAO' ou 'OUTRO'.
+5. Na descrição, inclua detalhes como o peso da nota (se disponível) ou tópicos cobrados na prova.
+
+TEXTO DO PLANO DE ENSINO:
+{texto_plano}
+
+FORMATO DE RETORNO (JSON PURO):
+{{
+  "events": [
+    {{
+      "titulo": "Nome da avaliação (ex: Prova Escrita 1)",
+      "tipo": "PROVA",
+      "data_evento": "2026-06-15",
+      "descricao": "Detalhamento curto, peso ou tópicos cobrados."
+    }}
+  ]
+}}
+"""
+
+def extrair_cronograma_de_plano(titulo, disciplina, texto_plano):
+    """Utiliza a API do Gemini (ou Groq em caso de falha) para analisar o plano de ensino e retornar JSON de eventos."""
+    print(f" [IA-Planner] Iniciando extração de calendário para: {disciplina}...")
+    if not GEMINI_API_KEY and not GROQ_API_KEY:
+        print(" [!] Nenhuma IA configurada para extração de calendário.")
+        return {"events": []}
+
+    prompt = ONYX_CALENDAR_PROMPT.format(disciplina=disciplina, texto_plano=texto_plano[:40000])
+
+    # 1. Tenta com Gemini
+    if client_gemini:
+        try:
+            print(f" [IA-Planner] Chamando Gemini (gemini-1.5-flash)...")
+            try:
+                response = client_gemini.models.generate_content(model="gemini-1.5-flash", contents=prompt)
+            except Exception as e_inner:
+                if "404" in str(e_inner):
+                    response = client_gemini.models.generate_content(model="models/gemini-1.5-flash", contents=prompt)
+                else:
+                    raise e_inner
+
+            if response and response.text:
+                cleaned = limpar_json_ia(response.text)
+                if cleaned and "{" in cleaned and "}" in cleaned:
+                    try:
+                        data = json.loads(cleaned)
+                        print(f" [+] Calendário extraído com sucesso via Gemini! {len(data.get('events', []))} eventos encontrados.")
+                        return data
+                    except Exception as json_e:
+                        print(f" [!] Erro JSON na resposta da IA: {json_e}")
+        except Exception as e:
+            print(f" [!] Falha ao extrair com Gemini: {e}")
+
+    # 2. Tenta com Groq
+    if GROQ_API_KEY:
+        try:
+            from groq import Groq
+            client = Groq(api_key=GROQ_API_KEY)
+            print(f" [IA-Planner] Backup: Chamando Groq (llama-3.3-70b-versatile)...")
+            completion = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3,
+                response_format={"type": "json_object"}
+            )
+            cleaned = limpar_json_ia(completion.choices[0].message.content)
+            if cleaned:
+                data = json.loads(cleaned)
+                print(f" [+] Calendário extraído via Groq! {len(data.get('events', []))} eventos encontrados.")
+                return data
+        except Exception as e:
+            print(f" [!] Falha no Groq Backup do Planner: {e}")
+
+    return {"events": []}
+
 def gerar_content_hash(titulo: str, disciplina: str, body_content: str) -> str:
     """Hash SHA-256 determinístico do conteúdo. Mesma matéria = mesmo hash."""
     key = f"{disciplina}::{titulo}::{body_content[:500]}"

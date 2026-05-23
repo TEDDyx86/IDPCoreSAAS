@@ -14,9 +14,46 @@ from supabase_handler import SupabaseHandler
 from canvas_api_handler import verificar_materiais_via_api, CanvasAPIClient
 from gerenciar_ia import resumir_item_premium, gerar_content_hash
 
-# CONFIGURAÇÕES DE COTAONYX
-MAX_ITEMS_PER_RUN = 100  # Expandido para permitir limpeza em massa
-DELAY_BETWEEN_ITEMS = 10 # Segundos entre cada aula para evitar Rate Limit
+def extrair_texto_de_arquivo_local(caminho_arquivo):
+    """Lê arquivos locais binários (.pdf e .docx) e extrai o texto bruto para análise"""
+    import os
+    if not os.path.exists(caminho_arquivo):
+        print(f"   [!] Arquivo local não encontrado: {caminho_arquivo}")
+        return ""
+        
+    ext = caminho_arquivo.split('.')[-1].lower()
+    texto = ""
+    
+    if ext == 'pdf':
+        try:
+            import fitz  # PyMuPDF
+            print(f"   [Parser] Extraindo texto de PDF ({os.path.basename(caminho_arquivo)})...")
+            doc = fitz.open(caminho_arquivo)
+            for page in doc:
+                texto += page.get_text()
+            doc.close()
+            print(f"   [Parser] PDF processado. {len(texto)} caracteres lidos.")
+        except Exception as e:
+            print(f"   [Parser] Erro ao ler PDF com PyMuPDF: {e}")
+            
+    elif ext in ['docx', 'doc']:
+        try:
+            import docx
+            print(f"   [Parser] Extraindo texto de DOCX ({os.path.basename(caminho_arquivo)})...")
+            doc = docx.Document(caminho_arquivo)
+            texto = "\n".join([p.text for p in doc.paragraphs])
+            print(f"   [Parser] DOCX processado. {len(texto)} caracteres lidos.")
+        except Exception as e:
+            print(f"   [Parser] Erro ao ler DOCX: {e}")
+            
+    return texto
+
+# CONFIGURAÇÕES
+MAX_ITEMS_PER_RUN = 100
+DELAY_BETWEEN_ITEMS = 10  # segundos entre chamadas reais de IA (rate limit)
+
+# Categorias que recebem processamento de IA (resumo + quiz)
+CATEGORIAS_COM_IA = {"AULA", "ATIVIDADE"}
 
 def run_orchestrator():
     print("\n" + "="*50)
@@ -119,18 +156,110 @@ def run_orchestrator():
                 itens_gerados = []
                 for item in itens_da_rodada:
                     try:
-                        print(f"   > Analisando: {item['titulo']}...")
+                        categoria = item.get("categoria", "AULA")
+                        print(f"   > [{categoria}] {item['titulo']}")
+
+                        # --- PLANO DE ENSINO: fluxo inteligente de extração de cronograma ---
+                        if categoria == "PLANO_ENSINO":
+                            print(f"   [PLANNER] Interceptado Plano de Ensino: {item['titulo']}")
+                            
+                            # 1. Obter arquivo binário
+                            ext = "pdf"
+                            caminho_temp = f".tmp/downloads/plano_{item['id']}.{ext}"
+                            texto_extraido = ""
+                            
+                            # Usamos o token do Canvas para obter a URL do arquivo na API
+                            if item.get('tipo_api') == 'File' and item.get('link'):
+                                try:
+                                    import requests as req_bin
+                                    print(f"   [PLANNER] Buscando metadados do arquivo na API do Canvas...")
+                                    headers_canvas = {"Authorization": f"Bearer {token}"}
+                                    res_file_info = req_bin.get(item['link'], headers=headers_canvas, timeout=15)
+                                    if res_file_info.status_code == 200:
+                                        file_data = res_file_info.json()
+                                        url_download = file_data.get('url')
+                                        if url_download:
+                                            # Trata extensão real
+                                            filename = file_data.get('display_name', 'plano.pdf')
+                                            ext = filename.split('.')[-1].lower() if '.' in filename else 'pdf'
+                                            caminho_temp = f".tmp/downloads/plano_{item['id']}.{ext}"
+                                            
+                                            os.makedirs(".tmp/downloads", exist_ok=True)
+                                            print(f"   [PLANNER] Baixando binário ({ext.upper()}) do Canvas...")
+                                            res_bin = req_bin.get(url_download, stream=True, timeout=30)
+                                            if res_bin.status_code == 200:
+                                                with open(caminho_temp, "wb") as f_temp:
+                                                    for chunk in res_bin.iter_content(chunk_size=8192):
+                                                        f_temp.write(chunk)
+                                                        
+                                                # Extrai o texto localmente
+                                                texto_extraido = extrair_texto_de_arquivo_local(caminho_temp)
+                                                
+                                                # Remove o arquivo temporário após carregar o texto na memória
+                                                if os.path.exists(caminho_temp):
+                                                    os.remove(caminho_temp)
+                                except Exception as e_bin:
+                                    print(f"   [!] Falha ao baixar ou extrair binário do plano: {e_bin}")
+                                    
+                            # Se não foi extraído texto de arquivo, tenta usar o corpo do texto de página
+                            if not texto_extraido:
+                                texto_extraido = item.get('body_content', "")
+                                
+                            if texto_extraido:
+                                from gerenciar_ia import extrair_cronograma_de_plano
+                                # Extrai datas usando IA
+                                cronograma_json = extrair_cronograma_de_plano(item['titulo'], item['disciplina'], texto_extraido)
+                                eventos = cronograma_json.get("events", [])
+                                
+                                if eventos:
+                                    # Salva os eventos na tabela academic_calendar
+                                    handler.save_calendar_events(user_id, item['disciplina'], eventos)
+                                    resumo_status = f"📅 Calendário acadêmico extraído com sucesso! {len(eventos)} eventos de provas/atividades foram integrados ao calendário."
+                                else:
+                                    resumo_status = "⚠️ Plano de Ensino analisado, mas nenhuma data de prova ou atividade importante foi encontrada."
+                            else:
+                                resumo_status = "❌ Falha ao extrair texto do arquivo de Plano de Ensino."
+
+                            # Salva a atualização acadêmica como histórico
+                            handler.save_update(
+                                user_id=user_id,
+                                disciplina=item['disciplina'],
+                                titulo=item['titulo'],
+                                tipo="ADMIN",  # Salva no histórico padrão como ADMIN para visualização simples
+                                resumo=resumo_status,
+                                origin_id=item['id'],
+                                links={"url": item['link']},
+                                quiz=[],
+                            )
+                            itens_gerados.append(f"📅 {item['titulo']} ({item['disciplina']})")
+                            continue
+
+                        # --- ITEM ADMINISTRATIVO: salva sem chamar IA ---
+                        if categoria not in CATEGORIAS_COM_IA:
+                            print(f"   [SKIP] Conteúdo administrativo — sem processamento de IA.")
+                            handler.save_update(
+                                user_id=user_id,
+                                disciplina=item['disciplina'],
+                                titulo=item['titulo'],
+                                tipo=categoria,
+                                resumo="📋 Item administrativo. Nenhum resumo gerado.",
+                                origin_id=item['id'],
+                                links={"url": item['link']},
+                                quiz=[],
+                            )
+                            itens_gerados.append(f"📋 {item['titulo']} ({categoria})")
+                            continue
+
+                        # --- AULA / ATIVIDADE: consulta cache e chama IA se necessário ---
                         contexto_ia = item.get('body_content', "")
                         content_hash = gerar_content_hash(item['titulo'], item['disciplina'], contexto_ia)
 
-                        # --- CACHE LOOKUP ---
                         cached = handler.get_cached_summary(content_hash)
                         if cached:
-                            print(f"   [CACHE HIT] Espelhando resumo existente para: {item['titulo']}")
+                            print(f"   [CACHE HIT] Espelhando resumo para: {item['titulo']}")
                             resumo_final = cached["resumo"]
                             quiz_final   = cached["quiz"]
                         else:
-                            # --- GERA VIA IA (só se não existe cache) ---
                             raw_res, model_used = resumir_item_premium(
                                 item['titulo'], item['disciplina'], texto_extra=contexto_ia
                             )
@@ -139,11 +268,10 @@ def run_orchestrator():
                                 resumo_final = ai_data.get("summary", "Falha ao gerar resumo.")
                                 quiz_final   = ai_data.get("quiz", [])
                             except Exception as e:
-                                print(f"   [!] Erro JSON (ia): {e}")
+                                print(f"   [!] Erro JSON: {e}")
                                 resumo_final = "Erro no processamento da IA. (JSON Inválido)"
                                 quiz_final   = []
 
-                            # Salva no cache para todos os próximos usuários
                             handler.save_cached_summary(
                                 content_hash=content_hash,
                                 titulo=item['titulo'],
@@ -152,9 +280,7 @@ def run_orchestrator():
                                 quiz=quiz_final,
                                 model_used=model_used,
                             )
-                            print(f"   [CACHE MISS] Resumo gerado via {model_used} e armazenado em cache.")
-
-                            # Pausa só quando realmente chamou a IA
+                            print(f"   [CACHE MISS] Gerado via {model_used}.")
                             print(f"   [...] Aguardando {DELAY_BETWEEN_ITEMS}s (rate limit)...")
                             time.sleep(DELAY_BETWEEN_ITEMS)
 
@@ -162,7 +288,7 @@ def run_orchestrator():
                             user_id=user_id,
                             disciplina=item['disciplina'],
                             titulo=item['titulo'],
-                            tipo="MATERIAL",
+                            tipo=categoria,
                             resumo=resumo_final,
                             origin_id=item['id'],
                             links={"url": item['link']},

@@ -61,3 +61,30 @@ create policy "Service role full access" on public.academic_updates
   to service_role
   using (true)
   with check (true);
+
+-- 7. Tabela de Calendário Acadêmico (Datas Importantes)
+create table if not exists public.academic_calendar (
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid references auth.users(id) on delete cascade not null,
+  disciplina text not null,
+  titulo text not null,
+  descricao text,
+  tipo text check (tipo in ('PROVA', 'TRABALHO', 'ATIVIDADE', 'APRESENTACAO', 'OUTRO')),
+  data_evento date not null,
+  created_at timestamp with time zone default now()
+);
+
+-- Habilitar RLS
+alter table public.academic_calendar enable row level security;
+
+-- Políticas de Segurança (Calendário)
+drop policy if exists "Users can manage their own calendar" on public.academic_calendar;
+create policy "Users can manage their own calendar" on public.academic_calendar
+  for all using (auth.uid() = user_id);
+
+drop policy if exists "Service role full access on calendar" on public.academic_calendar;
+create policy "Service role full access on calendar" on public.academic_calendar
+  to service_role
+  using (true)
+  with check (true);
+

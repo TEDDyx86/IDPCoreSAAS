@@ -109,6 +109,47 @@ class SupabaseHandler:
         }
         requests.post(url, headers=self.headers, json=payload)
 
+    def save_calendar_events(self, user_id, disciplina, events):
+        """Limpa eventos antigos daquela disciplina e insere os novos extraídos no Supabase"""
+        print(f"   [DB] Atualizando calendário acadêmico para: {disciplina}...")
+        
+        # 1. Deletar eventos anteriores do usuário nesta matéria
+        del_url = f"{self.base_url}/academic_calendar?user_id=eq.{user_id}&disciplina=eq.{disciplina}"
+        try:
+            requests.delete(del_url, headers=self.headers)
+        except Exception as e:
+            print(f"   [!] Erro ao limpar calendário antigo: {e}")
+            
+        # 2. Inserir em lote se houver eventos novos
+        if not events:
+            print("   [DB] Nenhum evento novo para inserir.")
+            return True
+            
+        ins_url = f"{self.base_url}/academic_calendar"
+        payloads = []
+        for e in events:
+            payloads.append({
+                "user_id": user_id,
+                "disciplina": disciplina,
+                "titulo": e["titulo"],
+                "descricao": e.get("descricao", ""),
+                "tipo": e.get("tipo", "ATIVIDADE"),
+                "data_evento": e["data_evento"]
+            })
+            
+        try:
+            res = requests.post(ins_url, headers=self.headers, json=payloads)
+            if res.status_code in [200, 201]:
+                print(f"   [DB] Sucesso! {len(events)} eventos adicionados ao calendário.")
+                return True
+            else:
+                print(f"   [!] Erro ao inserir calendário (Status {res.status_code}): {res.text}")
+                return False
+        except Exception as e:
+            print(f"   [!] Falha de conexão ao salvar calendário: {e}")
+            return False
+
+
     def _bump_cache_hit(self, content_hash: str):
         """Incrementa use_count e atualiza last_used_at (best-effort)."""
         try:

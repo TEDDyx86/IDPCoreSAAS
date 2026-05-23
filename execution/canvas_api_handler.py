@@ -1,5 +1,73 @@
 import requests
 
+# ---------------------------------------------------------------------------
+# Classificação de conteúdo Canvas
+# ---------------------------------------------------------------------------
+
+# Palavras-chave que identificam itens administrativos (sem valor de aula)
+_SKIP_TITLE_KEYWORDS = [
+    # Calendários e cronogramas
+    "calendário", "calendario", "cronograma", "agenda acadêmica", "agenda academica",
+    "datas importantes", "calendário acadêmico",
+    # Planos e ementas
+    "plano de ensino", "plano de aula", "ementa", "programa da disciplina",
+    "programa de ensino",
+    # Instruções e avisos administrativos
+    "instrução acadêmica", "instrucao academica", "orientações gerais",
+    "orientacoes gerais", "regulamento", "normas", "normas do curso",
+    "procedimento", "guia de uso", "manual do aluno", "aviso", "comunicado",
+    "informativo", "boas-vindas", "bem-vindo", "bem-vinda", "como usar",
+    "apresentação da disciplina", "apresentacao da disciplina",
+    "sobre a disciplina", "acesso ao curso",
+]
+
+# Tipos Canvas que nunca têm conteúdo de aula relevante
+_SKIP_CANVAS_TYPES = {"SubHeader", "ExternalUrl"}
+
+
+def classificar_item(titulo: str, canvas_type: str) -> str:
+    """
+    Retorna a categoria do item Canvas.
+
+    AULA         → conteúdo acadêmico real, processa com IA
+    ATIVIDADE    → tarefa/prova/questionário, processa com IA
+    ADMIN        → calendário, instrução, aviso — ignora IA
+    PLANO_ENSINO → plano de ensino ou ementa — extrai calendário
+    """
+    titulo_lower = titulo.lower()
+
+    # Intercepta plano de ensino antes da filtragem administrativa genérica
+    plano_kws = ["plano de ensino", "ementa da disciplina", "ementa do curso", "programa da disciplina", "plano de aula"]
+    for kw in plano_kws:
+        if kw in titulo_lower:
+            return "PLANO_ENSINO"
+
+    # Tipo Canvas que nunca vale a pena processar
+    if canvas_type in _SKIP_CANVAS_TYPES:
+        return "ADMIN"
+
+    # Palavras-chave administrativas no título (prioridade sobre tipo)
+    for kw in _SKIP_TITLE_KEYWORDS:
+        if kw in titulo_lower:
+            # Garante que não sobresscreva o plano de ensino se o kw coincidir
+            return "ADMIN"
+
+    # Palavras-chave que indicam avaliação/atividade
+    activity_kws = ["atividade", "trabalho", "prova", "avaliação", "avaliacao",
+                    "exercício", "exercicio", "tarefa", "questionário", "questionario",
+                    "entrega", "seminário", "seminario"]
+    for kw in activity_kws:
+        if kw in titulo_lower:
+            return "ATIVIDADE"
+
+    # Canvas type Assignment/Quiz/Discussion = atividade mesmo sem keyword no título
+    if canvas_type in {"Assignment", "Quiz", "Discussion"}:
+        return "ATIVIDADE"
+
+    # Tudo o mais (Page, File sem keyword administrativa) = conteúdo de aula
+    return "AULA"
+
+
 class CanvasAPIClient:
     def __init__(self, token):
         self.token = token
@@ -55,12 +123,15 @@ class CanvasAPIClient:
                         # Map to our standard format
                         # Types to ignore or handle: 'SubHeader', 'ExternalUrl', 'File', 'Page', 'Assignment'
                         if item.get('type') not in ['SubHeader']:
+                            titulo_item = item.get('title', 'Sem Título')
+                            canvas_type = item.get('type', '')
+                            categoria   = classificar_item(titulo_item, canvas_type)
                             content_body = ""
-                            
-                            # Se for uma Página ou Tarefa, tentamos pegar o corpo do texto via API
-                            if item.get('type') in ['Page', 'Assignment'] and item.get('url'):
+
+                            # Só busca o corpo do texto para itens que a IA vai processar
+                            if categoria != "ADMIN" and canvas_type in ['Page', 'Assignment'] and item.get('url'):
                                 try:
-                                    print(f"    [IA-Context] Extraindo texto de {item['title']}...")
+                                    print(f"    [IA-Context] Extraindo texto de {titulo_item}...")
                                     c_res = requests.get(item['url'], headers=self.headers)
                                     if c_res.status_code == 200:
                                         c_data = c_res.json()
@@ -69,12 +140,13 @@ class CanvasAPIClient:
                                     pass
 
                             materiais.append({
-                                "id": f"api_{item['id']}", # Prefix to distinguish from scraping
-                                "titulo": item.get('title', 'Sem Título'),
+                                "id": f"api_{item['id']}",
+                                "titulo": titulo_item,
                                 "link": item.get('html_url') or item.get('url'),
                                 "disciplina": course_name,
-                                "tipo_api": item.get('type'),
-                                "body_content": content_body
+                                "tipo_api": canvas_type,
+                                "body_content": content_body,
+                                "categoria": categoria,
                             })
                 return materiais
             else:
