@@ -14,7 +14,7 @@ interface AcademicUpdate {
 }
 
 
-import AcademicCalendar, { CalendarEvent } from './components/AcademicCalendar';
+import AcademicCalendar, { type CalendarEvent } from './components/AcademicCalendar';
 import StatusHeader from './components/StatusHeader';
 import CourseCard from './components/CourseCard';
 import ActivityTimeline from './components/ActivityTimeline';
@@ -336,7 +336,7 @@ const App: React.FC = () => {
 
         <aside className="animate-reveal" style={{ animationDelay: '0.4s' }}>
           <div style={{ position: 'sticky', top: '2rem' }}>
-            <TerminalPanel updates={updates} />
+            <TerminalPanel events={calendarEvents} />
           </div>
         </aside>
       </div>
