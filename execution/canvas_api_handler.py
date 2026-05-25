@@ -1,3 +1,4 @@
+import re
 import requests
 
 # ---------------------------------------------------------------------------
@@ -29,7 +30,12 @@ _SKIP_TITLE_KEYWORDS = [
 ]
 
 # Tipos Canvas que nunca têm conteúdo de aula relevante
-_SKIP_CANVAS_TYPES = {"SubHeader", "ExternalUrl"}
+# ExternalUrl removido: links externos (documentações, tutoriais) são materiais de aula legítimos
+_SKIP_CANVAS_TYPES = {"SubHeader"}
+
+# Padrão que força classificação como AULA independente de outras keywords
+# Ex: "Aula 01 - ...", "Aula 1:", "AULA 10 -"
+_AULA_OVERRIDE_RE = re.compile(r"^aula\s*\d+", re.IGNORECASE)
 
 
 def classificar_item(titulo: str, canvas_type: str) -> str:
@@ -42,6 +48,11 @@ def classificar_item(titulo: str, canvas_type: str) -> str:
     PLANO_ENSINO → plano de ensino ou ementa — extrai calendário
     """
     titulo_lower = titulo.lower()
+
+    # Override: título que começa com "Aula XX" é sempre conteúdo de aula,
+    # independente de qualquer keyword administrativa que apareça depois
+    if _AULA_OVERRIDE_RE.match(titulo_lower):
+        return "AULA"
 
     # Intercepta exclusivamente "Calendário Acadêmico" para extração de datas
     cal_kws = ["calendário acadêmico", "calendario academico", "calendário academico", "calendario acadêmico"]

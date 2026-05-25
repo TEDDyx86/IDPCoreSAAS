@@ -84,6 +84,14 @@ class SupabaseHandler:
     # Cache compartilhado de resumos (evita chamadas duplicadas de IA)
     # ------------------------------------------------------------------
 
+    def delete_update(self, user_id, origin_id):
+        """Remove um item do feed acadêmico do usuário (ex: itens reclassificados como ADMIN)."""
+        try:
+            url = f"{self.base_url}/academic_updates?user_id=eq.{user_id}&origin_id=eq.{origin_id}"
+            requests.delete(url, headers=self.headers)
+        except Exception:
+            pass
+
     def get_cached_summary(self, content_hash: str) -> dict | None:
         """Retorna resumo+quiz do cache se existir. Atualiza contadores."""
         url = f"{self.base_url}/ai_summaries_cache?content_hash=eq.{content_hash}&select=resumo,quiz,model_used&limit=1"

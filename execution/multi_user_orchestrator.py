@@ -140,6 +140,7 @@ def run_orchestrator():
                     "NENHUMA IA CONFIGURADA",
                     "ERRO CRÍTICO",
                     "ERRO CRITICO",
+                    "ITEM ADMINISTRATIVO",  # reclassificados: eram ADMIN, agora são AULA/ATIVIDADE
                 ])
                 is_muito_curto = len(resumo_atual.strip()) < 150 and not is_novo
                 
@@ -290,20 +291,12 @@ def run_orchestrator():
                             itens_gerados.append(f"📅 {item['titulo']} ({item['disciplina']})")
                             continue
 
-                        # --- ITEM ADMINISTRATIVO: salva sem chamar IA ---
+                        # --- ITEM ADMINISTRATIVO: ignora e remove do feed se já existia ---
                         if categoria not in CATEGORIAS_COM_IA:
-                            print(f"   [SKIP] Conteúdo administrativo — sem processamento de IA.")
-                            handler.save_update(
-                                user_id=user_id,
-                                disciplina=item['disciplina'],
-                                titulo=item['titulo'],
-                                tipo=categoria,
-                                resumo="📋 Item administrativo. Nenhum resumo gerado.",
-                                origin_id=item['id'],
-                                links={"url": item['link']},
-                                quiz=[],
-                            )
-                            itens_gerados.append(f"📋 {item['titulo']} ({categoria})")
+                            print(f"   [SKIP] Conteúdo administrativo — ignorado.")
+                            if str(item['id']) in resumo_por_id:
+                                handler.delete_update(user_id, item['id'])
+                                print(f"   [DB] Removido do feed: {item['titulo']}")
                             continue
 
                         # --- AULA / ATIVIDADE: consulta cache e chama IA se necessário ---
