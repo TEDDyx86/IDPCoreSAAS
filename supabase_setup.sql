@@ -10,9 +10,13 @@ create table if not exists public.monitor_configs (
   courses_list jsonb,
   active boolean default true,
   last_run timestamp with time zone,
+  ical_token text unique,
   created_at timestamp with time zone default now(),
   constraint unique_user_config unique(user_id)
 );
+
+-- Garantir coluna para bases já existentes
+alter table public.monitor_configs add column if not exists ical_token text unique;
 
 -- Garantir que colunas antigas não bloqueiem o novo fluxo de Token
 do $$ 

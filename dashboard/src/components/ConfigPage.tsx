@@ -8,7 +8,8 @@ import {
   ShieldCheck, 
   ExternalLink,
   Zap,
-  Info
+  Info,
+  Calendar as CalendarIcon
 } from 'lucide-react';
 
 interface ConfigPageProps {
@@ -19,6 +20,7 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
   const { user } = useAuth();
   const [token, setToken] = useState('');
   const [studentName, setStudentName] = useState('');
+  const [icalToken, setIcalToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
@@ -30,7 +32,7 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
       try {
         const { data, error } = await supabase
           .from('monitor_configs')
-          .select('canvas_token, student_name')
+          .select('canvas_token, student_name, ical_token')
           .eq('user_id', user.id)
           .maybeSingle();
 
@@ -38,6 +40,7 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
         if (data) {
           setToken(data.canvas_token || '');
           setStudentName(data.student_name || '');
+          setIcalToken(data.ical_token || '');
         }
       } catch (err: any) {
         console.error("Erro ao carregar setup:", err);
@@ -56,6 +59,18 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
     setMessage(null);
 
     try {
+      // Gera um token aleatório super seguro de 32 caracteres se estiver vazio
+      let currentIcalToken = icalToken;
+      if (!currentIcalToken) {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let generated = '';
+        for (let i = 0; i < 32; i++) {
+          generated += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        currentIcalToken = generated;
+        setIcalToken(generated);
+      }
+
       const { error } = await supabase
         .from('monitor_configs')
         .upsert({
@@ -63,6 +78,7 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
           canvas_token: token,
           student_name: studentName,
           active: true,
+          ical_token: currentIcalToken,
           last_run: new Date().toISOString()
         }, { onConflict: 'user_id' });
 
@@ -178,6 +194,60 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
               Suas credenciais são protegidas por criptografia de ponta. O Token API garante sincronização estável sem necessidade de senha.
             </p>
           </div>
+
+          {icalToken && (
+            <div style={{ 
+              background: 'rgba(0, 242, 255, 0.02)', 
+              border: '1px solid rgba(0, 242, 255, 0.1)',
+              padding: '1.25rem',
+              borderRadius: '16px',
+              marginBottom: '1.5rem',
+              textAlign: 'left'
+            }}>
+              <h4 style={{ fontSize: '0.8rem', color: 'white', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
+                <CalendarIcon size={14} style={{ color: '#00f2ff' }} /> Sincronização iCal Dinâmica
+              </h4>
+              <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', lineHeight: '1.5', marginBottom: '0.75rem' }}>
+                Assine suas datas de provas e trabalhos no seu celular ou PC (Google Calendar, Apple, Outlook).
+              </p>
+              
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <input 
+                  type="text" 
+                  readOnly 
+                  value={`${window.location.origin}/api/calendar?token=${icalToken}`}
+                  style={{
+                    flex: 1,
+                    background: 'rgba(0, 0, 0, 0.3)',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    borderRadius: '8px',
+                    padding: '0.4rem 0.8rem',
+                    fontSize: '0.7rem',
+                    color: 'rgba(255,255,255,0.6)',
+                    fontFamily: 'monospace'
+                  }}
+                  onClick={(e) => (e.target as HTMLInputElement).select()}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(`${window.location.origin}/api/calendar?token=${icalToken}`);
+                    alert("Link do calendário copiado com sucesso!");
+                  }}
+                  className="premium-btn"
+                  style={{
+                    padding: '0.4rem 0.8rem',
+                    fontSize: '0.7rem',
+                    borderRadius: '8px',
+                    height: 'auto',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  Copiar
+                </button>
+              </div>
+            </div>
+          )}
 
           {message && (
             <div className={`animate-reveal`} style={{ 
