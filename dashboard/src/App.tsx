@@ -188,163 +188,152 @@ const App: React.FC = () => {
   return (
     <div className="dashboard-container">
       <DisclaimerModal />
-      {error && <div className="status-alert error">{error}</div>}
-      
-      <header className="user-nav animate-reveal" style={{ justifyContent: 'space-between', marginBottom: '1rem' }}>
+
+      {/* ── Header ── */}
+      <header
+        className="user-nav animate-reveal"
+        style={{ justifyContent: 'space-between', paddingTop: '0.5rem', paddingBottom: '0.5rem', marginBottom: '2.5rem' }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          <img src={logo} alt="IDP Core Logo" style={{ height: '48px', width: 'auto', filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.05))' }} />
-          <div className="badge badge-cyan" style={{ gap: '0.4rem', fontSize: '0.65rem', fontWeight: 700 }}>
-             <div className="pulse-animation" style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'currentColor' }} />
-             IDP CORE ACTIVE
+          <img src={logo} alt="IDP Core" style={{ height: '44px', width: 'auto' }} />
+          <div className="badge badge-cyan" style={{ fontSize: '0.62rem', fontWeight: 700, gap: '0.5rem' }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'currentColor', display: 'inline-block' }} />
+            IDP CORE ACTIVE
           </div>
         </div>
-        
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
           <div style={{ textAlign: 'right' }}>
             <p className="font-display" style={{ fontSize: '0.85rem', fontWeight: 600, margin: 0 }}>
               {studentName || user.email?.split('@')[0]}
             </p>
-            <p className="text-dim" style={{ fontSize: '0.65rem', margin: 0, opacity: 0.5 }}>Premium Academic Monitor</p>
+            <p style={{ fontSize: '0.62rem', margin: 0, color: 'hsl(var(--ch-t2))' }}>Monitor Acadêmico</p>
           </div>
-          
-          <div className="nav-btn" onClick={() => setShowConfig(true)}>
+          <button className="nav-btn" onClick={() => setShowConfig(true)} aria-label="Configurações">
             <SettingsIcon size={16} />
-          </div>
-          
-          <button 
-            className="nav-btn" 
-            style={{ color: '#ff4444' }} 
-            onClick={signOut}
-          >
+          </button>
+          <button className="nav-btn danger" onClick={signOut} aria-label="Sair">
             <LogOut size={16} />
           </button>
         </div>
       </header>
 
-      <div className="animate-reveal" style={{ animationDelay: '0.1s' }}>
-        <StatusHeader 
+      {/* ── Status ── */}
+      <div className="animate-reveal" style={{ animationDelay: '0.08s' }}>
+        <StatusHeader
           ultimaAtualizacao={lastRun || updates[0]?.data_detectado || 'Sincronizando...'}
           totalDisciplinas={totalDisciplinas}
           totalMateriais={updates.length}
         />
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '4rem' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '5rem', minWidth: 0 }}>
-          <section className="animate-reveal" style={{ animationDelay: '0.2s' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
-              <h2 style={{ margin: 0 }}>
-                Módulos Detectados
-                <span className="text-dim" style={{ fontSize: '0.8rem', fontWeight: 400, marginLeft: '0.5rem' }}>({studentCourses.length})</span>
+      {/* ── Main grid ── */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '4rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4.5rem', minWidth: 0 }}>
+
+          {/* Modules */}
+          <section className="animate-reveal" style={{ animationDelay: '0.16s' }}>
+            <div className="section-hd">
+              <h2>
+                Módulos
+                <span className="section-count">({studentCourses.length || updates.length > 0 ? totalDisciplinas : 0})</span>
               </h2>
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
-                <button className="nav-btn" onClick={() => scroll('left')} aria-label="Anterior"><ChevronLeft size={18} /></button>
-                <button className="nav-btn" onClick={() => scroll('right')} aria-label="Próximo"><ChevronRight size={18} /></button>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <button className="nav-btn" onClick={() => scroll('left')} aria-label="Anterior"><ChevronLeft size={17} /></button>
+                <button className="nav-btn" onClick={() => scroll('right')} aria-label="Próximo"><ChevronRight size={17} /></button>
               </div>
             </div>
-            
+
             <div className="carousel-wrapper">
-              <div 
+              <div
                 ref={sliderRef}
-                className="carousel-container" 
-                style={{ 
-                  display: 'flex', 
-                  gap: '2rem', 
-                  overflowX: 'auto', 
-                  padding: '0.5rem 0',
-                  scrollBehavior: 'smooth',
-                  paddingRight: '100px' // Added padding to compensate for mask
-                }}
+                className="carousel-container"
+                style={{ display: 'flex', gap: '1.5rem', overflowX: 'auto', padding: '4px 0 12px', paddingRight: '100px' }}
               >
-                {(studentCourses.length > 0 ? studentCourses : Array.from(new Set(updates.map((u: AcademicUpdate) => u.disciplina))).map(n => ({nome: n}))).map((course: any, idx: number) => (
-                  <div key={idx} style={{ minWidth: '360px' }}>
-                    <CourseCard 
+                {(studentCourses.length > 0
+                  ? studentCourses
+                  : Array.from(new Set(updates.map((u: AcademicUpdate) => u.disciplina))).map(n => ({ nome: n }))
+                ).map((course: any, idx: number) => (
+                  <div key={idx} style={{ minWidth: '300px', maxWidth: '340px', flex: '0 0 auto' }}>
+                    <CourseCard
                       nome={course.nome || course.name}
                       id={String(course.id || idx)}
                       onClick={() => handleOpenCategory(course.nome || course.name)}
                     />
                   </div>
                 ))}
+
                 {!loadingData && updates.length === 0 && studentCourses.length === 0 && (
-                  <div className="glass-card" style={{ width: '100%', padding: '4rem', textAlign: 'center', opacity: 0.5, background: 'var(--surface-base)', border: '1px solid var(--surface-border)' }}>
-                    <p className="font-display">Aguardando sinais do portal acadêmico...</p>
+                  <div
+                    style={{
+                      minWidth: '320px',
+                      padding: '3rem',
+                      textAlign: 'center',
+                      background: 'var(--surface-1)',
+                      border: '1px solid var(--border)',
+                      borderRadius: 'var(--radius-md)',
+                      opacity: 0.5,
+                    }}
+                  >
+                    <p className="font-display" style={{ fontSize: '0.95rem' }}>Aguardando sinais do portal acadêmico…</p>
                   </div>
                 )}
               </div>
             </div>
           </section>
 
-          <section className="animate-reveal" style={{ animationDelay: '0.3s' }}>
-            <div style={{ display: 'flex', gap: '2.5rem', borderBottom: '1px solid rgba(255,255,255,0.03)', marginBottom: '3rem', paddingBottom: '0.5rem' }}>
+          {/* Feed / Calendar */}
+          <section className="animate-reveal" style={{ animationDelay: '0.24s' }}>
+            <nav className="tab-nav">
               <button
+                className={`tab-btn${activeTab === 'feed' ? ' active' : ''}`}
                 onClick={() => setActiveTab('feed')}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: activeTab === 'feed' ? 'hsl(var(--accent-cyan))' : 'rgba(255,255,255,0.4)',
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.5rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  padding: '0.5rem 1rem',
-                  borderBottom: activeTab === 'feed' ? '2px solid hsl(var(--accent-cyan))' : '2px solid transparent',
-                  transition: 'color 0.2s ease, border-color 0.2s ease',
-                  marginRight: '1rem',
-                }}
               >
                 Feed Acadêmico
               </button>
               <button
+                className={`tab-btn${activeTab === 'calendar' ? ' active' : ''}`}
                 onClick={() => setActiveTab('calendar')}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: activeTab === 'calendar' ? 'hsl(var(--accent-cyan))' : 'rgba(255,255,255,0.4)',
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.5rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  padding: '0.5rem 1rem',
-                  borderBottom: activeTab === 'calendar' ? '2px solid hsl(var(--accent-cyan))' : '2px solid transparent',
-                  transition: 'color 0.2s ease, border-color 0.2s ease',
-                }}
               >
-                Calendário Provas
+                Calendário
               </button>
-            </div>
+            </nav>
 
             {activeTab === 'feed' ? (
               loadingData ? (
-                <div className="font-display text-dim" style={{ textAlign: 'center', padding: '6rem' }}>
-                  <div className="pulse-animation" style={{ marginBottom: '1rem', fontSize: '1.5rem' }}>☇</div>
-                  Interceptando fluxos de dados...
+                <div style={{ textAlign: 'center', padding: '6rem 0', color: 'hsl(var(--ch-t2))' }}>
+                  <p className="font-display" style={{ fontSize: '0.9rem', letterSpacing: '0.1em' }}>
+                    Interceptando fluxos de dados…
+                  </p>
                 </div>
               ) : (
-                <ActivityTimeline 
-                  items={updates} 
-                  onOpenResumo={handleOpenResumo}
-                />
+                <ActivityTimeline items={updates} onOpenResumo={handleOpenResumo} />
               )
             ) : (
-              <AcademicCalendar 
-                events={calendarEvents}
-                loading={loadingCalendar}
-              />
+              <AcademicCalendar events={calendarEvents} loading={loadingCalendar} />
             )}
           </section>
         </div>
 
-        <aside className="animate-reveal" style={{ animationDelay: '0.4s' }}>
+        {/* Sidebar */}
+        <aside className="animate-reveal" style={{ animationDelay: '0.32s' }}>
           <div style={{ position: 'sticky', top: '2rem' }}>
             <TerminalPanel events={calendarEvents} />
           </div>
         </aside>
       </div>
 
-      <footer style={{ marginTop: '8rem', padding: '5rem 0', borderTop: '1px solid rgba(255,255,255,0.03)', textAlign: 'center' }}>
-        <img src={logo} alt="Logo" style={{ height: '32px', width: 'auto', opacity: 0.2, marginBottom: '2rem', filter: 'grayscale(1)' }} />
-        <p className="text-dim font-display" style={{ fontSize: '0.7rem', opacity: 0.3, letterSpacing: '0.2em', fontWeight: 600 }}>
-          IDP CORE V3.0 • HIGH FIDELITY ACADEMIC MONITORING
+      <footer
+        style={{
+          marginTop: '8rem',
+          padding: '4rem 0',
+          borderTop: '1px solid var(--border)',
+          textAlign: 'center',
+        }}
+      >
+        <img src={logo} alt="" style={{ height: '28px', opacity: 0.15, marginBottom: '1.5rem', filter: 'grayscale(1)' }} />
+        <p style={{ fontSize: '0.65rem', opacity: 0.25, letterSpacing: '0.2em', fontFamily: 'var(--font-display)', fontWeight: 600 }}>
+          IDP CORE V3.0 · ACADEMIC INTELLIGENCE MONITOR
         </p>
       </footer>
 
