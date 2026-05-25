@@ -7,6 +7,10 @@ on:
     - cron: '0 * * * *' # Roda a cada 1 hora
   workflow_dispatch: # Permite rodar manualmente para testes
 
+concurrency:
+  group: academic-monitor
+  cancel-in-progress: false
+
 jobs:
   monitor:
     runs-on: ubuntu-latest

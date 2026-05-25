@@ -97,7 +97,7 @@ class SupabaseHandler:
 
     def save_cached_summary(self, content_hash: str, titulo: str, disciplina: str,
                             resumo: str, quiz: list, model_used: str = "unknown"):
-        """Persiste um novo resumo no cache."""
+        """Persiste um novo resumo no cache. Ignora silenciosamente se o hash já existir (race condition entre runs)."""
         url = f"{self.base_url}/ai_summaries_cache"
         payload = {
             "content_hash": content_hash,
@@ -107,7 +107,11 @@ class SupabaseHandler:
             "quiz": quiz,
             "model_used": model_used,
         }
-        requests.post(url, headers=self.headers, json=payload)
+        upsert_headers = {**self.headers, "Prefer": "resolution=ignore-duplicates,return=minimal"}
+        try:
+            requests.post(url, headers=upsert_headers, json=payload)
+        except Exception:
+            pass
 
     def save_calendar_events(self, user_id, disciplina, events):
         """Limpa eventos antigos daquela disciplina e insere os novos extraídos no Supabase"""

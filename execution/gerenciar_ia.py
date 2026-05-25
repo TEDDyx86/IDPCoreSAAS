@@ -154,25 +154,19 @@ def resumir_item_premium(titulo, disciplina, texto_extra=""):
     # 1. GEMINI
     if client_gemini:
         try:
-            print(f" [IA] Tentando processar com Gemini (gemini-1.5-flash)...")
+            print(f" [IA] Tentando processar com Gemini (gemini-2.5-flash)...")
             prompt = ONYX_PROMPT_TEMPLATE.format(
                 titulo=titulo,
                 disciplina=disciplina,
                 conteudo=texto_extra[:30000]
             )
-            try:
-                response = client_gemini.models.generate_content(model="gemini-1.5-flash", contents=prompt)
-            except Exception as e_inner:
-                if "404" in str(e_inner):
-                    response = client_gemini.models.generate_content(model="models/gemini-1.5-flash", contents=prompt)
-                else:
-                    raise e_inner
+            response = client_gemini.models.generate_content(model="gemini-2.5-flash", contents=prompt)
 
             if response and response.text:
                 text = limpar_json_ia(response.text)
                 if text and "{" in text and "}" in text:
                     print(f" [+] Sucesso via Gemini para: {titulo}")
-                    return text, "gemini-1.5-flash"
+                    return text, "gemini-2.5-flash"
                 raise ValueError("Resposta do Gemini sem JSON válido.")
 
         except Exception as e:

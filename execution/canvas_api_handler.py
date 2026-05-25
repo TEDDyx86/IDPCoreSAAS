@@ -6,17 +6,24 @@ import requests
 
 # Palavras-chave que identificam itens administrativos (sem valor de aula)
 _SKIP_TITLE_KEYWORDS = [
-    # Calendários e cronogramas
-    "calendário", "calendario", "cronograma", "agenda acadêmica", "agenda academica",
-    "datas importantes", "calendário acadêmico",
+    # Calendários e cronogramas administrativos
+    "calendário acadêmico", "calendario academico",
+    "agenda acadêmica", "agenda academica",
+    "datas importantes",
     # Planos e ementas
     "plano de ensino", "plano de aula", "ementa", "programa da disciplina",
     "programa de ensino",
-    # Instruções e avisos administrativos
-    "instrução acadêmica", "instrucao academica", "orientações gerais",
-    "orientacoes gerais", "regulamento", "normas", "normas do curso",
-    "procedimento", "guia de uso", "manual do aluno", "aviso", "comunicado",
-    "informativo", "boas-vindas", "bem-vindo", "bem-vinda", "como usar",
+    # Instruções e avisos administrativos (frases específicas para evitar falsos positivos)
+    "instrução acadêmica", "instrucao academica",
+    "orientações gerais", "orientacoes gerais",
+    "normas do curso", "normas gerais da disciplina",
+    "regulamento interno", "regulamento acadêmico", "regulamento do curso",
+    "procedimento acadêmico", "procedimentos da secretaria",
+    "guia de uso", "manual do aluno",
+    "aviso importante", "aviso ao aluno", "aviso da coordenação", "aviso da coordenacao",
+    "comunicado oficial", "comunicado da coordenação", "comunicado da secretaria",
+    "informativo acadêmico", "informativo da secretaria",
+    "boas-vindas", "bem-vindo", "bem-vinda", "como usar",
     "apresentação da disciplina", "apresentacao da disciplina",
     "sobre a disciplina", "acesso ao curso",
 ]
