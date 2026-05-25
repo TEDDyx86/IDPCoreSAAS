@@ -9,17 +9,17 @@ interface CourseCardProps {
 
 const CourseCard: React.FC<CourseCardProps> = ({ nome, onClick }) => {
   return (
-    <div 
-      className="glass glass-card glass-hover" 
+    <div
+      className="glass glass-card glass-hover"
       onClick={onClick}
-      style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        gap: '2.5rem', 
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '2.5rem',
         padding: '2.5rem',
         height: '100%',
         justifyContent: 'space-between',
-        cursor: 'pointer'
+        cursor: 'pointer',
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -27,34 +27,37 @@ const CourseCard: React.FC<CourseCardProps> = ({ nome, onClick }) => {
           <BookOpen size={16} />
         </div>
         <div style={{ display: 'flex', gap: '4px' }}>
-          {[1,2,3].map(i => <div key={i} style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'white', opacity: 0.15 }} />)}
+          {[1, 2, 3].map(i => (
+            <div key={i} style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.15)' }} />
+          ))}
         </div>
       </div>
-      
+
       <div>
-        <h3 className="font-display" style={{ 
-          fontSize: '1.25rem', 
-          lineHeight: '1.4',
-          fontWeight: 600,
-          color: 'white',
-          marginBottom: '0.6rem'
-        }}>
+        <h3
+          className="font-display"
+          style={{ fontSize: '1.25rem', lineHeight: '1.4', fontWeight: 600, color: 'white', marginBottom: '0.6rem' }}
+        >
           {nome}
         </h3>
-        <p className="text-dim" style={{ fontSize: '0.8rem', opacity: 0.5, fontWeight: 400 }}>Módulo de Estudos Ativo</p>
+        <p className="text-dim" style={{ fontSize: '0.8rem', opacity: 0.5, fontWeight: 400 }}>
+          Módulo de Estudos Ativo
+        </p>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-        <div style={{ flex: 1, height: '4px', background: 'rgba(255,255,255,0.06)', borderRadius: '10px', overflow: 'hidden' }}>
-          <div style={{ 
-            width: '65%', 
-            height: '100%', 
-            background: 'white', 
-            boxShadow: '0 0 15px white',
-            borderRadius: '10px'
-          }}></div>
+        <div style={{ flex: 1, height: '3px', background: 'rgba(255,255,255,0.06)', borderRadius: '10px', overflow: 'hidden' }}>
+          <div
+            style={{
+              width: '65%',
+              height: '100%',
+              background: 'hsl(var(--accent-cyan))',
+              boxShadow: '0 0 10px hsla(190, 100%, 50%, 0.35)',
+              borderRadius: '10px',
+            }}
+          />
         </div>
-        <ArrowRight size={20} className="text-dim" style={{ opacity: 0.3 }} />
+        <ArrowRight size={18} style={{ color: 'rgba(255,255,255,0.25)', flexShrink: 0 }} />
       </div>
     </div>
   );

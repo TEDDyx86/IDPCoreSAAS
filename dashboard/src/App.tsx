@@ -266,7 +266,7 @@ const App: React.FC = () => {
                   </div>
                 ))}
                 {!loadingData && updates.length === 0 && studentCourses.length === 0 && (
-                  <div className="glass glass-card" style={{ width: '100%', padding: '4rem', textAlign: 'center', opacity: 0.5 }}>
+                  <div className="glass-card" style={{ width: '100%', padding: '4rem', textAlign: 'center', opacity: 0.5, background: 'var(--surface-base)', border: '1px solid var(--surface-border)' }}>
                     <p className="font-display">Aguardando sinais do portal acadêmico...</p>
                   </div>
                 )}
@@ -276,37 +276,37 @@ const App: React.FC = () => {
 
           <section className="animate-reveal" style={{ animationDelay: '0.3s' }}>
             <div style={{ display: 'flex', gap: '2.5rem', borderBottom: '1px solid rgba(255,255,255,0.03)', marginBottom: '3rem', paddingBottom: '0.5rem' }}>
-              <button 
+              <button
                 onClick={() => setActiveTab('feed')}
-                style={{ 
-                  background: 'none', 
-                  border: 'none', 
-                  color: activeTab === 'feed' ? '#00f2ff' : 'rgba(255,255,255,0.4)',
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: activeTab === 'feed' ? 'hsl(var(--accent-cyan))' : 'rgba(255,255,255,0.4)',
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.5rem',
                   fontWeight: 600,
                   cursor: 'pointer',
                   padding: '0.5rem 1rem',
-                  borderBottom: activeTab === 'feed' ? '2px solid #00f2ff' : 'none',
-                  transition: 'all 0.2s ease',
-                  marginRight: '1rem'
+                  borderBottom: activeTab === 'feed' ? '2px solid hsl(var(--accent-cyan))' : '2px solid transparent',
+                  transition: 'color 0.2s ease, border-color 0.2s ease',
+                  marginRight: '1rem',
                 }}
               >
                 Feed Acadêmico
               </button>
-              <button 
+              <button
                 onClick={() => setActiveTab('calendar')}
-                style={{ 
-                  background: 'none', 
-                  border: 'none', 
-                  color: activeTab === 'calendar' ? '#00f2ff' : 'rgba(255,255,255,0.4)',
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: activeTab === 'calendar' ? 'hsl(var(--accent-cyan))' : 'rgba(255,255,255,0.4)',
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.5rem',
                   fontWeight: 600,
                   cursor: 'pointer',
                   padding: '0.5rem 1rem',
-                  borderBottom: activeTab === 'calendar' ? '2px solid #00f2ff' : 'none',
-                  transition: 'all 0.2s ease'
+                  borderBottom: activeTab === 'calendar' ? '2px solid hsl(var(--accent-cyan))' : '2px solid transparent',
+                  transition: 'color 0.2s ease, border-color 0.2s ease',
                 }}
               >
                 Calendário Provas

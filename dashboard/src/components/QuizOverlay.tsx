@@ -71,8 +71,8 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
         <div className="quiz-sidebar">
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2.5rem' }}>
-              <div style={{ padding: '10px', background: 'rgba(59,130,246,0.1)', borderRadius: '12px', border: '1px solid rgba(59,130,246,0.2)' }}>
-                <BrainCircuit size={24} color="#3b82f6" />
+              <div style={{ padding: '10px', background: 'hsla(var(--accent-blue), 0.1)', borderRadius: '12px', border: '1px solid hsla(var(--accent-blue), 0.2)' }}>
+                <BrainCircuit size={24} style={{ color: 'hsl(var(--accent-blue))' }} />
               </div>
               <div>
                 <div className="quiz-meta-label">AVALIAÇÃO</div>
@@ -80,9 +80,9 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
               </div>
             </div>
 
-            <div style={{ borderLeft: '2px solid rgba(255,255,255,0.05)', paddingLeft: '1.5rem', marginBottom: '2rem' }}>
+            <div style={{ marginBottom: '2rem' }}>
               <div className="quiz-meta-label">PROGRESSO</div>
-              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'white', fontFamily: 'Outfit' }}>
+              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'white', fontFamily: 'Outfit', marginTop: '0.4rem' }}>
                 {String(isFinished ? quiz.length : currentStep + 1).padStart(2, '0')}
                 <span style={{ opacity: 0.2, fontSize: '1rem', marginLeft: '0.5rem' }}>/ {quiz.length}</span>
               </div>
@@ -97,7 +97,7 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
                     flex: 1, 
                     borderRadius: '10px',
                     transition: 'all 0.6s',
-                    background: idx < currentStep ? '#3b82f6' : idx === currentStep ? 'white' : 'rgba(255,255,255,0.1)'
+                    background: idx < currentStep ? 'hsl(var(--accent-blue))' : idx === currentStep ? 'white' : 'rgba(255,255,255,0.1)'
                   }} 
                 />
               ))}
@@ -173,10 +173,10 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
             /* Final Result View */
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', textAlign: 'center' }}>
                <div style={{ position: 'relative', marginBottom: '2.5rem' }}>
-                  <div style={{ width: '120px', height: '120px', background: 'linear-gradient(135deg, #3b82f6, #06b6d4)', borderRadius: '35px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 20px 40px rgba(59,130,246,0.3)', transform: 'rotate(5deg)' }}>
-                    <Trophy size={60} color="white" />
+                  <div style={{ width: '120px', height: '120px', background: 'hsla(var(--accent-blue), 0.12)', border: '1px solid hsla(var(--accent-blue), 0.25)', borderRadius: '35px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 20px 40px hsla(var(--accent-blue), 0.15)', transform: 'rotate(5deg)' }}>
+                    <Trophy size={60} style={{ color: 'hsl(var(--accent-blue))' }} />
                   </div>
-                  <div style={{ position: 'absolute', bottom: '-10px', right: '-10px', background: '#0a0a0a', padding: '8px', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <div style={{ position: 'absolute', bottom: '-10px', right: '-10px', background: 'oklch(8% 0.006 240)', padding: '8px', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.08)' }}>
                      <Star size={24} color="#facc15" fill="#facc15" />
                   </div>
                </div>
@@ -185,15 +185,15 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
                <p style={{ color: 'rgba(255,255,255,0.4)', maxWidth: '400px', marginBottom: '3rem', fontSize: '1.1rem' }}>Sua jornada de conhecimento foi registrada com sucesso no núcleo acadêmico.</p>
 
                <div style={{ display: 'flex', gap: '2rem', marginBottom: '4rem' }}>
-                  <div style={{ textAlign: 'left', padding: '1.5rem 3rem', background: 'rgba(255,255,255,0.03)', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ textAlign: 'left', padding: '1.5rem 3rem', background: 'oklch(12% 0.007 240)', borderRadius: '24px', border: '1px solid var(--surface-border)' }}>
                     <div className="quiz-meta-label">PONTUAÇÃO</div>
                     <div style={{ fontSize: '3.5rem', fontWeight: 800, color: 'white', fontFamily: 'Outfit', lineHeight: 1 }}>
-                      {score}<span style={{ opacity: 0.1, fontSize: '1.5rem', marginLeft: '0.5rem' }}>/{quiz.length}</span>
+                      {score}<span style={{ opacity: 0.15, fontSize: '1.5rem', marginLeft: '0.5rem' }}>/{quiz.length}</span>
                     </div>
                   </div>
-                  <div style={{ textAlign: 'left', padding: '1.5rem 3rem', background: 'rgba(255,255,255,0.03)', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <div style={{ textAlign: 'left', padding: '1.5rem 3rem', background: 'oklch(12% 0.007 240)', borderRadius: '24px', border: '1px solid var(--surface-border)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     <div className="quiz-meta-label">STATUS</div>
-                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#3b82f6', letterSpacing: '0.1em' }}>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'hsl(var(--accent-blue))', letterSpacing: '0.1em' }}>
                       {score === quiz.length ? 'MAGISTRAL' : score >= quiz.length / 2 ? 'AVANÇADO' : 'EVOLUINDO'}
                     </div>
                   </div>

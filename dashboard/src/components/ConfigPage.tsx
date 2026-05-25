@@ -111,7 +111,7 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
 
   return (
     <div className="login-container">
-      <div className="glass login-card animate-reveal">
+      <div className="login-card animate-reveal">
         <div className="login-header">
           <div className="badge badge-cyan" style={{ marginBottom: '1.5rem', alignSelf: 'center' }}>
             <Zap size={12} /> IDP CORE v3.0
@@ -179,13 +179,13 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
             </p>
           </div>
 
-          <div style={{ 
-            background: 'rgba(255, 255, 255, 0.02)', 
-            border: '1px solid rgba(255,255,255,0.04)',
+          <div style={{
+            background: 'var(--surface-raised)',
+            border: '1px solid var(--surface-border)',
             padding: '1.25rem',
             borderRadius: '16px',
             marginBottom: '1rem',
-            textAlign: 'left'
+            textAlign: 'left',
           }}>
             <h4 style={{ fontSize: '0.8rem', color: 'white', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
               <ShieldCheck size={14} className="text-cyan" /> Segurança IDP Core
@@ -196,16 +196,16 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
           </div>
 
           {icalToken && (
-            <div style={{ 
-              background: 'rgba(0, 242, 255, 0.02)', 
-              border: '1px solid rgba(0, 242, 255, 0.1)',
+            <div style={{
+              background: 'var(--surface-raised)',
+              border: '1px solid hsla(var(--accent-cyan), 0.12)',
               padding: '1.25rem',
               borderRadius: '16px',
               marginBottom: '1.5rem',
-              textAlign: 'left'
+              textAlign: 'left',
             }}>
               <h4 style={{ fontSize: '0.8rem', color: 'white', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
-                <CalendarIcon size={14} style={{ color: '#00f2ff' }} /> Sincronização iCal Dinâmica
+                <CalendarIcon size={14} style={{ color: 'hsl(var(--accent-cyan))' }} /> Sincronização iCal Dinâmica
               </h4>
               <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', lineHeight: '1.5', marginBottom: '0.75rem' }}>
                 Assine suas datas de provas e trabalhos no seu celular ou PC (Google Calendar, Apple, Outlook).
@@ -250,16 +250,19 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
           )}
 
           {message && (
-            <div className={`animate-reveal`} style={{ 
-              padding: '1rem',
-              borderRadius: '12px',
-              fontSize: '0.8rem',
-              fontWeight: 500,
-              background: message.type === 'success' ? 'rgba(0, 255, 150, 0.05)' : 'rgba(255, 68, 68, 0.05)',
-              border: `1px solid ${message.type === 'success' ? 'rgba(0, 255, 150, 0.1)' : 'rgba(255, 68, 68, 0.1)'}`,
-              color: message.type === 'success' ? '#00ff96' : '#ff4444',
-              marginBottom: '1rem'
-            }}>
+            <div
+              className="animate-reveal"
+              style={{
+                padding: '1rem',
+                borderRadius: '12px',
+                fontSize: '0.8rem',
+                fontWeight: 500,
+                background: message.type === 'success' ? 'hsla(var(--success), 0.06)' : 'hsla(var(--error), 0.06)',
+                border: `1px solid ${message.type === 'success' ? 'hsla(var(--success), 0.15)' : 'hsla(var(--error), 0.15)'}`,
+                color: message.type === 'success' ? 'hsl(var(--success))' : 'hsl(var(--error))',
+                marginBottom: '1rem',
+              }}
+            >
               {message.text}
             </div>
           )}

@@ -20,15 +20,13 @@ const DisclaimerModal: React.FC = () => {
 
   return (
     <div className="modal-overlay" style={{ zIndex: 30000 }}>
-      <div 
-        className="modal-content glass glass-card animate-reveal" 
-        style={{ 
-          maxWidth: '500px', 
-          border: '1px solid hsla(var(--primary), 0.3)',
-          boxShadow: '0 0 60px rgba(0, 242, 255, 0.15)',
+      <div
+        className="modal-content glass glass-card animate-reveal"
+        style={{
+          maxWidth: '500px',
+          border: '1px solid hsla(var(--primary), 0.25)',
+          boxShadow: '0 0 60px hsla(var(--accent-cyan), 0.1)',
           padding: '2.5rem',
-          backdropFilter: 'blur(80px)', // Ultra-frost fallback inside card
-          WebkitBackdropFilter: 'blur(80px)'
         }}
       >
         <div className="modal-header" style={{ 
@@ -51,7 +49,7 @@ const DisclaimerModal: React.FC = () => {
             marginBottom: '1.5rem',
             border: '1px solid hsla(var(--primary), 0.2)'
           }}>
-            <ShieldCheck className="text-gradient" size={38} />
+            <ShieldCheck size={38} style={{ color: 'hsl(var(--accent-cyan))' }} />
           </div>
           <h2 style={{ 
             fontSize: '1.75rem', 
@@ -60,20 +58,20 @@ const DisclaimerModal: React.FC = () => {
             textAlign: 'center', 
             width: '100%',
             display: 'block'
-          }} className="text-gradient">
+          }}>
             IDP CORE SECURITY
           </h2>
         </div>
 
-        <div style={{ 
-          background: 'rgba(255, 255, 255, 0.03)', 
-          padding: '2rem', 
-          borderRadius: '16px', 
-          fontSize: '0.95rem', 
+        <div style={{
+          background: 'hsla(var(--primary), 0.04)',
+          border: '1px solid hsla(var(--primary), 0.12)',
+          padding: '2rem',
+          borderRadius: '16px',
+          fontSize: '0.95rem',
           lineHeight: '1.7',
           color: 'rgba(255,255,255,0.85)',
-          borderLeft: '4px solid hsla(var(--primary), 0.6)',
-          marginBottom: '2rem'
+          marginBottom: '2rem',
         }}>
           Este sistema é uma ferramenta **experimental (BETA)** monitorada por Inteligência Artificial. 
           <br /><br />
@@ -93,7 +91,8 @@ const DisclaimerModal: React.FC = () => {
             justifyContent: 'center',
             padding: '1.25rem',
             fontSize: '1rem',
-            background: 'linear-gradient(45deg, hsla(var(--primary), 0.8), hsla(var(--primary), 0.4))'
+            background: 'hsl(var(--accent-cyan))',
+            color: 'black'
           }}
         >
           <ShieldCheck size={20} /> EU COMPREENDO OS TERMOS

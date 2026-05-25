@@ -101,18 +101,18 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
   const quizData = (item.links as any)?.quiz || null;
 
   return (
-    <div 
-      className="lesson-page-overlay animate-reveal" 
-      style={{ 
-        position: 'fixed', 
-        inset: 0, 
-        zIndex: 20000, 
-        background: 'rgba(5, 5, 5, 0.8)', 
-        backdropFilter: 'blur(var(--glass-blur))',
-        WebkitBackdropFilter: 'blur(var(--glass-blur))',
-        display: 'flex', 
+    <div
+      className="lesson-page-overlay animate-reveal"
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 20000,
+        background: 'rgba(3, 3, 4, 0.88)',
+        backdropFilter: 'blur(var(--overlay-blur))',
+        WebkitBackdropFilter: 'blur(var(--overlay-blur))',
+        display: 'flex',
         flexDirection: 'column',
-        color: 'white'
+        color: 'white',
       }}
     >
       {/* Premium Navigation Header */}
@@ -200,13 +200,10 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
           </header>
 
           {/* Reading Section */}
-          <article className="glass glass-card" style={{ 
-            padding: '4rem', 
-            borderRadius: '40px',
-            border: '1px solid rgba(255,255,255,0.03)',
-            background: 'rgba(255,255,255,0.01)',
-            marginBottom: '4rem'
-          }}>
+          <article
+            className="glass glass-card"
+            style={{ padding: '4rem', borderRadius: '40px', marginBottom: '4rem' }}
+          >
             <div style={{ 
               fontSize: '1.25rem', 
               lineHeight: '1.9', 
@@ -227,41 +224,45 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
 
           {/* Quiz Challenge Section */}
           {quizData && quizData.length > 0 && (
-            <div style={{ 
-              margin: '0 0 6rem', 
-              padding: '4rem', 
-              borderRadius: '40px', 
-              background: 'linear-gradient(180deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0) 100%)',
-              border: '1px solid rgba(59, 130, 246, 0.1)',
-              textAlign: 'center'
-            }}>
-              <div style={{ 
-                width: '64px', 
-                height: '64px', 
-                background: 'rgba(59, 130, 246, 0.1)', 
-                borderRadius: '20px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                margin: '0 auto 1.5rem',
-                color: '#3b82f6'
-              }}>
+            <div
+              style={{
+                margin: '0 0 6rem',
+                padding: '4rem',
+                borderRadius: '40px',
+                background: 'var(--surface-base)',
+                border: '1px solid hsla(var(--accent-blue), 0.12)',
+                textAlign: 'center',
+              }}
+            >
+              <div
+                style={{
+                  width: '64px',
+                  height: '64px',
+                  background: 'hsla(var(--accent-blue), 0.1)',
+                  borderRadius: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 1.5rem',
+                  color: 'hsl(var(--accent-blue))',
+                }}
+              >
                 <BrainCircuit size={32} />
               </div>
               <h3 className="font-display" style={{ fontSize: '2rem', fontWeight: 600, marginBottom: '1rem' }}>Pronto para o Desafio?</h3>
-              <p style={{ color: 'rgba(255,255,255,0.4)', marginBottom: '2.5rem', maxWidth: '400px', margin: '0 auto 2.5rem' }}>
+              <p style={{ color: 'rgba(255,255,255,0.4)', maxWidth: '400px', margin: '0 auto 2.5rem' }}>
                 Teste sua compreensão sobre os temas abordados com um questionário interativo exclusivo.
               </p>
-              <button 
+              <button
                 onClick={() => setShowQuiz(true)}
                 className="premium-btn"
-                style={{ 
-                  background: '#3b82f6', 
-                  color: 'white', 
-                  border: 'none', 
+                style={{
+                  background: 'hsl(var(--accent-blue))',
+                  color: 'white',
+                  border: 'none',
                   padding: '1.25rem 3rem',
                   fontSize: '1rem',
-                  boxShadow: '0 20px 40px rgba(59, 130, 246, 0.2)'
+                  boxShadow: '0 20px 40px hsla(var(--accent-blue), 0.2)',
                 }}
               >
                 INICIAR QUESTIONÁRIO <ChevronRight size={20} />
@@ -288,13 +289,13 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
                 onClick={handleRegenerate}
                 disabled={isRegenerating || success}
                 className={`premium-btn ${success ? 'btn-success' : ''}`}
-                style={{ 
-                  gap: '1rem', 
-                  padding: '1rem 2.5rem', 
+                style={{
+                  gap: '1rem',
+                  padding: '1rem 2.5rem',
                   fontSize: '0.9rem',
-                  background: success ? '#00ffa3' : 'rgba(255,255,255,0.05)',
+                  background: success ? 'hsl(var(--success))' : 'rgba(255,255,255,0.05)',
                   color: success ? '#000' : 'white',
-                  border: success ? 'none' : '1px solid rgba(255,255,255,0.1)'
+                  border: success ? 'none' : '1px solid rgba(255,255,255,0.1)',
                 }}
               >
                 {isRegenerating ? (
@@ -308,7 +309,7 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
             </div>
             
             {success && (
-              <p className="font-display animate-pulse" style={{ fontSize: '0.75rem', color: '#00ffa3', letterSpacing: '0.1em' }}>
+              <p className="font-display animate-pulse" style={{ fontSize: '0.75rem', color: 'hsl(var(--success))', letterSpacing: '0.1em' }}>
                 O ROBÔ REPROCESSARÁ ESTE CONTEÚDO NA PRÓXIMA VERIFICAÇÃO.
               </p>
             )}

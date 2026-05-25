@@ -1,0 +1,372 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-25T00:00:00Z",
+  "title": "Design System: IDP Core",
+  "extensions": {
+    "colorMeta": {
+      "plasma": {
+        "role": "primary",
+        "displayName": "Plasma",
+        "canonical": "oklch(83% 0.18 195)",
+        "tonalRamp": [
+          "oklch(15% 0.03 195)",
+          "oklch(25% 0.07 195)",
+          "oklch(38% 0.12 195)",
+          "oklch(52% 0.16 195)",
+          "oklch(65% 0.18 195)",
+          "oklch(75% 0.17 195)",
+          "oklch(85% 0.13 195)",
+          "oklch(94% 0.06 195)"
+        ]
+      },
+      "violet-current": {
+        "role": "secondary",
+        "displayName": "Violet Current",
+        "canonical": "oklch(57% 0.26 296)",
+        "tonalRamp": [
+          "oklch(15% 0.05 296)",
+          "oklch(25% 0.10 296)",
+          "oklch(35% 0.15 296)",
+          "oklch(45% 0.20 296)",
+          "oklch(55% 0.25 296)",
+          "oklch(65% 0.22 296)",
+          "oklch(78% 0.15 296)",
+          "oklch(92% 0.06 296)"
+        ]
+      },
+      "cerulean": {
+        "role": "tertiary",
+        "displayName": "Cerulean",
+        "canonical": "oklch(61% 0.19 246)",
+        "tonalRamp": [
+          "oklch(15% 0.04 246)",
+          "oklch(25% 0.08 246)",
+          "oklch(38% 0.13 246)",
+          "oklch(50% 0.18 246)",
+          "oklch(60% 0.20 246)",
+          "oklch(70% 0.17 246)",
+          "oklch(82% 0.11 246)",
+          "oklch(93% 0.05 246)"
+        ]
+      },
+      "success": {
+        "role": "semantic-positive",
+        "displayName": "Confirm",
+        "canonical": "oklch(86% 0.18 158)",
+        "tonalRamp": [
+          "oklch(15% 0.04 158)",
+          "oklch(28% 0.08 158)",
+          "oklch(42% 0.12 158)",
+          "oklch(55% 0.16 158)",
+          "oklch(66% 0.18 158)",
+          "oklch(75% 0.17 158)",
+          "oklch(85% 0.14 158)",
+          "oklch(94% 0.06 158)"
+        ]
+      },
+      "error": {
+        "role": "semantic-negative",
+        "displayName": "Reject",
+        "canonical": "oklch(65% 0.22 22)",
+        "tonalRamp": [
+          "oklch(15% 0.06 22)",
+          "oklch(25% 0.10 22)",
+          "oklch(38% 0.15 22)",
+          "oklch(50% 0.20 22)",
+          "oklch(62% 0.22 22)",
+          "oklch(72% 0.19 22)",
+          "oklch(83% 0.13 22)",
+          "oklch(93% 0.06 22)"
+        ]
+      },
+      "bg-onyx-deep": {
+        "role": "neutral-bg",
+        "displayName": "Onyx Deep",
+        "canonical": "oklch(4% 0.003 240)",
+        "tonalRamp": [
+          "oklch(3% 0.003 240)",
+          "oklch(6% 0.005 240)",
+          "oklch(10% 0.007 240)",
+          "oklch(16% 0.008 240)",
+          "oklch(24% 0.009 240)",
+          "oklch(35% 0.009 240)",
+          "oklch(50% 0.009 240)",
+          "oklch(70% 0.008 240)"
+        ]
+      },
+      "bg-onyx": {
+        "role": "neutral-surface",
+        "displayName": "Onyx",
+        "canonical": "oklch(7% 0.005 240)",
+        "tonalRamp": [
+          "oklch(4% 0.003 240)",
+          "oklch(7% 0.005 240)",
+          "oklch(11% 0.007 240)",
+          "oklch(17% 0.008 240)",
+          "oklch(26% 0.009 240)",
+          "oklch(38% 0.009 240)",
+          "oklch(54% 0.009 240)",
+          "oklch(73% 0.008 240)"
+        ]
+      },
+      "bg-onyx-soft": {
+        "role": "neutral-elevated",
+        "displayName": "Onyx Soft",
+        "canonical": "oklch(10% 0.007 240)",
+        "tonalRamp": [
+          "oklch(5% 0.004 240)",
+          "oklch(9% 0.006 240)",
+          "oklch(13% 0.007 240)",
+          "oklch(20% 0.008 240)",
+          "oklch(30% 0.009 240)",
+          "oklch(42% 0.009 240)",
+          "oklch(58% 0.009 240)",
+          "oklch(76% 0.008 240)"
+        ]
+      },
+      "text-main": {
+        "role": "neutral-text-primary",
+        "displayName": "Pure Signal",
+        "canonical": "oklch(99.5% 0.003 220)",
+        "tonalRamp": [
+          "oklch(20% 0.005 220)",
+          "oklch(35% 0.006 220)",
+          "oklch(48% 0.007 220)",
+          "oklch(60% 0.007 220)",
+          "oklch(72% 0.006 220)",
+          "oklch(83% 0.005 220)",
+          "oklch(92% 0.004 220)",
+          "oklch(99% 0.003 220)"
+        ]
+      },
+      "text-dim": {
+        "role": "neutral-text-secondary",
+        "displayName": "Dim Signal",
+        "canonical": "oklch(77% 0.008 240)",
+        "tonalRamp": [
+          "oklch(15% 0.005 240)",
+          "oklch(28% 0.006 240)",
+          "oklch(40% 0.007 240)",
+          "oklch(52% 0.008 240)",
+          "oklch(63% 0.008 240)",
+          "oklch(74% 0.008 240)",
+          "oklch(85% 0.006 240)",
+          "oklch(94% 0.004 240)"
+        ]
+      },
+      "text-ghost": {
+        "role": "neutral-text-tertiary",
+        "displayName": "Ghost Signal",
+        "canonical": "oklch(48% 0.010 240)",
+        "tonalRamp": [
+          "oklch(10% 0.004 240)",
+          "oklch(20% 0.006 240)",
+          "oklch(30% 0.008 240)",
+          "oklch(40% 0.010 240)",
+          "oklch(50% 0.010 240)",
+          "oklch(62% 0.009 240)",
+          "oklch(76% 0.008 240)",
+          "oklch(90% 0.005 240)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Page-level identity headings. One per view maximum." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings within a view." },
+      "body": { "displayName": "Body", "purpose": "AI-generated summaries and prose content. Max 65–75ch." },
+      "label": { "displayName": "Label", "purpose": "Badges, status chips, quiz meta labels. Uppercase, tracked." }
+    },
+    "shadows": [
+      {
+        "name": "ambient-drop",
+        "value": "0 20px 50px -15px rgba(0,0,0,0.5)",
+        "purpose": "Applied to all .glass-card surfaces at rest. Structural depth."
+      },
+      {
+        "name": "plasma-glow",
+        "value": "0 0 40px -10px rgba(0,212,255,0.20)",
+        "purpose": "Hover state on interactive glass cards only. Never at rest."
+      },
+      {
+        "name": "quiz-vault",
+        "value": "0 40px 120px rgba(0,0,0,0.90)",
+        "purpose": "Quiz overlay vessel exclusively. Maximum depth for focus-mode interfaces."
+      },
+      {
+        "name": "quiz-btn-white",
+        "value": "0 10px 40px rgba(255,255,255,0.10)",
+        "purpose": "Quiz confirm button (white fill variant). Subtle lift."
+      },
+      {
+        "name": "quiz-btn-blue",
+        "value": "0 10px 40px rgba(37,99,235,0.30)",
+        "purpose": "Quiz primary action button (Cerulean/blue fill variant)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-house",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Standard easing for all transitions and entrances. Fast exit, ease into rest."
+      },
+      {
+        "name": "reveal-entrance",
+        "value": "opacity 0 -> 1, translateY(20px) -> translateY(0), duration 1s, ease-house",
+        "purpose": "Element reveal on mount. Used by .animate-reveal."
+      },
+      {
+        "name": "quiz-vessel-entrance",
+        "value": "opacity 0 -> 1, translateY(40px) scale(0.95) -> translateY(0) scale(1), duration 0.6s, ease-house",
+        "purpose": "Quiz overlay entrance animation."
+      },
+      {
+        "name": "aurora-drift",
+        "value": "translate(3vw, 5vh) rotate(3deg) scale(1.1), duration 60s, ease-in-out, infinite alternate",
+        "purpose": "Background aurora breathing. Disable with prefers-reduced-motion."
+      },
+      {
+        "name": "card-hover-lift",
+        "value": "translateY(-5px), duration 0.6s, ease-house",
+        "purpose": "Glass card hover elevation."
+      }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "768px", "purpose": "Dashboard collapses to single column. Carousel masks hidden." },
+      { "name": "quiz-stack", "value": "900px", "purpose": "Quiz vessel switches from two-column to single-column stacked layout." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Navigation and secondary actions. Near-invisible at rest, white-fill inversion on hover.",
+      "html": "<button class=\"ds-btn-primary\">Configurar Curso</button>",
+      "css": ".ds-btn-primary { background: rgba(255,255,255,0.05); color: #fafeff; border: 1px solid rgba(255,255,255,0.10); padding: 0.8rem 1.8rem; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); text-decoration: none; cursor: pointer; } .ds-btn-primary:hover { background: #fafeff; color: #020203; transform: scale(1.03); } .ds-btn-primary:focus-visible { outline: 2px solid rgba(0,212,255,0.6); outline-offset: 3px; } .ds-btn-primary:disabled { opacity: 0.2; cursor: not-allowed; }"
+    },
+    {
+      "name": "Quiz Confirm Button",
+      "kind": "button",
+      "refersTo": "button-quiz-confirm",
+      "description": "Definitive action in quiz flow. White fill, more squared than the pill — signals commitment.",
+      "html": "<button class=\"ds-btn-quiz-confirm\">Confirmar</button>",
+      "css": ".ds-btn-quiz-confirm { background: #fafeff; color: #020203; border: none; padding: 1.25rem 3rem; border-radius: 18px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.3s cubic-bezier(0.16,1,0.3,1); box-shadow: 0 10px 40px rgba(255,255,255,0.10); cursor: pointer; } .ds-btn-quiz-confirm:hover:not(:disabled) { transform: scale(1.03); background: #e8e8f0; } .ds-btn-quiz-confirm:disabled { opacity: 0.2; cursor: not-allowed; } .ds-btn-quiz-confirm:focus-visible { outline: 2px solid rgba(0,212,255,0.6); outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Deep minimal: near-invisible border at rest, Plasma glow on focus.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Email institucional\" />",
+      "css": ".ds-input { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 14px; padding: 1rem 1.25rem; color: #fafeff; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; width: 100%; transition: all 0.3s ease; } .ds-input::placeholder { color: #6d6d78; } .ds-input:focus { outline: none; border-color: rgba(0,212,255,0.5); background: rgba(255,255,255,0.04); } .ds-input:focus-visible { outline: none; }"
+    },
+    {
+      "name": "Badge: Plasma",
+      "kind": "chip",
+      "refersTo": "badge-plasma",
+      "description": "Primary category tag. Plasma tint on near-void background.",
+      "html": "<span class=\"ds-badge ds-badge-plasma\">Algoritmos</span>",
+      "css": ".ds-badge { padding: 6px 14px; border-radius: 20px; font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.02em; display: inline-flex; align-items: center; } .ds-badge-plasma { background: rgba(0,212,255,0.10); color: #00d4ff; border: 1px solid rgba(0,212,255,0.10); } .ds-badge-violet { background: rgba(163,71,255,0.10); color: #a347ff; border: 1px solid rgba(163,71,255,0.10); } .ds-badge-cerulean { background: rgba(26,140,255,0.10); color: #1a8cff; border: 1px solid rgba(26,140,255,0.10); }"
+    },
+    {
+      "name": "Glass Card",
+      "kind": "card",
+      "refersTo": null,
+      "description": "Standard dashboard container. Glass plane over the aurora void. Hover lifts and glows.",
+      "html": "<div class=\"ds-glass-card\"><p class=\"ds-glass-card__body\">Conteúdo do módulo aparece aqui.</p></div>",
+      "css": ".ds-glass-card { background: rgba(255,255,255,0.02); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 50px -15px rgba(0,0,0,0.5); padding: 2.5rem; border-radius: 24px; transition: all 0.6s cubic-bezier(0.16,1,0.3,1); position: relative; overflow: hidden; } .ds-glass-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent); } .ds-glass-card:hover { border-color: rgba(0,212,255,0.25); background: rgba(255,255,255,0.036); transform: translateY(-5px); box-shadow: 0 0 40px -10px rgba(0,212,255,0.20); } .ds-glass-card__body { color: #bcbcc2; font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.6; }"
+    },
+    {
+      "name": "Nav Button",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Circular icon button for the top user bar. Icon-only, restrained at rest.",
+      "html": "<button class=\"ds-nav-btn\" aria-label=\"Configurações\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14\"/></svg></button>",
+      "css": ".ds-nav-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; cursor: pointer; } .ds-nav-btn:hover { background: rgba(255,255,255,0.08); color: #fafeff; transform: scale(1.05); } .ds-nav-btn:focus-visible { outline: 2px solid rgba(0,212,255,0.6); outline-offset: 2px; }"
+    },
+    {
+      "name": "Quiz Option Card",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "MCQ answer card. States: default, hover, selected (Cerulean), correct (Confirm), wrong (Reject), fade.",
+      "html": "<button class=\"ds-quiz-option\" aria-pressed=\"false\"><div class=\"ds-quiz-option__marker\">A</div><span class=\"ds-quiz-option__text\">A complexidade de quicksort no pior caso é O(n²).</span></button>",
+      "css": ".ds-quiz-option { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 1.5rem; text-align: left; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); display: flex; flex-direction: column; gap: 1rem; position: relative; overflow: hidden; cursor: pointer; width: 100%; } .ds-quiz-option:hover:not(:disabled) { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); transform: translateY(-2px); } .ds-quiz-option[aria-pressed='true'], .ds-quiz-option.selected { background: rgba(26,140,255,0.10); border-color: rgba(26,140,255,0.40); box-shadow: 0 0 30px rgba(26,140,255,0.10); } .ds-quiz-option.correct { background: rgba(0,255,149,0.15); border-color: rgba(0,255,149,0.40); } .ds-quiz-option.wrong { background: rgba(255,51,51,0.15); border-color: rgba(255,51,51,0.40); } .ds-quiz-option.fade { opacity: 0.2; filter: grayscale(1); } .ds-quiz-option__marker { width: 32px; height: 32px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 800; color: rgba(255,255,255,0.4); transition: all 0.4s; } .ds-quiz-option[aria-pressed='true'] .ds-quiz-option__marker, .ds-quiz-option.selected .ds-quiz-option__marker { background: #2563eb; color: #fafeff; border-color: #2563eb; } .ds-quiz-option.correct .ds-quiz-option__marker { background: #00ff95; color: #020203; border-color: #00ff95; } .ds-quiz-option.wrong .ds-quiz-option__marker { background: #ff3333; color: #fafeff; border-color: #ff3333; } .ds-quiz-option__text { color: #bcbcc2; font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.5; }"
+    },
+    {
+      "name": "Timeline Item",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Editorial activity feed entry. Vertical line + glow dot + date label + content.",
+      "html": "<div class=\"ds-timeline-item\"><div class=\"ds-timeline-dot\"></div><div class=\"ds-timeline-date\">25 mai 2026</div><p class=\"ds-timeline-content\">Novo resumo gerado: Aula 12 — Grafos e BFS.</p></div>",
+      "css": ".ds-timeline-item { position: relative; padding-left: 3rem; padding-bottom: 2.5rem; } .ds-timeline-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, rgba(110,110,120,0.20), transparent); } .ds-timeline-dot { position: absolute; left: -4px; top: 8px; width: 9px; height: 9px; border-radius: 50%; background: #fafeff; box-shadow: 0 0 15px #fafeff; } .ds-timeline-date { font-family: 'Outfit', sans-serif; font-size: 0.75rem; font-weight: 500; color: #6d6d78; margin-bottom: 0.75rem; } .ds-timeline-content { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #bcbcc2; line-height: 1.6; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Intelligence Forge",
+    "overview": "Raw academic material enters; distilled intelligence exits. The dashboard is not the process, it is the output surface. The system has already done its work in the background, monitoring platforms, parsing documents, generating summaries. When the student opens IDP Core, the hard part is done. The interface exists to make that truth visible.\n\nThis means surfaces are restrained almost to the point of disappearance. Near-void backgrounds (lightness 1–4%) make every lit element intentional. Three precision accents — Plasma, Violet Current, Cerulean — operate as semantic signals: they mark interaction, categorization, and information, never decoration.\n\nThe system explicitly rejects two failure modes: the institutional LMS aesthetic (Moodle beige, Canvas blue, dense tables) and the crypto dashboard mode (neon on black with no restraint, purple gradients saturating every surface). High energy does not mean visual noise. Restraint is the difference between premium and chaotic.",
+    "keyCharacteristics": [
+      "Extreme dark ground: backgrounds between Onyx Deep (#020203) and Onyx Soft (#09090b)",
+      "Three-accent discipline: each color assigned one semantic role and held to it",
+      "Precision minimal: every surface earns its opacity; rest state is near-invisible",
+      "Typographic authority: Outfit at display sizes, Inter for legible body prose",
+      "Motion communicates system state, not aesthetic intent",
+      "Gamification delivered with restraint: feedback through color shift, not fanfare"
+    ],
+    "rules": [
+      {
+        "name": "The Precision Accent Rule",
+        "body": "Plasma, Violet Current, and Cerulean are semantic signals, not fills. Using any of them as a surface background, decorative border, or gradient ingredient contradicts the system. When in doubt, no accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Void Foundation Rule",
+        "body": "Backgrounds live between Onyx Deep (#020203) and Onyx Soft (#09090b). No lighter dark tones. Brightness is reserved for text and accent signals only.",
+        "section": "colors"
+      },
+      {
+        "name": "The Aurora Rule",
+        "body": "The three accents exist in the background aurora at opacity 0.03–0.08. This is their only decorative use. On any rendered surface, they are interactive or informational.",
+        "section": "colors"
+      },
+      {
+        "name": "The Display-Only Rule",
+        "body": "Outfit appears at 1.35rem and above. Below that, Inter handles everything.",
+        "section": "typography"
+      },
+      {
+        "name": "The Prose Max-Width Rule",
+        "body": "AI-generated summary text must be constrained to 65–75ch. Unconstrained prose reads as machine output; constrained prose reads as curated intelligence.",
+        "section": "typography"
+      },
+      {
+        "name": "The Glow-On-Hover Rule",
+        "body": "The Plasma glow shadow appears only on hover, never at rest. A glowing surface at rest means accent is doing decorative work it must not do.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Aurora-Or-Nothing Rule",
+        "body": "Backdrop-filter blur (40px) is justified only where the aurora gradient layer is visible underneath.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Plasma (#00d4ff) exclusively on interactive states, hover borders, input focus rings, and the single primary accent per screen.",
+      "Do set AI-generated summary prose to a max-width of 65–75ch.",
+      "Do use cubic-bezier(0.16, 1, 0.3, 1) for all entrances and state transitions.",
+      "Do honor prefers-reduced-motion: aurora animation and quiz vessel entrance must be disabled.",
+      "Do maintain WCAG 2.1 AA contrast ratios throughout.",
+      "Do treat the quiz vessel's two-panel split as the template for all focus-mode overlays.",
+      "Do animate transform and opacity only."
+    ],
+    "donts": [
+      "Don't build screens with light/white backgrounds, pastel accent buttons, or gradient-text metric cards.",
+      "Don't saturate surfaces with all three accents simultaneously as fills, borders, and backgrounds.",
+      "Don't use gradient text (background-clip: text with a gradient background).",
+      "Don't use border-left or border-right wider than 1px as a colored stripe on cards or callouts.",
+      "Don't apply backdrop-filter blur to surfaces that don't sit over the aurora gradient layer.",
+      "Don't animate quiz correct/wrong states with bounces, particles, or celebration sequences.",
+      "Don't use Outfit below 1.35rem.",
+      "Don't use Ghost Signal (#6d6d78) for body text — it fails AA contrast on Onyx Deep backgrounds."
+    ]
+  }
+}

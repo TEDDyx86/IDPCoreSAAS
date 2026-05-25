@@ -25,27 +25,25 @@ const CategoryContentOverlay: React.FC<CategoryContentOverlayProps> = ({
   onOpenResumo 
 }) => {
   return (
-    <div 
-      className="modal-overlay" 
-      style={{ 
-        zIndex: 10000,
-        backdropFilter: 'blur(var(--glass-blur))', 
-        WebkitBackdropFilter: 'blur(var(--glass-blur))' 
-      }} 
+    <div
+      className="modal-overlay"
+      style={{ zIndex: 10000 }}
       onClick={onClose}
     >
-      <div 
-        className="modal-content animate-slide-up" 
-        style={{ 
-          maxWidth: '900px', 
+      <div
+        className="modal-content animate-reveal"
+        style={{
+          maxWidth: '900px',
           width: '95%',
           maxHeight: '85vh',
           display: 'flex',
           flexDirection: 'column',
           padding: 0,
-          background: 'rgba(5, 5, 8, 0.7)',
-          overflow: 'hidden'
-        }} 
+          background: 'var(--surface-base)',
+          border: '1px solid var(--surface-border)',
+          borderRadius: 'var(--radius-md)',
+          overflow: 'hidden',
+        }}
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
