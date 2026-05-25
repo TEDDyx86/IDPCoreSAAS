@@ -63,7 +63,7 @@ const AcademicCalendar: React.FC<AcademicCalendarProps> = ({ events, loading = f
     } else if (diffDays === 1) {
       return { text: 'Amanhã!', color: '#ff7700', status: 'tomorrow' };
     } else if (diffDays > 1) {
-      return { text: `Faltam ${diffDays} dias`, color: '#00f2ff', status: 'future' };
+      return { text: `Faltam ${diffDays} dias`, color: 'hsl(var(--ch-plasma))', status: 'future' };
     } else {
       return { text: `Ocorreu há ${Math.abs(diffDays)} dias`, color: '#888888', status: 'past' };
     }
@@ -108,7 +108,7 @@ const AcademicCalendar: React.FC<AcademicCalendarProps> = ({ events, loading = f
               opacity: isPast ? 0.65 : 1
             }}
           >
-            <div className="timeline-dot" style={{ background: isPast ? '#444' : '#00f2ff' }} />
+            <div className="timeline-dot" style={{ background: isPast ? 'oklch(26% 0.005 240)' : 'hsl(var(--ch-plasma))' }} />
             
             <div className="timeline-date">
               <Clock size={12} opacity={0.5} />
@@ -119,11 +119,11 @@ const AcademicCalendar: React.FC<AcademicCalendarProps> = ({ events, loading = f
               })}
             </div>
             
-            <div 
-              className="glass glass-card glass-hover" 
-              style={{ 
+            <div
+              className="glass glass-card glass-hover"
+              style={{
                 padding: '2rem',
-                borderLeft: isPast ? '1px solid rgba(255,255,255,0.05)' : `3px solid ${diasColor}`
+                borderColor: isPast ? 'var(--border)' : 'hsla(var(--ch-plasma), 0.18)'
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1.5rem' }}>
@@ -158,7 +158,7 @@ const AcademicCalendar: React.FC<AcademicCalendarProps> = ({ events, loading = f
                   background: 'rgba(255,255,255,0.02)',
                   padding: '0.4rem 0.8rem',
                   borderRadius: '8px',
-                  border: `1px solid ${isPast ? 'rgba(255,255,255,0.05)' : 'rgba(0,242,255,0.08)'}`,
+                  border: `1px solid ${isPast ? 'rgba(255,255,255,0.05)' : 'hsla(var(--ch-plasma), 0.08)'}`,
                   whiteSpace: 'nowrap'
                 }}>
                   {isPast ? <CheckCircle size={14} opacity={0.6} /> : <AlertCircle size={14} />}

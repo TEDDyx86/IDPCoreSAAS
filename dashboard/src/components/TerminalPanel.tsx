@@ -33,7 +33,7 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
       case 'PROVA':
         return '#ff5f56'; // Vermelho
       case 'TRABALHO':
-        return '#00f2ff'; // Ciano
+        return 'hsl(var(--ch-plasma))';
       case 'APRESENTACAO':
         return '#bd56ff'; // Roxo
       case 'ATIVIDADE':
@@ -73,7 +73,7 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
     } else if (diffDays === 1) {
       return { text: 'Amanhã', color: '#ff7700', status: 'tomorrow' };
     } else if (diffDays > 1) {
-      return { text: `${diffDays}d`, color: '#00f2ff', status: 'future' };
+      return { text: `${diffDays}d`, color: 'hsl(var(--ch-plasma))', status: 'future' };
     } else {
       return { text: 'OK', color: 'rgba(255,255,255,0.2)', status: 'past' };
     }
@@ -251,7 +251,7 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
           <BookOpen size={12} style={{ opacity: 0.4 }} /> ACADEMIC ENGINE
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.6rem', fontWeight: 600, color: 'rgba(255,255,255,0.4)' }} className="font-display">
-          <Layers size={12} style={{ opacity: 1, color: '#00f2ff' }} /> COMPACT VIEW
+          <Layers size={12} style={{ opacity: 1, color: 'hsl(var(--ch-plasma))' }} /> COMPACT VIEW
         </div>
       </div>
     </div>
