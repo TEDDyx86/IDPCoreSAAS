@@ -92,12 +92,10 @@ def resumir_com_groq(titulo, disciplina, texto_extra=""):
             conteudo=texto_extra[:20000] # Expandido para 20k tokens
         )
 
-        # Modelo atualizado para llama-3.3-70b-versatile (mais estável e potente)
         completion = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7,
-            response_format={"type": "json_object"}
         )
         return limpar_json_ia(completion.choices[0].message.content)
     except Exception as e:
@@ -127,7 +125,7 @@ def resumir_com_openrouter(titulo, disciplina, texto_extra=""):
                 "X-Title": "Onyx Academic Mentor",
             },
             data=json.dumps({
-                "model": "meta-llama/llama-3-70b-instruct", # Escolha robusta
+                "model": "meta-llama/llama-3.1-8b-instruct:free",
                 "messages": [{"role": "user", "content": prompt}],
                 "temperature": 0.7
             })
