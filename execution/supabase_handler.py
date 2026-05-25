@@ -113,6 +113,14 @@ class SupabaseHandler:
         except Exception:
             pass
 
+    def delete_cached_summary(self, content_hash: str):
+        """Remove entrada inválida do cache para permitir regeneração."""
+        try:
+            url = f"{self.base_url}/ai_summaries_cache?content_hash=eq.{content_hash}"
+            requests.delete(url, headers=self.headers)
+        except Exception:
+            pass
+
     def save_calendar_events(self, user_id, disciplina, events):
         """Limpa eventos antigos daquela disciplina e insere os novos extraídos no Supabase"""
         print(f"   [DB] Atualizando calendário acadêmico para: {disciplina}...")

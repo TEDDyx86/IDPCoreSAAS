@@ -310,12 +310,16 @@ def run_orchestrator():
                         contexto_ia = item.get('body_content', "")
                         content_hash = gerar_content_hash(item['titulo'], item['disciplina'], contexto_ia)
 
+                        _ERROS_CACHE = {"ERRO CRÍTICO", "ERRO CRITICO", "ERRO NO PROCESSAMENTO DA IA", "FALHA AO GERAR RESUMO"}
                         cached = handler.get_cached_summary(content_hash)
-                        if cached:
+                        if cached and not any(kw in (cached.get("resumo") or "").upper() for kw in _ERROS_CACHE):
                             print(f"   [CACHE HIT] Espelhando resumo para: {item['titulo']}")
                             resumo_final = cached["resumo"]
                             quiz_final   = cached["quiz"]
                         else:
+                            if cached:
+                                print(f"   [CACHE INVÁLIDO] Erro detectado no cache — removendo e regenerando: {item['titulo']}")
+                                handler.delete_cached_summary(content_hash)
                             raw_res, model_used = resumir_item_premium(
                                 item['titulo'], item['disciplina'], texto_extra=contexto_ia
                             )
