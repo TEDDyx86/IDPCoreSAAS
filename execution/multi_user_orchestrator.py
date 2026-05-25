@@ -134,10 +134,12 @@ def run_orchestrator():
                 # - Está vazio
                 is_regen_solicitada = "[REGENERAÇÃO SOLICITADA]" in resumo_atual.upper()
                 is_falha_detectada = any(msg in resumo_atual.upper() for msg in [
-                    "ERRO NO PROCESSAMENTO DA IA", 
-                    "FALHA AO GERAR RESUMO", 
+                    "ERRO NO PROCESSAMENTO DA IA",
+                    "FALHA AO GERAR RESUMO",
                     "JSON INVÁLIDO",
-                    "NENHUMA IA CONFIGURADA"
+                    "NENHUMA IA CONFIGURADA",
+                    "ERRO CRÍTICO",
+                    "ERRO CRITICO",
                 ])
                 is_muito_curto = len(resumo_atual.strip()) < 150 and not is_novo
                 
@@ -326,15 +328,20 @@ def run_orchestrator():
                                 resumo_final = "Erro no processamento da IA. (JSON Inválido)"
                                 quiz_final   = []
 
-                            handler.save_cached_summary(
-                                content_hash=content_hash,
-                                titulo=item['titulo'],
-                                disciplina=item['disciplina'],
-                                resumo=resumo_final,
-                                quiz=quiz_final,
-                                model_used=model_used,
-                            )
-                            print(f"   [CACHE MISS] Gerado via {model_used}.")
+                            _ERROS_IA = {"ERRO CRÍTICO", "ERRO CRITICO", "ERRO NO PROCESSAMENTO DA IA", "FALHA AO GERAR RESUMO"}
+                            resumo_valido = resumo_final and not any(kw in resumo_final.upper() for kw in _ERROS_IA)
+                            if resumo_valido:
+                                handler.save_cached_summary(
+                                    content_hash=content_hash,
+                                    titulo=item['titulo'],
+                                    disciplina=item['disciplina'],
+                                    resumo=resumo_final,
+                                    quiz=quiz_final,
+                                    model_used=model_used,
+                                )
+                                print(f"   [CACHE MISS] Gerado via {model_used}.")
+                            else:
+                                print(f"   [CACHE SKIP] Resumo com erro — não cacheado para outros usuários.")
                             print(f"   [...] Aguardando {DELAY_BETWEEN_ITEMS}s (rate limit)...")
                             time.sleep(DELAY_BETWEEN_ITEMS)
 
