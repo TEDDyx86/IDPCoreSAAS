@@ -145,8 +145,8 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
                       <div style={{ fontSize: '1.05rem', fontWeight: 500, color: isSelected || isCorrect ? 'white' : 'rgba(255,255,255,0.7)', transition: 'color 0.4s' }}>
                         {option}
                       </div>
-                      {isCorrect && <CheckCircle2 size={18} color="#22c55e" style={{ position: 'absolute', top: '1.5rem', right: '1.5rem' }} />}
-                      {isWrong && <XCircle size={18} color="#ef4444" style={{ position: 'absolute', top: '1.5rem', right: '1.5rem' }} />}
+                      {isCorrect && <CheckCircle2 size={18} style={{ color: 'hsl(var(--ch-confirm))', position: 'absolute', top: '1.5rem', right: '1.5rem' }} />}
+                      {isWrong && <XCircle size={18} style={{ color: 'hsl(var(--ch-reject))', position: 'absolute', top: '1.5rem', right: '1.5rem' }} />}
                     </button>
                   );
                 })}
@@ -177,7 +177,7 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
                     <Trophy size={60} style={{ color: 'hsl(var(--accent-blue))' }} />
                   </div>
                   <div style={{ position: 'absolute', bottom: '-10px', right: '-10px', background: 'oklch(8% 0.006 240)', padding: '8px', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.08)' }}>
-                     <Star size={24} color="#facc15" fill="#facc15" />
+                     <Star size={24} color="hsl(var(--ch-ember))" fill="hsl(var(--ch-ember))" />
                   </div>
                </div>
 

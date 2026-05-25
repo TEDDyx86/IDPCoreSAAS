@@ -30,16 +30,11 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
 
   const getTipoColor = (tipo: string) => {
     switch (tipo) {
-      case 'PROVA':
-        return '#ff5f56'; // Vermelho
-      case 'TRABALHO':
-        return 'hsl(var(--ch-plasma))';
-      case 'APRESENTACAO':
-        return '#bd56ff'; // Roxo
-      case 'ATIVIDADE':
-        return '#ffbd2e'; // Amarelo
-      default:
-        return '#888888'; // Cinza
+      case 'PROVA':        return 'hsl(var(--ch-reject))';
+      case 'TRABALHO':     return 'hsl(var(--ch-plasma))';
+      case 'APRESENTACAO': return 'hsl(var(--ch-ember))';
+      case 'ATIVIDADE':    return 'hsl(var(--ch-ember))';
+      default:             return 'hsl(var(--ch-t2))';
     }
   };
 
@@ -69,13 +64,13 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
     if (diffDays === 0) {
-      return { text: 'Hoje!', color: '#ffbd2e', status: 'today' };
+      return { text: 'Hoje!', color: 'hsl(var(--ch-reject))', status: 'today' };
     } else if (diffDays === 1) {
-      return { text: 'Amanhã', color: '#ff7700', status: 'tomorrow' };
+      return { text: 'Amanhã', color: 'hsl(var(--ch-ember))', status: 'tomorrow' };
     } else if (diffDays > 1) {
       return { text: `${diffDays}d`, color: 'hsl(var(--ch-plasma))', status: 'future' };
     } else {
-      return { text: 'OK', color: 'rgba(255,255,255,0.2)', status: 'past' };
+      return { text: 'OK', color: 'rgba(255,255,255,0.15)', status: 'past' };
     }
   };
 
@@ -170,7 +165,7 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
                   background: isPast ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.04)',
                   border: `1px solid ${isPast ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.1)'}`,
                 }}>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, fontFamily: 'var(--font-display)', color: isPast ? '#666' : 'white' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, fontFamily: 'var(--font-display)', color: isPast ? 'hsl(var(--ch-t2))' : 'hsl(var(--ch-t0))' }}>
                     {dataFormatada.split('/')[0]}
                   </span>
                   <span style={{ fontSize: '0.55rem', opacity: 0.5, marginTop: '-2px', textTransform: 'uppercase' }}>
@@ -206,7 +201,7 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
                     fontSize: '0.75rem', 
                     fontWeight: 600, 
                     margin: 0, 
-                    color: isPast ? '#888' : 'white',
+                    color: isPast ? 'hsl(var(--ch-t2))' : 'hsl(var(--ch-t0))',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',

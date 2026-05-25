@@ -14,11 +14,14 @@
   --shimmer:         rgba(255, 255, 255, 0.08);
 
   /* Accent channels (HSL — for hsla() usage) */
-  --ch-plasma:    190 100% 50%;
-  --ch-violet:    270 100% 64%;
-  --ch-cerulean:  210 100% 55%;
-  --ch-confirm:   155 100% 50%;
-  --ch-reject:      0 100% 60%;
+  --ch-plasma:    196 100% 48%;   /* blue-cyan: precision instrument, deeper than neon */
+  --ch-ember:      38  90% 58%;  /* amber: urgency, deadlines, time-critical states */
+  --ch-confirm:   148  80% 46%;  /* emerald: success, correct */
+  --ch-reject:      3  88% 58%;  /* rose-red: error, wrong */
+
+  /* Legacy channel aliases — components that reference these get remapped */
+  --ch-violet:    var(--ch-ember);    /* violet role → ember (urgency) */
+  --ch-cerulean:  var(--ch-plasma);   /* cerulean role → plasma (primary) */
 
   /* Text channels */
   --ch-t0: 210  5% 98%;
@@ -92,9 +95,9 @@ body::before {
   position: fixed;
   inset: -100px;
   background:
-    radial-gradient(circle at 15% 15%, hsla(var(--ch-cerulean), 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 85% 85%, hsla(var(--ch-violet),   0.06) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, hsla(var(--ch-plasma),   0.03) 0%, transparent 60%);
+    radial-gradient(circle at 20% 15%, hsla(var(--ch-plasma), 0.11) 0%, transparent 50%),
+    radial-gradient(circle at 82% 82%, hsla(var(--ch-ember),  0.08) 0%, transparent 48%),
+    radial-gradient(circle at 50% 50%, hsla(var(--ch-plasma), 0.04) 0%, transparent 55%);
   filter: blur(120px);
   z-index: -2;
   animation: aurora-drift 60s ease-in-out infinite alternate;
@@ -326,19 +329,46 @@ input:focus {
 }
 
 .badge-cyan {
-  background: hsla(var(--ch-plasma),   0.1);
+  background: hsla(var(--ch-plasma), 0.1);
   color:      hsl(var(--ch-plasma));
-  border: 1px solid hsla(var(--ch-plasma),   0.1);
+  border: 1px solid hsla(var(--ch-plasma), 0.12);
 }
-.badge-purple {
-  background: hsla(var(--ch-violet),   0.1);
-  color:      hsl(var(--ch-violet));
-  border: 1px solid hsla(var(--ch-violet),   0.1);
+
+/* Discipline / category labels: neutral — no accent color competes with plasma */
+.badge-purple,
+.badge-neutral {
+  background: var(--surface-2);
+  color:      hsl(var(--ch-t1));
+  border: 1px solid var(--border-hi);
 }
+
+/* Urgency / deadline proximity */
+.badge-amber,
+.badge-yellow {
+  background: hsla(var(--ch-ember), 0.1);
+  color:      hsl(var(--ch-ember));
+  border: 1px solid hsla(var(--ch-ember), 0.12);
+}
+
+/* Danger / high-stakes events */
+.badge-red {
+  background: hsla(var(--ch-reject), 0.1);
+  color:      hsl(var(--ch-reject));
+  border: 1px solid hsla(var(--ch-reject), 0.12);
+}
+
+/* Informational — maps to plasma */
 .badge-blue {
-  background: hsla(var(--ch-cerulean), 0.1);
-  color:      hsl(var(--ch-cerulean));
-  border: 1px solid hsla(var(--ch-cerulean), 0.1);
+  background: hsla(var(--ch-plasma), 0.08);
+  color:      hsl(var(--ch-plasma));
+  border: 1px solid hsla(var(--ch-plasma), 0.1);
+}
+
+/* Unknown / default */
+.badge-gray {
+  background: rgba(255, 255, 255, 0.04);
+  color:      hsl(var(--ch-t2));
+  border: 1px solid var(--border);
 }
 
 /* Nav buttons */

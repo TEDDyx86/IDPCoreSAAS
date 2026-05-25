@@ -59,13 +59,13 @@ const AcademicCalendar: React.FC<AcademicCalendarProps> = ({ events, loading = f
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
     if (diffDays === 0) {
-      return { text: 'Ocorre Hoje! ⚠️', color: '#ffcc00', status: 'today' };
+      return { text: 'Ocorre Hoje!', color: 'hsl(var(--ch-reject))', status: 'today' };
     } else if (diffDays === 1) {
-      return { text: 'Amanhã!', color: '#ff7700', status: 'tomorrow' };
+      return { text: 'Amanhã!', color: 'hsl(var(--ch-ember))', status: 'tomorrow' };
     } else if (diffDays > 1) {
       return { text: `Faltam ${diffDays} dias`, color: 'hsl(var(--ch-plasma))', status: 'future' };
     } else {
-      return { text: `Ocorreu há ${Math.abs(diffDays)} dias`, color: '#888888', status: 'past' };
+      return { text: `Ocorreu há ${Math.abs(diffDays)} dias`, color: 'rgba(255,255,255,0.25)', status: 'past' };
     }
   };
 
@@ -141,7 +141,7 @@ const AcademicCalendar: React.FC<AcademicCalendarProps> = ({ events, loading = f
                     fontWeight: 600, 
                     margin: 0, 
                     lineHeight: '1.3',
-                    color: isPast ? '#aaaaaa' : 'white'
+                    color: isPast ? 'hsl(var(--ch-t2))' : 'hsl(var(--ch-t0))'
                   }}>
                     {event.titulo}
                   </h3>
