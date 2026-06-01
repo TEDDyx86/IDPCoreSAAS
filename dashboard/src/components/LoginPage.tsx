@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { LogIn, UserPlus, Mail, Lock, ShieldCheck } from 'lucide-react';
-import logo from '../assets/logo.png';
+import Logo from './Logo';
 
 const LoginPage: React.FC = () => {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -39,17 +39,13 @@ const LoginPage: React.FC = () => {
     <div className="login-container">
       <div className="login-card animate-reveal">
         <div className="login-header">
-          <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'center' }}>
-            <img
-              src={logo}
-              alt="IDP Core Logo"
-              style={{ width: '180px', height: 'auto', filter: 'drop-shadow(0 0 40px rgba(255,255,255,0.08))' }}
-            />
+          <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'center' }}>
+            <Logo size={64} />
           </div>
-          <h1 className="font-display" style={{ fontSize: '1.8rem', fontWeight: 700, marginBottom: '0.4rem', color: 'white' }}>
-            IDP CORE
+          <h1 className="font-display" style={{ fontSize: '1.8rem', fontWeight: 700, marginBottom: '0.4rem' }}>
+            IDP Core
           </h1>
-          <p className="font-display" style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.2em', fontWeight: 600 }}>
+          <p className="font-display text-ghost" style={{ fontSize: '0.75rem', letterSpacing: '0.2em', fontWeight: 600 }}>
             ACADEMIC INTELLIGENCE GATEWAY
           </p>
         </div>
@@ -57,28 +53,28 @@ const LoginPage: React.FC = () => {
         <form onSubmit={handleAuth} className="login-form">
           <div>
             <div className="field-wrap">
-              <Mail size={18} style={{ color: 'rgba(255,255,255,0.25)', marginRight: '1rem', flexShrink: 0 }} />
+              <Mail size={18} style={{ color: 'hsl(var(--ch-t2))', marginRight: '1rem', flexShrink: 0 }} />
               <input
                 type="email"
                 placeholder="ID Acadêmico"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                style={{ background: 'none', border: 'none', color: 'white', fontSize: '1rem', outline: 'none', width: '100%' }}
+                style={{ background: 'none', border: 'none', color: 'hsl(var(--ch-t0))', fontSize: '1rem', outline: 'none', width: '100%' }}
               />
             </div>
           </div>
 
           <div>
             <div className="field-wrap">
-              <Lock size={18} style={{ color: 'rgba(255,255,255,0.25)', marginRight: '1rem', flexShrink: 0 }} />
+              <Lock size={18} style={{ color: 'hsl(var(--ch-t2))', marginRight: '1rem', flexShrink: 0 }} />
               <input
                 type="password"
                 placeholder="Chave de Acesso"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                style={{ background: 'none', border: 'none', color: 'white', fontSize: '1rem', outline: 'none', width: '100%' }}
+                style={{ background: 'none', border: 'none', color: 'hsl(var(--ch-t0))', fontSize: '1rem', outline: 'none', width: '100%' }}
               />
             </div>
           </div>
@@ -120,8 +116,7 @@ const LoginPage: React.FC = () => {
               cursor: 'pointer',
               fontSize: '0.8rem',
               fontWeight: 500,
-              opacity: 0.4,
-              color: 'white',
+              color: 'hsl(var(--ch-t1))',
             }}
             onClick={() => setIsRegistering(!isRegistering)}
           >

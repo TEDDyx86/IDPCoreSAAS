@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { LayoutGrid, ListTodo, LogOut, Settings as SettingsIcon, X, Bell } from 'lucide-react';
-import logo from './assets/logo.png';
+import Logo from './components/Logo';
 import { useAuth } from './context/AuthContext';
 import { supabase } from './lib/supabaseClient';
 
@@ -162,14 +162,9 @@ const App: React.FC = () => {
   if (authLoading || (user && hasConfig === null)) {
     return (
       <div className="login-container">
-        <div className="animate-fade" style={{ textAlign: 'center' }}>
-          <img 
-            src={logo} 
-            alt="Logo" 
-            style={{ width: '80px', height: 'auto', marginBottom: '1.5rem', filter: 'drop-shadow(0 0 15px rgba(0,242,255,0.2))' }} 
-            className="pulse-animation" 
-          />
-          <p className="font-display" style={{ letterSpacing: '0.2em', fontSize: '0.8rem', opacity: 0.6 }}>Sincronizando Monitor...</p>
+        <div className="animate-fade" style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Logo size={72} className="pulse-animation" style={{ marginBottom: '1.5rem' }} />
+          <p className="font-display text-dim" style={{ letterSpacing: '0.2em', fontSize: '0.8rem' }}>Sincronizando Monitor...</p>
         </div>
       </div>
     );
@@ -194,8 +189,8 @@ const App: React.FC = () => {
         className="user-nav animate-reveal"
         style={{ justifyContent: 'space-between', paddingTop: '0.5rem', paddingBottom: '0.5rem', marginBottom: '2.5rem' }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          <img src={logo} alt="IDP Core" style={{ height: '44px', width: 'auto' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+          <Logo withWordmark size={30} />
           <div className="badge badge-cyan" style={{ fontSize: '0.62rem', fontWeight: 700, gap: '0.5rem' }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'currentColor', display: 'inline-block' }} />
             IDP CORE ACTIVE
@@ -331,8 +326,8 @@ const App: React.FC = () => {
           textAlign: 'center',
         }}
       >
-        <img src={logo} alt="" style={{ height: '28px', opacity: 0.15, marginBottom: '1.5rem', filter: 'grayscale(1)' }} />
-        <p style={{ fontSize: '0.65rem', opacity: 0.25, letterSpacing: '0.2em', fontFamily: 'var(--font-display)', fontWeight: 600 }}>
+        <Logo size={22} tone="muted" style={{ opacity: 0.55, marginBottom: '1.25rem' }} />
+        <p className="text-ghost" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', fontFamily: 'var(--font-display)', fontWeight: 600 }}>
           IDP CORE V3.0 · ACADEMIC INTELLIGENCE MONITOR
         </p>
       </footer>

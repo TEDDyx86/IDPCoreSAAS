@@ -107,12 +107,10 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
         position: 'fixed',
         inset: 0,
         zIndex: 20000,
-        background: 'rgba(3, 3, 4, 0.88)',
-        backdropFilter: 'blur(var(--overlay-blur))',
-        WebkitBackdropFilter: 'blur(var(--overlay-blur))',
+        background: 'var(--bg)',
         display: 'flex',
         flexDirection: 'column',
-        color: 'white',
+        color: 'hsl(var(--ch-t0))',
       }}
     >
       {/* Premium Navigation Header */}
@@ -121,9 +119,10 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'space-between',
-        background: 'rgba(5,5,5,0.8)',
+        background: 'rgba(255,255,255,0.85)',
         backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255,255,255,0.03)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderBottom: '1px solid var(--border)',
         zIndex: 10
       }}>
         <button 
@@ -139,14 +138,11 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
            <div className="badge badge-purple" style={{ padding: '0.6rem 1.2rem', fontSize: '0.7rem' }}>
             <Sparkles size={14} /> ONYX INTELLIGENCE
           </div>
-          <button className="nav-btn-text" style={{ padding: '0.5rem', opacity: 0.4 }}>
+          <button className="nav-btn-text" style={{ padding: '0.5rem', opacity: 0.6 }}>
             <Share2 size={18} />
           </button>
-          <button 
-            onClick={onClose}
-            className="p-2 hover:bg-white/5 rounded-full transition-colors ml-2"
-          >
-            <X size={24} className="text-white/60" />
+          <button onClick={onClose} className="nav-btn" aria-label="Fechar" style={{ marginLeft: '0.25rem' }}>
+            <X size={20} />
           </button>
         </div>
       </nav>
@@ -176,7 +172,7 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
               lineHeight: '1.05', 
               letterSpacing: '-0.03em',
               marginBottom: '2.5rem',
-              color: 'white'
+              color: 'hsl(var(--ch-t0))'
             }}>
               {item.titulo}
             </h1>
@@ -184,8 +180,8 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
             <div style={{ 
               display: 'flex', 
               justifyContent: 'center', 
-              gap: '2.5rem', 
-              color: 'rgba(255,255,255,0.3)',
+              gap: '2.5rem',
+              color: 'hsl(var(--ch-t2))',
               fontSize: '0.85rem'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
@@ -202,12 +198,12 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
           {/* Reading Section */}
           <article
             className="glass glass-card"
-            style={{ padding: '4rem', borderRadius: '40px', marginBottom: '4rem' }}
+            style={{ padding: '4rem', borderRadius: 'var(--radius-lg)', marginBottom: '4rem' }}
           >
-            <div style={{ 
-              fontSize: '1.25rem', 
-              lineHeight: '1.9', 
-              color: 'rgba(255,255,255,0.8)',
+            <div style={{
+              fontSize: '1.25rem',
+              lineHeight: '1.9',
+              color: 'hsl(var(--ch-t1))',
               fontWeight: 400,
               letterSpacing: '-0.01em'
             }}>
@@ -228,9 +224,9 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
               style={{
                 margin: '0 0 6rem',
                 padding: '4rem',
-                borderRadius: '40px',
-                background: 'var(--surface-base)',
-                border: '1px solid hsla(var(--accent-blue), 0.12)',
+                borderRadius: 'var(--radius-lg)',
+                background: 'var(--surface-2)',
+                border: '1px solid hsla(var(--accent-blue), 0.18)',
                 textAlign: 'center',
               }}
             >
@@ -250,7 +246,7 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
                 <BrainCircuit size={32} />
               </div>
               <h3 className="font-display" style={{ fontSize: '2rem', fontWeight: 600, marginBottom: '1rem' }}>Pronto para o Desafio?</h3>
-              <p style={{ color: 'rgba(255,255,255,0.4)', maxWidth: '400px', margin: '0 auto 2.5rem' }}>
+              <p style={{ color: 'hsl(var(--ch-t2))', maxWidth: '400px', margin: '0 auto 2.5rem' }}>
                 Teste sua compreensão sobre os temas abordados com um questionário interativo exclusivo.
               </p>
               <button
@@ -293,9 +289,10 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
                   gap: '1rem',
                   padding: '1rem 2.5rem',
                   fontSize: '0.9rem',
-                  background: success ? 'hsl(var(--success))' : 'rgba(255,255,255,0.05)',
-                  color: success ? '#000' : 'white',
-                  border: success ? 'none' : '1px solid rgba(255,255,255,0.1)',
+                  background: success ? 'hsl(var(--success))' : 'var(--surface-2)',
+                  color: success ? '#fff' : 'hsl(var(--ch-t1))',
+                  border: success ? 'none' : '1px solid var(--border)',
+                  boxShadow: 'none',
                 }}
               >
                 {isRegenerating ? (
@@ -315,7 +312,7 @@ const LessonDetailOverlay: React.FC<LessonDetailOverlayProps> = ({ item, onClose
             )}
           </div>
 
-          <footer style={{ borderTop: '1px solid rgba(255,255,255,0.03)', paddingTop: '3rem', textAlign: 'center', opacity: 0.2 }}>
+          <footer className="text-ghost" style={{ borderTop: '1px solid var(--border)', paddingTop: '3rem', textAlign: 'center', opacity: 0.6 }}>
             <p className="font-display" style={{ fontSize: '0.65rem', letterSpacing: '0.3em', lineHeight: '2' }}>
               ONYX ACADEMIC MONITOR • HIGH-FIDELITY LEARNING INTERFACE<br/>
               ESTE CONTEÚDO FOI GERADO POR INTELIGÊNCIA ARTIFICIAL.

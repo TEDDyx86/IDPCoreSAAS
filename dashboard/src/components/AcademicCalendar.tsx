@@ -65,7 +65,7 @@ const AcademicCalendar: React.FC<AcademicCalendarProps> = ({ events, loading = f
     } else if (diffDays > 1) {
       return { text: `Faltam ${diffDays} dias`, color: 'hsl(var(--ch-plasma))', status: 'future' };
     } else {
-      return { text: `Ocorreu há ${Math.abs(diffDays)} dias`, color: 'rgba(255,255,255,0.25)', status: 'past' };
+      return { text: `Ocorreu há ${Math.abs(diffDays)} dias`, color: 'hsl(var(--ch-t2))', status: 'past' };
     }
   };
 
@@ -108,7 +108,7 @@ const AcademicCalendar: React.FC<AcademicCalendarProps> = ({ events, loading = f
               opacity: isPast ? 0.65 : 1
             }}
           >
-            <div className="timeline-dot" style={{ background: isPast ? 'oklch(26% 0.005 240)' : 'hsl(var(--ch-plasma))' }} />
+            <div className="timeline-dot" style={{ background: isPast ? 'hsl(var(--ch-t2))' : 'hsl(var(--ch-plasma))', boxShadow: isPast ? 'none' : undefined }} />
             
             <div className="timeline-date">
               <Clock size={12} opacity={0.5} />
@@ -130,7 +130,7 @@ const AcademicCalendar: React.FC<AcademicCalendarProps> = ({ events, loading = f
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
                     <span className="badge badge-purple" style={{ fontSize: '0.65rem' }}>{event.disciplina}</span>
-                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)' }} />
+                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--border-hi)' }} />
                     <span className={`badge ${getBadgeClass(event.tipo)}`} style={{ fontSize: '0.65rem' }}>
                       {getTipoLabel(event.tipo)}
                     </span>
@@ -155,10 +155,10 @@ const AcademicCalendar: React.FC<AcademicCalendarProps> = ({ events, loading = f
                   fontWeight: 700,
                   fontFamily: 'var(--font-display)',
                   color: diasColor,
-                  background: 'rgba(255,255,255,0.02)',
+                  background: 'var(--surface-2)',
                   padding: '0.4rem 0.8rem',
                   borderRadius: '8px',
-                  border: `1px solid ${isPast ? 'rgba(255,255,255,0.05)' : 'hsla(var(--ch-plasma), 0.08)'}`,
+                  border: `1px solid ${isPast ? 'var(--border)' : 'hsla(var(--ch-plasma), 0.18)'}`,
                   whiteSpace: 'nowrap'
                 }}>
                   {isPast ? <CheckCircle size={14} opacity={0.6} /> : <AlertCircle size={14} />}

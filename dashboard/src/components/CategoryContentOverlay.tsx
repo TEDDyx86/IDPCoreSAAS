@@ -48,12 +48,12 @@ const CategoryContentOverlay: React.FC<CategoryContentOverlayProps> = ({
       >
         {/* Header */}
         <div style={{ 
-          padding: '2rem 2.5rem', 
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          padding: '2rem 2.5rem',
+          borderBottom: '1px solid var(--border)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          background: 'linear-gradient(to right, rgba(16, 185, 129, 0.05), transparent)'
+          background: 'linear-gradient(to right, hsla(var(--ch-plasma), 0.06), transparent)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
             <div className="badge badge-cyan" style={{ padding: '0.8rem' }}>
@@ -62,8 +62,8 @@ const CategoryContentOverlay: React.FC<CategoryContentOverlayProps> = ({
             <div>
               <h2 className="font-display" style={{ 
                 fontSize: '1.75rem', 
-                fontWeight: 700, 
-                color: 'white',
+                fontWeight: 700,
+                color: 'hsl(var(--ch-t0))',
                 margin: 0,
                 letterSpacing: '-0.02em'
               }}>
@@ -80,14 +80,14 @@ const CategoryContentOverlay: React.FC<CategoryContentOverlayProps> = ({
             style={{ 
               width: '45px', 
               height: '45px', 
-              borderRadius: '50%', 
-              background: 'rgba(255,255,255,0.03)',
+              borderRadius: '50%',
+              background: 'var(--surface-2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: 'none',
+              border: '1px solid var(--border)',
               cursor: 'pointer',
-              color: 'white',
+              color: 'hsl(var(--ch-t1))',
               transition: 'all 0.3s'
             }}
           >
@@ -101,7 +101,7 @@ const CategoryContentOverlay: React.FC<CategoryContentOverlayProps> = ({
           overflowY: 'auto',
           flex: 1,
           scrollbarWidth: 'thin',
-          scrollbarColor: 'rgba(255,255,255,0.1) transparent'
+          scrollbarColor: 'rgba(15,23,42,0.18) transparent'
         }}>
           <ActivityTimeline items={items} onOpenResumo={onOpenResumo} />
           
@@ -126,9 +126,9 @@ const CategoryContentOverlay: React.FC<CategoryContentOverlayProps> = ({
 
         {/* Footer */}
         <div style={{ 
-          padding: '1.5rem 2.5rem', 
-          background: 'rgba(0,0,0,0.2)',
-          borderTop: '1px solid rgba(255,255,255,0.04)',
+          padding: '1.5rem 2.5rem',
+          background: 'var(--surface-2)',
+          borderTop: '1px solid var(--border)',
           display: 'flex',
           justifyContent: 'center'
         }}>

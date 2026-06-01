@@ -76,13 +76,13 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
               </div>
               <div>
                 <div className="quiz-meta-label">AVALIAÇÃO</div>
-                <div style={{ color: 'white', fontWeight: 700, fontSplit: '0.9' }}>Onyx Ultra</div>
+                <div style={{ color: 'hsl(var(--ch-t0))', fontWeight: 700 }}>Onyx Ultra</div>
               </div>
             </div>
 
             <div style={{ marginBottom: '2rem' }}>
               <div className="quiz-meta-label">PROGRESSO</div>
-              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'white', fontFamily: 'Outfit', marginTop: '0.4rem' }}>
+              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'hsl(var(--ch-t0))', fontFamily: 'var(--font-display)', marginTop: '0.4rem' }}>
                 {String(isFinished ? quiz.length : currentStep + 1).padStart(2, '0')}
                 <span style={{ opacity: 0.2, fontSize: '1rem', marginLeft: '0.5rem' }}>/ {quiz.length}</span>
               </div>
@@ -97,16 +97,16 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
                     flex: 1, 
                     borderRadius: '10px',
                     transition: 'all 0.6s',
-                    background: idx < currentStep ? 'hsl(var(--accent-blue))' : idx === currentStep ? 'white' : 'rgba(255,255,255,0.1)'
-                  }} 
+                    background: idx < currentStep ? 'hsl(var(--accent-blue))' : idx === currentStep ? 'hsl(var(--ch-t0))' : 'var(--surface-3)'
+                  }}
                 />
               ))}
             </div>
           </div>
 
-          <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.05)' }}>
-            <div className="quiz-meta-label" style={{ opacity: 0.4 }}>Módulo Ativo</div>
-            <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)', fontStyle: 'italic', lineHeight: '1.4' }}>
+          <div style={{ padding: '1.5rem', background: 'var(--surface-1)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}>
+            <div className="quiz-meta-label" style={{ opacity: 0.7 }}>Módulo Ativo</div>
+            <div style={{ fontSize: '0.75rem', color: 'hsl(var(--ch-t1))', fontStyle: 'italic', lineHeight: '1.4' }}>
               {title}
             </div>
           </div>
@@ -121,7 +121,7 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
           {!isFinished ? (
             <div style={{ opacity: appearIn ? 1 : 0, transform: appearIn ? 'translateY(0)' : 'translateY(20px)', transition: 'all 0.6s', display: 'flex', flexDirection: 'column', height: '100%' }}>
               <div style={{ marginBottom: '2.5rem' }}>
-                <div className="quiz-meta-label" style={{ marginBottom: '1rem', background: 'rgba(255,255,255,0.05)', display: 'inline-block', padding: '4px 12px', borderRadius: '100px' }}>QUESTÃO OBJETIVA</div>
+                <div className="quiz-meta-label" style={{ marginBottom: '1rem', background: 'var(--surface-2)', display: 'inline-block', padding: '4px 12px', borderRadius: '100px' }}>QUESTÃO OBJETIVA</div>
                 <h3 className="quiz-question-text">{currentQuestion.question}</h3>
               </div>
 
@@ -142,7 +142,7 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
                       <div className="quiz-marker">
                         {String.fromCharCode(65 + idx)}
                       </div>
-                      <div style={{ fontSize: '1.05rem', fontWeight: 500, color: isSelected || isCorrect ? 'white' : 'rgba(255,255,255,0.7)', transition: 'color 0.4s' }}>
+                      <div style={{ fontSize: '1.05rem', fontWeight: 500, color: isSelected || isCorrect ? 'hsl(var(--ch-t0))' : 'hsl(var(--ch-t1))', transition: 'color 0.4s' }}>
                         {option}
                       </div>
                       {isCorrect && <CheckCircle2 size={18} style={{ color: 'hsl(var(--ch-confirm))', position: 'absolute', top: '1.5rem', right: '1.5rem' }} />}
@@ -176,22 +176,22 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
                   <div style={{ width: '120px', height: '120px', background: 'hsla(var(--accent-blue), 0.12)', border: '1px solid hsla(var(--accent-blue), 0.25)', borderRadius: '35px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 20px 40px hsla(var(--accent-blue), 0.15)', transform: 'rotate(5deg)' }}>
                     <Trophy size={60} style={{ color: 'hsl(var(--accent-blue))' }} />
                   </div>
-                  <div style={{ position: 'absolute', bottom: '-10px', right: '-10px', background: 'oklch(8% 0.006 240)', padding: '8px', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div style={{ position: 'absolute', bottom: '-10px', right: '-10px', background: 'var(--surface-1)', padding: '8px', borderRadius: '15px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-ambient)' }}>
                      <Star size={24} color="hsl(var(--ch-ember))" fill="hsl(var(--ch-ember))" />
                   </div>
                </div>
 
-               <h2 style={{ fontSize: '3rem', fontWeight: 800, color: 'white', marginBottom: '1rem', fontFamily: 'Outfit' }}>Desafio Concluído</h2>
-               <p style={{ color: 'rgba(255,255,255,0.4)', maxWidth: '400px', marginBottom: '3rem', fontSize: '1.1rem' }}>Sua jornada de conhecimento foi registrada com sucesso no núcleo acadêmico.</p>
+               <h2 style={{ fontSize: '3rem', fontWeight: 800, color: 'hsl(var(--ch-t0))', marginBottom: '1rem', fontFamily: 'var(--font-display)' }}>Desafio Concluído</h2>
+               <p style={{ color: 'hsl(var(--ch-t2))', maxWidth: '400px', marginBottom: '3rem', fontSize: '1.1rem' }}>Sua jornada de conhecimento foi registrada com sucesso no núcleo acadêmico.</p>
 
                <div style={{ display: 'flex', gap: '2rem', marginBottom: '4rem' }}>
-                  <div style={{ textAlign: 'left', padding: '1.5rem 3rem', background: 'oklch(12% 0.007 240)', borderRadius: '24px', border: '1px solid var(--surface-border)' }}>
+                  <div style={{ textAlign: 'left', padding: '1.5rem 3rem', background: 'var(--surface-2)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}>
                     <div className="quiz-meta-label">PONTUAÇÃO</div>
-                    <div style={{ fontSize: '3.5rem', fontWeight: 800, color: 'white', fontFamily: 'Outfit', lineHeight: 1 }}>
+                    <div style={{ fontSize: '3.5rem', fontWeight: 800, color: 'hsl(var(--ch-t0))', fontFamily: 'var(--font-display)', lineHeight: 1 }}>
                       {score}<span style={{ opacity: 0.15, fontSize: '1.5rem', marginLeft: '0.5rem' }}>/{quiz.length}</span>
                     </div>
                   </div>
-                  <div style={{ textAlign: 'left', padding: '1.5rem 3rem', background: 'oklch(12% 0.007 240)', borderRadius: '24px', border: '1px solid var(--surface-border)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <div style={{ textAlign: 'left', padding: '1.5rem 3rem', background: 'var(--surface-2)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     <div className="quiz-meta-label">STATUS</div>
                     <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'hsl(var(--accent-blue))', letterSpacing: '0.1em' }}>
                       {score === quiz.length ? 'MAGISTRAL' : score >= quiz.length / 2 ? 'AVANÇADO' : 'EVOLUINDO'}
@@ -200,7 +200,7 @@ const QuizOverlay: React.FC<QuizOverlayProps> = ({ quiz, title, onClose }) => {
                </div>
 
                <div style={{ display: 'flex', gap: '1rem', width: '100%', maxWidth: '500px' }}>
-                 <button className="quiz-main-btn" style={{ flex: 1, background: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid rgba(255,255,255,0.1)' }} onClick={resetQuiz}>
+                 <button className="quiz-main-btn" style={{ flex: 1, background: 'var(--surface-2)', color: 'hsl(var(--ch-t1))', border: '1px solid var(--border)', boxShadow: 'none' }} onClick={resetQuiz}>
                    <RotateCcw size={18} style={{ marginRight: '8px' }} />
                    Refazer
                  </button>

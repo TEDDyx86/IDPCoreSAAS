@@ -70,7 +70,7 @@ const DisclaimerModal: React.FC = () => {
           borderRadius: '16px',
           fontSize: '0.95rem',
           lineHeight: '1.7',
-          color: 'rgba(255,255,255,0.85)',
+          color: 'hsl(var(--ch-t1))',
           marginBottom: '2rem',
         }}>
           Este sistema é uma ferramenta **experimental (BETA)** monitorada por Inteligência Artificial. 
@@ -91,8 +91,7 @@ const DisclaimerModal: React.FC = () => {
             justifyContent: 'center',
             padding: '1.25rem',
             fontSize: '1rem',
-            background: 'hsl(var(--accent-cyan))',
-            color: 'black'
+            color: '#fff'
           }}
         >
           <ShieldCheck size={20} /> EU COMPREENDO OS TERMOS

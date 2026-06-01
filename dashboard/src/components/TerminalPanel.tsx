@@ -70,7 +70,7 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
     } else if (diffDays > 1) {
       return { text: `${diffDays}d`, color: 'hsl(var(--ch-plasma))', status: 'future' };
     } else {
-      return { text: 'OK', color: 'rgba(255,255,255,0.15)', status: 'past' };
+      return { text: 'OK', color: 'hsl(var(--ch-t2))', status: 'past' };
     }
   };
 
@@ -89,7 +89,7 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
         justifyContent: 'space-between', 
         marginBottom: '1.5rem', 
         paddingBottom: '1rem',
-        borderBottom: '1px solid rgba(255,255,255,0.03)' 
+        borderBottom: '1px solid var(--border)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{ display: 'flex', gap: '0.4rem' }}>
@@ -97,7 +97,7 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
              <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffbd2e', opacity: 0.8 }}></div>
              <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27c93f', opacity: 0.8 }}></div>
           </div>
-          <span className="font-display" style={{ fontSize: '0.65rem', fontWeight: 700, color: 'hsla(0,0%,100%,0.4)', letterSpacing: '0.15em' }}>CALENDÁRIO_ACADÊMICO</span>
+          <span className="font-display" style={{ fontSize: '0.65rem', fontWeight: 700, color: 'hsl(var(--ch-t2))', letterSpacing: '0.15em' }}>CALENDÁRIO_ACADÊMICO</span>
         </div>
         <CalendarIcon size={14} style={{ opacity: 0.3 }} />
       </div>
@@ -146,10 +146,10 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
                   alignItems: 'center', 
                   gap: '0.75rem', 
                   padding: '0.75rem', 
-                  borderRadius: '8px', 
-                  background: isPast ? 'rgba(255,255,255,0.01)' : 'rgba(255,255,255,0.02)',
-                  border: isPast ? '1px solid rgba(255,255,255,0.02)' : '1px solid rgba(255,255,255,0.04)',
-                  opacity: isPast ? 0.45 : 1,
+                  borderRadius: '8px',
+                  background: isPast ? 'transparent' : 'var(--surface-2)',
+                  border: isPast ? '1px solid transparent' : '1px solid var(--border)',
+                  opacity: isPast ? 0.55 : 1,
                   transition: 'all 0.2s ease'
                 }}
               >
@@ -162,8 +162,8 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
                   minWidth: '38px',
                   height: '38px',
                   borderRadius: '6px',
-                  background: isPast ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.04)',
-                  border: `1px solid ${isPast ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.1)'}`,
+                  background: isPast ? 'var(--surface-2)' : 'var(--surface-1)',
+                  border: `1px solid ${isPast ? 'var(--border)' : 'var(--border-hi)'}`,
                 }}>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, fontFamily: 'var(--font-display)', color: isPast ? 'hsl(var(--ch-t2))' : 'hsl(var(--ch-t0))' }}>
                     {dataFormatada.split('/')[0]}
@@ -236,16 +236,16 @@ const TerminalPanel: React.FC<TerminalPanelProps> = ({ events = [] }) => {
       {/* Rodapé do Painel */}
       <div style={{ 
         marginTop: '1.5rem', 
-        paddingTop: '1rem', 
-        borderTop: '1px solid rgba(255,255,255,0.03)', 
-        display: 'flex', 
+        paddingTop: '1rem',
+        borderTop: '1px solid var(--border)',
+        display: 'flex',
         justifyContent: 'space-between', 
         alignItems: 'center' 
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.6rem', fontWeight: 600 }} className="font-display">
           <BookOpen size={12} style={{ opacity: 0.4 }} /> ACADEMIC ENGINE
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.6rem', fontWeight: 600, color: 'rgba(255,255,255,0.4)' }} className="font-display">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.6rem', fontWeight: 600, color: 'hsl(var(--ch-t2))' }} className="font-display">
           <Layers size={12} style={{ opacity: 1, color: 'hsl(var(--ch-plasma))' }} /> COMPACT VIEW
         </div>
       </div>

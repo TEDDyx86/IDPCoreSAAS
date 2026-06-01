@@ -122,7 +122,7 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
 
         <form onSubmit={handleSave} className="login-form">
           <div className="input-group" style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            <label className="font-display" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', opacity: 0.5, fontWeight: 700 }}>
+            <label className="font-display text-dim" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', fontWeight: 700 }}>
               ESTUDANTE (NOME EXIBIDO NO DASHBOARD)
             </label>
             <input
@@ -134,17 +134,17 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
                 width: '100%',
                 padding: '0 1.25rem',
                 height: '60px',
-                borderRadius: '16px',
-                background: 'rgba(255,255,255,0.02)',
-                border: '1px solid rgba(255,255,255,0.05)',
-                color: 'white',
+                borderRadius: 'var(--radius-sm)',
+                background: 'var(--surface-1)',
+                border: '1px solid var(--border)',
+                color: 'hsl(var(--ch-t0))',
                 fontSize: '0.95rem'
               }}
             />
           </div>
 
           <div className="input-group" style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            <label className="font-display" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', opacity: 0.5, fontWeight: 700 }}>
+            <label className="font-display text-dim" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', fontWeight: 700 }}>
               CANVAS API ACCESS TOKEN
             </label>
             <div style={{ position: 'relative' }}>
@@ -165,10 +165,10 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
                   width: '100%',
                   paddingLeft: '3.5rem',
                   height: '60px',
-                  borderRadius: '16px',
-                  background: 'rgba(255,255,255,0.02)',
-                  border: '1px solid rgba(255,255,255,0.05)',
-                  color: 'white',
+                  borderRadius: 'var(--radius-sm)',
+                  background: 'var(--surface-1)',
+                  border: '1px solid var(--border)',
+                  color: 'hsl(var(--ch-t0))',
                   fontSize: '0.95rem'
                 }}
               />
@@ -187,10 +187,10 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
             marginBottom: '1rem',
             textAlign: 'left',
           }}>
-            <h4 style={{ fontSize: '0.8rem', color: 'white', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
+            <h4 style={{ fontSize: '0.8rem', color: 'hsl(var(--ch-t0))', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
               <ShieldCheck size={14} className="text-cyan" /> Segurança IDP Core
             </h4>
-            <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', lineHeight: '1.5' }}>
+            <p style={{ fontSize: '0.75rem', color: 'hsl(var(--ch-t2))', lineHeight: '1.5' }}>
               Suas credenciais são protegidas por criptografia de ponta. O Token API garante sincronização estável sem necessidade de senha.
             </p>
           </div>
@@ -204,10 +204,10 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
               marginBottom: '1.5rem',
               textAlign: 'left',
             }}>
-              <h4 style={{ fontSize: '0.8rem', color: 'white', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
+              <h4 style={{ fontSize: '0.8rem', color: 'hsl(var(--ch-t0))', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
                 <CalendarIcon size={14} style={{ color: 'hsl(var(--accent-cyan))' }} /> Sincronização iCal Dinâmica
               </h4>
-              <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', lineHeight: '1.5', marginBottom: '0.75rem' }}>
+              <p style={{ fontSize: '0.75rem', color: 'hsl(var(--ch-t2))', lineHeight: '1.5', marginBottom: '0.75rem' }}>
                 Assine suas datas de provas e trabalhos no seu celular ou PC (Google Calendar, Apple, Outlook).
               </p>
               
@@ -218,12 +218,12 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
                   value={`${window.location.origin}/api/calendar?token=${icalToken}`}
                   style={{
                     flex: 1,
-                    background: 'rgba(0, 0, 0, 0.3)',
-                    border: '1px solid rgba(255,255,255,0.05)',
+                    background: 'var(--surface-2)',
+                    border: '1px solid var(--border)',
                     borderRadius: '8px',
                     padding: '0.4rem 0.8rem',
                     fontSize: '0.7rem',
-                    color: 'rgba(255,255,255,0.6)',
+                    color: 'hsl(var(--ch-t1))',
                     fontFamily: 'monospace'
                   }}
                   onClick={(e) => (e.target as HTMLInputElement).select()}
@@ -300,7 +300,7 @@ const ConfigPage: React.FC<ConfigPageProps> = ({ onClose }) => {
               alignItems: 'center', 
               justifyContent: 'center', 
               gap: '0.5rem',
-              color: 'rgba(255,255,255,0.3)',
+              color: 'hsl(var(--ch-t2))',
               textDecoration: 'none'
             }}
           >
